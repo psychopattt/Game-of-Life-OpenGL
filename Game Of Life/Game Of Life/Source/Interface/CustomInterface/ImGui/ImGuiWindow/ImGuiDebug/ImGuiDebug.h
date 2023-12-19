@@ -4,6 +4,9 @@
 
 class ImGuiDebug : public ImGuiWindow
 {
-public:
-	void Render();
+    public:
+        void Render();
+
+    private:
+        bool showImGuiDemo = false;
 };
