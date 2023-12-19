@@ -6,6 +6,6 @@ out vec2 fragmentTextureCoords;
 
 void main()
 {
-    gl_Position = position;
-    fragmentTextureCoords = vertexTextureCoords;
+	gl_Position = position;
+	fragmentTextureCoords = vertexTextureCoords;
 }

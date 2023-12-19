@@ -12,7 +12,7 @@ class CustomInterface
 {
 	public:
 		CustomInterface(int width, int height, string title);
-		
+
 		bool ShouldExit() const;
 		UpdateType Update();
 		void SetTargetFps(double targetFps) const;
@@ -26,7 +26,7 @@ class CustomInterface
 	private:
 		int width = 0;
 		int height = 0;
-		
+
 		struct GLFWwindow* window;
 		class WindowTitle* title;
 		FpsLimiter* uiFpsLimiter;

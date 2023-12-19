@@ -26,7 +26,7 @@ CustomInterface::CustomInterface(int width, int height, string title)
 	CreateFpsHandlers();
 	Settings::gui = this;
 	ImGuiHandler::Initialize(window);
-	
+
 	glfwSetFramebufferSizeCallback(window, ResizeCallback);
 
 	// Create the OpenGL window
@@ -47,7 +47,7 @@ void CustomInterface::CreateWindow()
 {
 	// Create the GLFW window
 	window = glfwCreateWindow(width, height, title->ToString().c_str(), NULL, NULL);
-	
+
 	if (window == NULL)
 	{
 		Settings::log << "GLFW window creation error" << "\n";
@@ -108,7 +108,7 @@ UpdateType CustomInterface::Update()
 
 		if (uiFpsCounter->Update())
 			title->GetSubTitle()->SetSubText("Interface: " + uiFpsCounter->ToString());
-		
+
 		UpdateTitle();
 		glfwPollEvents();
 		ImGuiHandler::Render();

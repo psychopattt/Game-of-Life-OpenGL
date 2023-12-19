@@ -2,31 +2,31 @@
 
 LogString::LogString()
 {
-    log.reserve(1024);
+	log.reserve(1024);
 }
 
 void LogString::Clear()
 {
-    log.clear();
+	log.clear();
 }
 
 bool LogString::IsEmpty() const
 {
-    return log.empty();
+	return log.empty();
 }
 
 LogString& LogString::operator<<(const char* text)
 {
-    log += text;
-    return *this;
+	log += text;
+	return *this;
 }
 
 LogString& LogString::operator<<(const std::string& text)
 {
-    return *this << text.c_str();
+	return *this << text.c_str();
 }
 
 LogString::operator const char*() const
 {
-    return log.c_str();
+	return log.c_str();
 }

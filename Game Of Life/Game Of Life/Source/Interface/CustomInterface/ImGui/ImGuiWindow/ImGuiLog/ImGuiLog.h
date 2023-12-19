@@ -4,15 +4,15 @@
 
 class ImGuiLog : public ImGuiWindow
 {
-    public:
-        void Render();
+	public:
+		void Render();
 
-    private:
-        int windowFlags;
-        bool isFullscreen = false;
-        bool wasFullscreen = true;
+	private:
+		int windowFlags = 0;
+		bool isFullscreen = false;
+		bool wasFullscreen = true;
 
-        void HandleFullscreen();
-        void RenderWindowBody();
-        void RenderOptionsPopup(const char* popupId);
+		void HandleFullscreen();
+		void RenderWindowBody();
+		void RenderOptionsPopup(const char* popupId);
 };

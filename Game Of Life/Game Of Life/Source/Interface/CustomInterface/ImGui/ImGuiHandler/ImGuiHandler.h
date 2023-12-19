@@ -7,9 +7,9 @@ class ImGuiHandler
 		static void Render();
 		static void Destroy();
 
-		private:
-			static void LoadFonts();
-			static void ApplyStyle();
-			static void BeginRender();
-			static void EndRender();
+	private:
+		static void LoadFonts();
+		static void ApplyStyle();
+		static void BeginRender();
+		static void EndRender();
 };

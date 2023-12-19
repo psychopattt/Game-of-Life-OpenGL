@@ -4,11 +4,11 @@
 
 class ImGuiMain : public ImGuiWindow
 {
-	public:
-		void Render();
+    public:
+        void Render();
 
-	private:
-		void RenderPerformanceSection();
-		void RenderUiSection();
-		void UpdateTargetFps();
+    private:
+        void RenderPerformanceSection();
+        void RenderUiSection();
+        void UpdateTargetFps();
 };

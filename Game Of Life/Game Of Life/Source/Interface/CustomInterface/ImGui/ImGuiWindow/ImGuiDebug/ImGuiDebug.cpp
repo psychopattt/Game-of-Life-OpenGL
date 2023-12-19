@@ -9,24 +9,24 @@ using namespace ImGui;
 
 void ImGuiDebug::Render()
 {
-    float initialWidth = 200;
-    float initialPosX = GetMainViewport()->WorkSize.x - initialWidth - 50;
-    SetNextWindowPos(ImVec2(initialPosX, 50), ImGuiCond_FirstUseEver);
-    SetNextWindowSize(ImVec2(initialWidth, 200), ImGuiCond_FirstUseEver);
+	float initialWidth = 200;
+	float initialPosX = GetMainViewport()->WorkSize.x - initialWidth - 50;
+	SetNextWindowPos(ImVec2(initialPosX, 50), ImGuiCond_FirstUseEver);
+	SetNextWindowSize(ImVec2(initialWidth, 200), ImGuiCond_FirstUseEver);
 
-    Begin("Debug");
-    float itemWidth = GetWindowWidth() - 15;
-    PushItemWidth(itemWidth);
+	Begin("Debug");
+	float itemWidth = GetWindowWidth() - 15;
+	PushItemWidth(itemWidth);
 
-    if (Button("Pack Shaders", ImVec2(itemWidth, 0)))
-        ShaderProvider::PackShaders();
+	if (Button("Pack Shaders", ImVec2(itemWidth, 0)))
+		ShaderProvider::PackShaders();
 
-    SetItemTooltip("Generate PackedShaders.cpp");
-    Checkbox("Show ImGui Demo", &showImGuiDemo);
-    End();
+	SetItemTooltip("Generate PackedShaders.cpp");
+	Checkbox("Show ImGui Demo", &showImGuiDemo);
+	End();
 
-    if (showImGuiDemo)
-        ShowDemoWindow();
+	if (showImGuiDemo)
+		ShowDemoWindow();
 }
 
 #else
