@@ -48,6 +48,9 @@ void ImGuiMain::RenderUiSection()
 {
 	if (ImGui::CollapsingHeader("Interface"))
 	{
+		if (ImGui::Checkbox("Fullscreen", &Settings::gui->isFullscreen))
+			Settings::gui->ApplyFullscreenState();
+
 		ImGui::SeparatorText("Font Size");
 
 		bool fontChanged = ImGui::SliderInt(

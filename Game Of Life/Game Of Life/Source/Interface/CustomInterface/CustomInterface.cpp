@@ -57,6 +57,13 @@ void CustomInterface::CreateWindow()
 
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(0); // Disable V-Sync
+
+	// Move window to center
+	const GLFWvidmode* videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	glfwSetWindowPos(
+		window, (videoMode->width / 2) - (width / 2),
+		(videoMode->height / 2) - (height / 2)
+	);
 }
 
 void CustomInterface::InitializeGlad()
@@ -116,6 +123,27 @@ UpdateType CustomInterface::Update()
 	}
 
 	return updateType;
+}
+
+void CustomInterface::ApplyFullscreenState() const
+{
+	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* videoMode = glfwGetVideoMode(primaryMonitor);
+
+	if (isFullscreen)
+	{
+		glfwSetWindowMonitor(
+			window, primaryMonitor, 0, 0, videoMode->width,
+			videoMode->height, GLFW_DONT_CARE
+		);
+	}
+	else
+	{
+		glfwSetWindowMonitor(
+			window, NULL, (videoMode->width / 2) - (width / 2),
+			(videoMode->height / 2) - (height / 2), width, height, GLFW_DONT_CARE
+		);
+	}
 }
 
 void CustomInterface::SetTargetFps(double targetFps) const

@@ -13,15 +13,17 @@ class CustomInterface
 	public:
 		CustomInterface(int width, int height, string title);
 
+		bool isFullscreen = false;
+
 		bool ShouldExit() const;
 		UpdateType Update();
+		void ApplyFullscreenState() const;
 		void SetTargetFps(double targetFps) const;
-		void Destroy() const;
-
 		int GetWidth() const;
 		int GetHeight() const;
 		class WindowTitle* GetTitle();
 		struct GLFWwindow* GetWindow() const;
+		void Destroy() const;
 
 	private:
 		int width = 0;
