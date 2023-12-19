@@ -1,12 +1,23 @@
 #include "ImGuiHandler.h"
 
+#include <memory>
+
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/ProggyRegular.cpp"
 
 #include "Settings/Settings.h"
+#include "../ImGuiWindow/ImGuiWindow.h"
+#include "../ImGuiWindow/ImGuiLog/ImGuiLog.h"
 #include "../ImGuiWindow/ImGuiMain/ImGuiMain.h"
 #include "../ImGuiWindow/ImGuiDebug/ImGuiDebug.h"
+
+using namespace std;
+
+static unique_ptr<ImGuiWindow> windows[] = {
+    make_unique<ImGuiDebug>(), make_unique<ImGuiMain>(),
+    make_unique<ImGuiLog>()
+};
 
 void ImGuiHandler::Initialize(GLFWwindow* glfwWindow)
 {
@@ -87,8 +98,8 @@ void ImGuiHandler::Render()
 {
     BeginRender();
 
-    ImGuiMain().Render();
-    ImGuiDebug().Render();
+    for (unique_ptr<ImGuiWindow>& window : windows)
+        window->Render();
     
     EndRender();
 }

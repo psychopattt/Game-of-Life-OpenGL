@@ -1,9 +1,9 @@
 #include "ComputeShader.h"
 
-#include <iostream>
-
-#include "glad/glad.h"
 #include "../ShaderProvider/ShaderProvider.h"
+#include "Settings/LogString/LogString.h"
+#include "Settings/Settings.h"
+#include "glad/glad.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ ComputeShader::ComputeShader(const char* shaderName, unsigned int width, unsigne
 
 		const unsigned int shaderId = Compile(code, shaderName);
 		Link(shaderId, shaderName);
-		ExtractLocalGroupSize(code);
+		ExtractLocalGroupSize();
 	}
 }
 
@@ -37,7 +37,8 @@ unsigned int ComputeShader::Compile(const string code, const char* shaderName)
 	if (!success)
 	{
 		glGetShaderInfoLog(shaderId, sizeof(log) / sizeof(*log), NULL, log);
-		cout << "Compute Shader Error - Compilation failed for \"" << shaderName << "\"\n" << log << endl;
+		Settings::log << "Compute Shader Error - Compilation failed for \"" <<
+			shaderName << "\"\n" << log << "\n";
 		return NULL;
 	}
 
@@ -58,13 +59,14 @@ void ComputeShader::Link(unsigned int shaderId, const char* shaderName)
 	if (!success)
 	{
 		glGetProgramInfoLog(id, sizeof(log) / sizeof(*log), NULL, log);
-		cout << "Compute Shader Error - Linking failed for \"" << shaderName << "\"\n" << log << endl;
+		Settings::log << "Compute Shader Error - Linking failed for \"" <<
+			shaderName << "\"\n" << log << "\n";
 	}
 
 	glDeleteShader(shaderId);
 }
 
-void ComputeShader::ExtractLocalGroupSize(const string code)
+void ComputeShader::ExtractLocalGroupSize()
 {
 	glGetProgramiv(id, GL_COMPUTE_WORK_GROUP_SIZE, localSize);
 }

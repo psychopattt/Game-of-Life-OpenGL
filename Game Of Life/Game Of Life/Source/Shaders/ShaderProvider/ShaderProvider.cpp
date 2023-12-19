@@ -1,5 +1,7 @@
 #include "ShaderProvider.h"
-#include <iostream>
+
+#include "Settings/LogString/LogString.h"
+#include "Settings/Settings.h"
 
 #if DEBUG
 #include <fstream>
@@ -53,7 +55,7 @@ const string ShaderProvider::ReadFile(const string& shaderName)
     }
     catch (ifstream::failure exception)
     {
-        cout << "Shader Error - Failed to load file \"" << fullPath << "\"" << endl;
+        Settings::log << "Shader Error - Failed to load file \"" << fullPath << "\"\n";
         return "";
     }
 }
@@ -73,7 +75,7 @@ const string ShaderProvider::FindFile(const string& searchedFile)
             return filePath;
     }
 
-    cout << "Shader Error - Failed to find file \"" << searchedFile << "\"" << endl;
+    Settings::log << "Shader Error - Failed to find file \"" << searchedFile << "\"\n";
     return searchedFile;
 }
 
@@ -100,7 +102,7 @@ void ShaderProvider::PackShaders()
     outputFile << "default: return \"\"; }}\n#endif\n";
     
     outputFile.close();
-    cout << "Shader Packing - Finished packing shaders" << endl;
+    Settings::log << "Shader Packing - Finished packing shaders\n";
 }
 
 void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
@@ -110,7 +112,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
 
     if (code.empty())
     {
-        cout << "Shader Packing - Failed to pack shader \"" << shaderName << "\"" << endl;
+        Settings::log << "Shader Packing - Failed to pack shader \"" << shaderName << "\"\n";
         return;
     }
 
@@ -123,7 +125,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
     }
 
     outputFile << "case " << GetHash(shaderName) << ": return \"" << code << "\";\n";
-    cout << "Shader Packing - Successfully packed \"" << shaderName << "\"" << endl;
+    Settings::log << "Shader Packing - Successfully packed \"" << shaderName << "\"\n";
 }
 
 #else
@@ -133,7 +135,7 @@ const string ShaderProvider::UnpackShader(const string& shaderName)
     const string& code = UnpackCode(GetHash(shaderName));
 
     if (code.empty())
-        cout << "Shader Error - Failed to load shader \"" << shaderName << "\"" << endl;
+        Settings::log << "Shader Error - Failed to load shader \"" << shaderName << "\"\n";
 
     return code;
 }

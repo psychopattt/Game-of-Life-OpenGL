@@ -2,11 +2,11 @@
 
 #include <chrono>
 #include <thread>
-#include <iostream>
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "UpdateType.h"
+#include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
 #include "FpsLimiter/FpsLimiter.h"
 #include "FpsCounter/FpsCounter.h"
@@ -50,7 +50,7 @@ void CustomInterface::CreateWindow()
 	
 	if (window == NULL)
 	{
-		cout << "GLFW window creation error" << endl;
+		Settings::log << "GLFW window creation error" << "\n";
 		glfwTerminate();
 		return;
 	}
@@ -64,7 +64,7 @@ void CustomInterface::InitializeGlad()
 	// Load GLAD and let it configure OpenGL
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		cout << "GLAD initialization error" << endl;
+		Settings::log << "GLAD initialization error" << "\n";
 	}
 }
 

@@ -1,9 +1,9 @@
 #include "Shader.h"
 
-#include <iostream>
-
-#include "glad/glad.h"
 #include "../ShaderProvider/ShaderProvider.h"
+#include "Settings/LogString/LogString.h"
+#include "Settings/Settings.h"
+#include "glad/glad.h"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ unsigned int Shader::Compile(const string code, int type, const char* shaderName
 	if (!success)
 	{
 		glGetShaderInfoLog(shaderId, sizeof(log) / sizeof(*log), NULL, log);
-		cout << "Shader Error - Compilation failed for \"" << shaderName << "\"\n" << log << endl;
+		Settings::log << "Shader Error - Compilation failed for \"" << shaderName << "\"\n" << log << "\n";
 		return NULL;
 	}
 
@@ -57,7 +57,7 @@ void Shader::Link(unsigned int vertexId, unsigned int fragmentId)
 	if (!success)
 	{
 		glGetProgramInfoLog(id, sizeof(log) / sizeof(*log), NULL, log);
-		cout << "Shader Error - Linking failed\n" << log << endl;
+		Settings::log << "Shader Error - Linking failed\n" << log << "\n";
 	}
 
 	glDeleteShader(vertexId);

@@ -12,7 +12,7 @@ class ComputeShader : public Shader
 		int localSize[3] = { 1, 1, 1 };
 		unsigned int globalSize[3] = { };
 
-		void ExtractLocalGroupSize(const std::string code);
+		void ExtractLocalGroupSize();
 		unsigned int Compile(const std::string code, const char* shaderName);
 		void Link(unsigned int shaderId, const char* shaderName);
 };
