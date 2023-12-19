@@ -109,7 +109,7 @@ UpdateType CustomInterface::Update()
 		{
 			metrics[0] = gameFpsCounter->GetFps();
 			metrics[1] = gameFpsCounter->GetFrametime();
-			title->SetSubText("Game: " + gameFpsCounter->ToString());
+			title->SetSubText("Simulation: " + gameFpsCounter->ToString());
 		}
 	}
 
