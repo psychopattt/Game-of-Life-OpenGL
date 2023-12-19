@@ -70,8 +70,9 @@ void ImGuiLog::RenderOptionsPopup(const char* popupId)
 	if (BeginPopupContextItem(popupId))
 	{
 		Checkbox("Fullscreen", &isFullscreen);
+		float buttonWidth = (GetWindowWidth() - 24) / 2;
 
-		if (Button("Copy", ImVec2(60, 0)))
+		if (Button("Copy", ImVec2(buttonWidth, 0)))
 		{
 			LogToClipboard();
 			LogText(Settings::log);
@@ -83,7 +84,7 @@ void ImGuiLog::RenderOptionsPopup(const char* popupId)
 
 		SameLine();
 
-		if (Button("Clear", ImVec2(60, 0)))
+		if (Button("Clear", ImVec2(buttonWidth, 0)))
 			Settings::log.Clear();
 
 		EndPopup();
