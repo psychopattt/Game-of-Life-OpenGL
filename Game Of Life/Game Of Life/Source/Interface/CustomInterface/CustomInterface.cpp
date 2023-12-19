@@ -106,7 +106,11 @@ UpdateType CustomInterface::Update()
 		updateType |= Game;
 
 		if (gameFpsCounter->Update())
+		{
+			metrics[0] = gameFpsCounter->GetFps();
+			metrics[1] = gameFpsCounter->GetFrametime();
 			title->SetSubText("Game: " + gameFpsCounter->ToString());
+		}
 	}
 
 	if (uiFpsLimiter->Update())
@@ -114,7 +118,11 @@ UpdateType CustomInterface::Update()
 		updateType |= Interface;
 
 		if (uiFpsCounter->Update())
+		{
+			metrics[2] = uiFpsCounter->GetFps();
+			metrics[3] = uiFpsCounter->GetFrametime();
 			title->GetSubTitle()->SetSubText("Interface: " + uiFpsCounter->ToString());
+		}
 
 		UpdateTitle();
 		glfwPollEvents();
@@ -164,6 +172,11 @@ int CustomInterface::GetWidth() const
 int CustomInterface::GetHeight() const
 {
 	return height;
+}
+
+const double* CustomInterface::GetMetrics() const
+{
+	return metrics;
 }
 
 WindowTitle* CustomInterface::GetTitle()

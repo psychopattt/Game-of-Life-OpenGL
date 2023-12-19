@@ -21,6 +21,7 @@ class CustomInterface
 		void SetTargetFps(double targetFps) const;
 		int GetWidth() const;
 		int GetHeight() const;
+		const double* GetMetrics() const;
 		class WindowTitle* GetTitle();
 		struct GLFWwindow* GetWindow() const;
 		void Destroy() const;
@@ -28,6 +29,7 @@ class CustomInterface
 	private:
 		int width = 0;
 		int height = 0;
+		double metrics[4] = { };
 
 		struct GLFWwindow* window;
 		class WindowTitle* title;
