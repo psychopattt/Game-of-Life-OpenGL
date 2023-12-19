@@ -14,7 +14,7 @@ bool FpsCounter::Update()
 
 	if (timeDiff >= updateInterval)
 	{
-		ms = 1000 * timeDiff / frameCounter;
+		frametime = 1000 * timeDiff / frameCounter;
 		fps = frameCounter / timeDiff;
 		lastUpdateTime = currentTime;
 		frameCounter = 0;
@@ -25,13 +25,23 @@ bool FpsCounter::Update()
 	return false;
 }
 
-std::string FpsCounter::ToString()
+double FpsCounter::GetFps() const
+{
+	return fps;
+}
+
+double FpsCounter::GetFrametime() const
+{
+	return frametime;
+}
+
+std::string FpsCounter::ToString() const
 {
 	char buffer[25];
 
 	snprintf(
 		buffer, sizeof(buffer) / sizeof(*buffer),
-		"%.2f fps / %.3f ms", fps, ms
+		"%.2ffps / %.3fms", fps, frametime
 	);
 
 	return buffer;
