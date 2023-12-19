@@ -27,30 +27,30 @@ void ImGuiLog::Render()
 
 void ImGuiLog::HandleFullscreen()
 {
-    ImVec2 workSize = GetMainViewport()->WorkSize;
-    bool fullscreenEnabled = !wasFullscreen && isFullscreen;
-    bool fullscreenDisabled = wasFullscreen && !isFullscreen;
+    ImVec2 viewportSize = GetMainViewport()->WorkSize;
+    bool enabledFullscreen = !wasFullscreen && isFullscreen;
+    bool disabledFullscreen = wasFullscreen && !isFullscreen;
 
-    if (fullscreenEnabled)
+    if (enabledFullscreen)
     {
         wasFullscreen = true;
         windowFlags = ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoCollapse;
     }
-    else if (fullscreenDisabled)
+    else if (disabledFullscreen)
     {
         wasFullscreen = false;
         windowFlags = ImGuiWindowFlags_None;
         SetNextWindowSize(ImVec2(500, 200), ImGuiCond_Always);
-        SetNextWindowPos(ImVec2(workSize.x / 2, workSize.y / 2),
+        SetNextWindowPos(ImVec2(viewportSize.x / 2, viewportSize.y / 2),
             ImGuiCond_Always, ImVec2(0.5, 0.5));
     }
     
     if (isFullscreen)
     {
         PushStyleVar(ImGuiStyleVar_WindowRounding, 0);
-        SetNextWindowSize(workSize, ImGuiCond_Always);
+        SetNextWindowSize(viewportSize, ImGuiCond_Always);
         SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
     }
 }
@@ -60,7 +60,7 @@ void ImGuiLog::RenderWindowBody()
     BeginChild("logScrollArea", ImVec2(0, 0), ImGuiChildFlags_None,
         ImGuiWindowFlags_HorizontalScrollbar);
 
-    Text(Settings::log);
+    TextUnformatted(Settings::log);
     EndChild();
     RenderOptionsPopup("textAreaPopup");
 }
