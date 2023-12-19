@@ -4,63 +4,67 @@
 #include "Interface/CustomInterface/CustomInterface.h"
 #include "Settings/Settings.h"
 
+using namespace ImGui;
+
 const char* FontSizes[4] = {
 	"Small", "Medium", "Large", "Very Large"
 };
 
 void ImGuiMain::Render()
 {
-	ImGui::SetNextWindowPos(ImVec2(50, 50), ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowSize(ImVec2(250, 600), ImGuiCond_FirstUseEver);
+	SetNextWindowPos(ImVec2(50, 50), ImGuiCond_FirstUseEver);
+	SetNextWindowSize(ImVec2(250, 600), ImGuiCond_FirstUseEver);
 
-	ImGui::Begin("Settings");
-	ImGui::PushItemWidth(ImGui::GetWindowWidth() - 15);
-	RenderPerformanceSection();
-	ImGui::Spacing();
-	RenderUiSection();
+	if (Begin("Settings"))
+	{
+		PushItemWidth(GetWindowWidth() - 15);
+		RenderPerformanceSection();
+		Spacing();
+		RenderUiSection();
+	}
 
-	ImGui::End();
+	End();
 }
 
 void ImGuiMain::RenderPerformanceSection()
 {
-	if (ImGui::CollapsingHeader("Performance", ImGuiTreeNodeFlags_DefaultOpen))
+	if (CollapsingHeader("Performance", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::Checkbox("Thread Sleep", &Settings::ThreadSleep);
-		ImGui::SetItemTooltip(
+		Checkbox("Thread Sleep", &Settings::ThreadSleep);
+		SetItemTooltip(
 			"Reduce CPU usage by sleeping as close\n"
 			"to 1ms as possible every update\n"
 			"Reduces max FPS and FPS stability"
 		);
 
-		ImGui::Spacing();
-		ImGui::SeparatorText("Target FPS");
+		Spacing();
+		SeparatorText("Target FPS");
 
-		if (ImGui::InputFloat("##textTargetFps", &Settings::TargetFps, 1, 10, "%.2f"))
+		if (InputFloat("##textTargetFps", &Settings::TargetFps, 1, 10, "%.2f"))
 			UpdateTargetFps();
 
-		if (ImGui::SliderFloat("##sliderTargetFps", &Settings::TargetFps, 0, 500, "%.2f"))
+		if (SliderFloat("##sliderTargetFps", &Settings::TargetFps, 0, 500, "%.2f"))
 			UpdateTargetFps();
 	}
 }
 
 void ImGuiMain::RenderUiSection()
 {
-	if (ImGui::CollapsingHeader("Interface"))
+	if (CollapsingHeader("Interface"))
 	{
-		if (ImGui::Checkbox("Fullscreen", &Settings::gui->isFullscreen))
+		if (Checkbox("Fullscreen", &Settings::gui->isFullscreen))
 			Settings::gui->ApplyFullscreenState();
 
-		ImGui::SeparatorText("Font Size");
+		SeparatorText("Font Size");
 
-		bool fontChanged = ImGui::SliderInt(
+		bool fontChanged = SliderInt(
 			"##sliderFontSize", &Settings::SelectedFontSize, 0, 3,
 			FontSizes[Settings::SelectedFontSize], ImGuiSliderFlags_NoInput
 		);
 
 		if (fontChanged)
 		{
-			ImGuiIO& io = ImGui::GetIO();
+			ImGuiIO& io = GetIO();
 			io.FontDefault = io.Fonts->Fonts[Settings::SelectedFontSize];
 		}
 	}

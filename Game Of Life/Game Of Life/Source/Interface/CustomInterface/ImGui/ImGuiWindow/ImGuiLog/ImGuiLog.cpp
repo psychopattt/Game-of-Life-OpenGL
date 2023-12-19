@@ -13,9 +13,13 @@ void ImGuiLog::Render()
 
 	HandleFullscreen();
 	bool keepLog = true;
-	Begin("Log", &keepLog, windowFlags);
-	RenderOptionsPopup("titleBarPopup");
-	RenderWindowBody();
+	
+	if (Begin("Log", &keepLog, windowFlags))
+	{
+		RenderOptionsPopup("titleBarPopup");
+		RenderWindowBody();
+	}
+	
 	End();
 
 	if (!keepLog)
