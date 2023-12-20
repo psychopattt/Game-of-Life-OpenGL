@@ -12,9 +12,6 @@ class CustomInterface
 {
 	public:
 		CustomInterface(int width, int height, string title);
-
-		bool isFullscreen = false;
-
 		bool ShouldExit() const;
 		UpdateType Update();
 		void ApplyFullscreenState() const;

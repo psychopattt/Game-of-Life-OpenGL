@@ -20,7 +20,7 @@ void ImGuiMain::Render()
 		PushItemWidth(GetWindowWidth() - 15);
 		RenderPerformanceSection();
 		Spacing();
-		RenderUiSection();
+		RenderInterfaceSection();
 	}
 
 	End();
@@ -49,11 +49,11 @@ void ImGuiMain::RenderPerformanceSection()
 	}
 }
 
-void ImGuiMain::RenderUiSection()
+void ImGuiMain::RenderInterfaceSection()
 {
 	if (CollapsingHeader("Interface"))
 	{
-		if (Checkbox("Fullscreen", &Settings::gui->isFullscreen))
+		if (Checkbox("Fullscreen", &Settings::FullscreenEnabled))
 			Settings::gui->ApplyFullscreenState();
 
 		SeparatorText("Font Size");

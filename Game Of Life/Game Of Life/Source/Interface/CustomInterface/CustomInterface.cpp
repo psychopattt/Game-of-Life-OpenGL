@@ -138,7 +138,7 @@ void CustomInterface::ApplyFullscreenState() const
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* videoMode = glfwGetVideoMode(primaryMonitor);
 
-	if (isFullscreen)
+	if (Settings::FullscreenEnabled)
 	{
 		glfwSetWindowMonitor(
 			window, primaryMonitor, 0, 0, videoMode->width,
