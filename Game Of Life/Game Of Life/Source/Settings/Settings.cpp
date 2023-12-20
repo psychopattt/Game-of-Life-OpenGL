@@ -5,6 +5,7 @@ namespace Settings
 {
 	CustomInterface* gui = nullptr;
 	bool ThreadSleep = true;
+	bool ShowMetrics = false;
 	float TargetFps = 100;
 	int SelectedFontSize = 1;
 	LogString log;

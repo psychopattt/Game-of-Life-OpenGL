@@ -30,6 +30,7 @@ void ImGuiMain::RenderPerformanceSection()
 {
 	if (CollapsingHeader("Performance", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		Checkbox("Show Metrics", &Settings::ShowMetrics);
 		Checkbox("Thread Sleep", &Settings::ThreadSleep);
 		SetItemTooltip(
 			"Reduce CPU usage by sleeping as close\n"

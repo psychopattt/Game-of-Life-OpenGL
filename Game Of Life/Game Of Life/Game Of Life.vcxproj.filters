@@ -115,6 +115,9 @@
     <ClInclude Include="Source\Settings\LogString\LogString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
@@ -199,6 +202,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\LogString\LogString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

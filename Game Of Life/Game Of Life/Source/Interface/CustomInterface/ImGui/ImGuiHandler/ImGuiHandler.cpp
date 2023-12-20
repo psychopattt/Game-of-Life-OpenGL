@@ -11,12 +11,13 @@
 #include "../ImGuiWindow/ImGuiLog/ImGuiLog.h"
 #include "../ImGuiWindow/ImGuiMain/ImGuiMain.h"
 #include "../ImGuiWindow/ImGuiDebug/ImGuiDebug.h"
+#include "../ImGuiWindow/ImGuiMetrics/ImGuiMetrics.h"
 
 using namespace std;
 
 static unique_ptr<ImGuiWindow> windows[] = {
 	make_unique<ImGuiDebug>(), make_unique<ImGuiMain>(),
-	make_unique<ImGuiLog>()
+	make_unique<ImGuiLog>(), make_unique<ImGuiMetrics>()
 };
 
 void ImGuiHandler::Initialize(GLFWwindow* glfwWindow)

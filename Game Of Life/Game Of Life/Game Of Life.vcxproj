@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h" />
     <ClInclude Include="Source\Settings\LogString\LogString.h" />
     <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h" />
     <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Source\Interface\CustomInterface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp" />
     <ClCompile Include="Source\Settings\LogString\LogString.cpp" />
     <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp" />
     <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp" />
