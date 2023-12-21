@@ -16,10 +16,7 @@ void ImGuiDebug::Render()
 
 	if (Begin("Debug"))
 	{
-		float itemWidth = GetWindowWidth() - 15;
-		PushItemWidth(itemWidth);
-
-		if (Button("Pack Shaders", ImVec2(itemWidth, 0)))
+		if (Button("Pack Shaders", ImVec2(-1, 0)))
 			ShaderProvider::PackShaders();
 
 		SetItemTooltip("Generate PackedShaders.cpp");
