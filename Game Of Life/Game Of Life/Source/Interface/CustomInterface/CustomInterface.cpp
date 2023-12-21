@@ -8,6 +8,7 @@
 #include "UpdateType.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
+#include "Inputs/InputHandler.h"
 #include "FpsLimiter/FpsLimiter.h"
 #include "FpsCounter/FpsCounter.h"
 #include "WindowTitle/WindowTitle.h"
@@ -18,19 +19,20 @@ CustomInterface::CustomInterface(int width, int height, string title)
 	this->width = width;
 	this->height = height;
 	this->title = new WindowTitle(title);
+	inputHandler = new InputHandler();
 
 	glfwInit();
 	SetVersion(4, 6);
 	CreateWindow();
 	InitializeGlad();
 	CreateFpsHandlers();
+	ActivateCallbacks();
+
 	Settings::gui = this;
 	ImGuiHandler::Initialize(window);
 
-	glfwSetFramebufferSizeCallback(window, ResizeCallback);
-
 	// Create the OpenGL window
-	glViewport(0, 0, width, height);
+	ResizeCallback(window, width, height);
 }
 
 void CustomInterface::SetVersion(char major, char minor) const
@@ -84,11 +86,6 @@ void CustomInterface::CreateFpsHandlers()
 	uiFpsCounter = new FpsCounter(2);
 }
 
-void CustomInterface::ResizeCallback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
-
 bool CustomInterface::ShouldExit() const
 {
 	return glfwWindowShouldClose(window);
@@ -126,6 +123,7 @@ UpdateType CustomInterface::Update()
 
 		UpdateTitle();
 		glfwPollEvents();
+		inputHandler->Update();
 		ImGuiHandler::Render();
 		glfwSwapBuffers(window);
 	}
@@ -196,6 +194,7 @@ void CustomInterface::UpdateTitle() const
 void CustomInterface::Destroy() const
 {
 	delete title;
+	delete inputHandler;
 	delete uiFpsLimiter;
 	delete uiFpsCounter;
 	delete gameFpsLimiter;

@@ -8,6 +8,7 @@ class ImGuiMain : public ImGuiWindow
         void Render();
 
     private:
+        void RenderSimulationSection();
         void RenderPerformanceSection();
         void RenderInterfaceSection();
         void UpdateTargetFps();

@@ -17,13 +17,34 @@ void ImGuiMain::Render()
 
 	if (Begin("Settings"))
 	{
-		PushItemWidth(GetWindowWidth() - 15);
+		PushItemWidth(-1);
+		RenderSimulationSection();
+		Spacing();
 		RenderPerformanceSection();
 		Spacing();
 		RenderInterfaceSection();
+		PopItemWidth();
 	}
 
 	End();
+}
+
+void ImGuiMain::RenderSimulationSection()
+{
+	if (CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		SeparatorText("Position");
+		int position[2] = { Settings::CurrentPanX, Settings::CurrentPanY };
+
+		if (SliderInt2("##sliderPosition", position, -1000000000, 1000000000))
+		{
+			Settings::CurrentPanX = position[0];
+			Settings::CurrentPanY = position[1];
+		}
+
+		SeparatorText("Zoom");
+		SliderInt("##sliderZoom", &Settings::CurrentZoom, 0, 4000);
+	}
 }
 
 void ImGuiMain::RenderPerformanceSection()

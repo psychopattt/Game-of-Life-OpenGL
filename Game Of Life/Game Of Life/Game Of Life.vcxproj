@@ -91,6 +91,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h" />
+    <ClInclude Include="Source\Inputs\MouseInputs\MouseInputs.h" />
+    <ClInclude Include="Source\Inputs\KeyboardInputs\KeyboardInputs.h" />
+    <ClInclude Include="Source\Inputs\InputHandler.h" />
     <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h" />
     <ClInclude Include="Source\Settings\LogString\LogString.h" />
     <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h" />
@@ -126,6 +130,11 @@
     <ClInclude Include="Source\Interface\CustomInterface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp" />
+    <ClCompile Include="Source\Inputs\MouseInputs\MouseInputs.cpp" />
+    <ClCompile Include="Source\Inputs\KeyboardInputs\KeyboardInputs.cpp" />
+    <ClCompile Include="Source\Inputs\InputHandler.cpp" />
+    <ClCompile Include="Source\Interface\CustomInterface\CustomInterfaceCallbacks.cpp" />
     <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp" />
     <ClCompile Include="Source\Settings\LogString\LogString.cpp" />
     <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp" />

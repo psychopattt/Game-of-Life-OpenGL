@@ -8,6 +8,9 @@ namespace Settings
 	bool ShowMetrics = false;
 	bool FullscreenEnabled = false;
 	float TargetFps = 100;
+	int CurrentZoom = 0;
+	int CurrentPanX = 0;
+	int CurrentPanY = 0;
 	int SelectedFontSize = 1;
 	LogString log;
 }
