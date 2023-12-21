@@ -74,8 +74,8 @@ bool ScreenDrawer::UpdateZoom()
 	
 	for (int i = 0; i < sizeof(quadVertices) / sizeof(*quadVertices); i += 4)
 	{
-		quadVertices[i] = copysignf(zoom, initialQuadVertices[i]);
-		quadVertices[i + 1] = copysignf(zoom, initialQuadVertices[i + 1]);
+		quadVertices[i] = initialQuadVertices[i] * zoom;
+		quadVertices[i + 1] = initialQuadVertices[i + 1] * zoom;
 	}
 
 	return true;
