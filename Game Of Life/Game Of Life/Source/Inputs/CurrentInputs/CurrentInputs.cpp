@@ -1,5 +1,7 @@
 namespace CurrentInputs
 {
+	bool HoldingKeys = false;
+
 	bool UpKeyHeld = false;
 	bool LeftKeyHeld = false;
 	bool DownKeyHeld = false;

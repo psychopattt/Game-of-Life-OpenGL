@@ -2,10 +2,13 @@
 
 #include "Inputs/CurrentInputs/CurrentInputs.h"
 #include "Settings/Settings.h"
+#include "imgui/imgui.h"
 #include "GLFW/glfw3.h"
 
 void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
+	CurrentInputs::HoldingKeys = CurrentInputs::HoldingKeys || action != GLFW_RELEASE;
+
 	switch (key)
 	{
 		case GLFW_KEY_W:
@@ -35,8 +38,24 @@ void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, i
 	}
 }
 
+void KeyboardInputs::ReleaseCapturedKeys()
+{
+	if (CurrentInputs::HoldingKeys && ImGui::GetIO().WantCaptureKeyboard)
+	{
+		CurrentInputs::UpKeyHeld = false;
+		CurrentInputs::LeftKeyHeld = false;
+		CurrentInputs::DownKeyHeld = false;
+		CurrentInputs::RightKeyHeld = false;
+		CurrentInputs::FastModifierHeld = false;
+		CurrentInputs::SlowModifierHeld = false;
+
+		CurrentInputs::HoldingKeys = false;
+	}
+}
+
 void KeyboardInputs::Update()
 {
+	ReleaseCapturedKeys();
 	UpdatePan();
 }
 

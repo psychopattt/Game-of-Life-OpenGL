@@ -2,6 +2,8 @@
 
 namespace CurrentInputs
 {
+	extern bool HoldingKeys;
+	
 	extern bool UpKeyHeld;
 	extern bool LeftKeyHeld;
 	extern bool DownKeyHeld;

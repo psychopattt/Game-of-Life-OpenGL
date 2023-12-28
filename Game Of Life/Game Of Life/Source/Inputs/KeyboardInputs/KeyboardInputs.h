@@ -7,5 +7,6 @@ class KeyboardInputs
 		void Update();
 
 	private:
+		void ReleaseCapturedKeys();
 		void UpdatePan();
 };
