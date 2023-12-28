@@ -21,9 +21,10 @@ enum DisplayFlags : unsigned char
 	None = 0,
 	Simulation = 1 << 0,
 	Interface = 1 << 1,
-	Label = 1 << 2,
-	Fps = 1 << 3,
-	Frametime = 1 << 4,
+	DearImGui = 1 << 2,
+	Label = 1 << 3,
+	Fps = 1 << 4,
+	Frametime = 1 << 5,
 	Everything = 0xFF
 };
 
@@ -31,7 +32,7 @@ ImGuiMetrics::ImGuiMetrics()
 {
 	position = TopLeft;
 	metricsText.reserve(70);
-	displayFlags = Everything;
+	displayFlags = static_cast<DisplayFlags>(Everything ^ DearImGui);
 	windowFlags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
 		ImGuiWindowFlags_NoNav;
@@ -94,6 +95,10 @@ void ImGuiMetrics::RenderMetrics()
 	AppendMetricsType(Simulation, "Simulation: ", metrics);
 	AppendMetricsType(Interface, "Interface: ", metrics + 2);
 
+	double imGuiFps = GetIO().Framerate;
+	double imGuiMetrics[2] = { imGuiFps, 1000.0 / imGuiFps };
+	AppendMetricsType(DearImGui, "ImGui: ", imGuiMetrics);
+
 	Text(metricsText.c_str());
 }
 
@@ -154,6 +159,7 @@ void ImGuiMetrics::RenderDisplayMenu()
 {
 	RenderDisplaySelectable("Simulation Metrics", Simulation);
 	RenderDisplaySelectable("Interface Metrics", Interface);
+	RenderDisplaySelectable("ImGui Metrics", DearImGui);
 	RenderDisplaySelectable("Fps Metrics", Fps);
 	RenderDisplaySelectable("Frametime Metrics", Frametime);
 	RenderDisplaySelectable("Metrics Labels", Label);
