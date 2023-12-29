@@ -106,7 +106,7 @@ float ScreenDrawer::ComputePanAxis(int& lastPan, int& currentPan)
 
 	// Scale pan offset according to current zoom
 	float scale = 1.0f / powf(1.14f, Settings::CurrentZoom / 100.0f);
-	int scaledPanOffset = (int)roundf(panOffset * scale);
+	int scaledPanOffset = lroundf(panOffset * scale);
 
 	// Ensure the scaled pan offset is at least 1
 	if (scaledPanOffset == 0 && panOffset != 0) scaledPanOffset = panOffset / abs(panOffset);

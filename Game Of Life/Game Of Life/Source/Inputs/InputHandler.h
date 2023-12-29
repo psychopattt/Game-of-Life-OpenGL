@@ -13,6 +13,7 @@ class InputHandler
 		~InputHandler();
 
 	private:
+		double lastTime = 0;
 		class MouseInputs* mouseInputs;
 		class KeyboardInputs* keyboardInputs;
 };

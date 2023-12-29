@@ -27,8 +27,12 @@ void InputHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int
 
 void InputHandler::Update()
 {
+	double currentTime = glfwGetTime();
+	double deltaTime = currentTime - lastTime;
+	lastTime = currentTime;
+
 	mouseInputs->Update();
-	keyboardInputs->Update();
+	keyboardInputs->Update(deltaTime);
 }
 
 InputHandler::~InputHandler()

@@ -1,5 +1,7 @@
 #include "KeyboardInputs.h"
 
+#include <cmath>
+
 #include "Inputs/CurrentInputs/CurrentInputs.h"
 #include "Settings/Settings.h"
 #include "imgui/imgui.h"
@@ -53,16 +55,18 @@ void KeyboardInputs::ReleaseCapturedKeys()
 	}
 }
 
-void KeyboardInputs::Update()
+void KeyboardInputs::Update(double deltaTime)
 {
 	ReleaseCapturedKeys();
-	UpdatePan();
+	UpdatePan(deltaTime);
 }
 
-void KeyboardInputs::UpdatePan()
+void KeyboardInputs::UpdatePan(double deltaTime)
 {
-	int panSpeed = CurrentInputs::FastModifierHeld ? 30000000 :
-		CurrentInputs::SlowModifierHeld ? 300000 : 3000000;
+	int panSpeed = lround(deltaTime * 18000000 * (
+		CurrentInputs::FastModifierHeld ? 100 :
+		CurrentInputs::SlowModifierHeld ? 1 : 10
+	));
 
 	if (CurrentInputs::UpKeyHeld)
 		Settings::CurrentPanY += panSpeed;
