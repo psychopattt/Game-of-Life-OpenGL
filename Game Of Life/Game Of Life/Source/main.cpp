@@ -13,7 +13,7 @@ int main()
 	ScreenDrawer screenDrawer(width, height);
 
 	unsigned int* bufferData = new unsigned int[width * height] { };
-	DualComputeBuffer dualBuffer(bufferData, width * height * sizeof(unsigned int));
+	DualComputeBuffer dualBuffer(bufferData, width * height * sizeof(*bufferData));
 	delete[] bufferData;
 
 	ComputeShader gameInitShader("GameOfLifeInit", width, height);
