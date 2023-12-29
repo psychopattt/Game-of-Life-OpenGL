@@ -19,17 +19,17 @@ CustomInterface::CustomInterface(int width, int height, string title)
 	this->width = width;
 	this->height = height;
 	this->title = new WindowTitle(title);
-	inputHandler = new InputHandler();
 
 	glfwInit();
 	SetVersion(4, 6);
 	CreateWindow();
 	InitializeGlad();
-	CreateFpsHandlers();
 	ActivateCallbacks();
+	CreateFpsHandlers();
 
 	Settings::gui = this;
-	ImGuiHandler::Initialize(window);
+	inputHandler = new InputHandler();
+	imGuiHandler = new ImGuiHandler(window);
 
 	// Create the OpenGL window
 	ResizeCallback(window, width, height);
@@ -124,7 +124,7 @@ UpdateType CustomInterface::Update()
 		UpdateTitle();
 		glfwPollEvents();
 		inputHandler->Update();
-		ImGuiHandler::Render();
+		imGuiHandler->Render();
 		glfwSwapBuffers(window);
 	}
 
@@ -200,7 +200,7 @@ CustomInterface::~CustomInterface()
 	delete gameFpsLimiter;
 	delete gameFpsCounter;
 
-	ImGuiHandler::Destroy();
+	delete imGuiHandler;
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }

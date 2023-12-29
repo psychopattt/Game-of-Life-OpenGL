@@ -3,13 +3,13 @@
 class ImGuiHandler
 {
 	public:
-		static void Initialize(struct GLFWwindow* glfwWindow);
-		static void Render();
-		static void Destroy();
+		ImGuiHandler(struct GLFWwindow* glfwWindow);
+		void Render();
+		~ImGuiHandler();
 
 	private:
-		static void LoadFonts();
-		static void ApplyStyle();
-		static void BeginRender();
-		static void EndRender();
+		void LoadFonts();
+		void ApplyStyle();
+		void BeginRender();
+		void EndRender();
 };

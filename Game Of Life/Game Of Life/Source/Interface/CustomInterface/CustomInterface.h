@@ -36,6 +36,7 @@ class CustomInterface
 		FpsLimiter* gameFpsLimiter;
 		FpsCounter* gameFpsCounter;
 		class ImGuiWindow* imGuiWindows;
+		class ImGuiHandler* imGuiHandler;
 		class InputHandler* inputHandler;
 
 		void SetVersion(char major, char minor) const;

@@ -15,12 +15,12 @@
 
 using namespace std;
 
-static unique_ptr<ImGuiWindow> windows[] = {
+const unique_ptr<ImGuiWindow> windows[] = {
 	make_unique<ImGuiDebug>(), make_unique<ImGuiMain>(),
 	make_unique<ImGuiLog>(), make_unique<ImGuiMetrics>()
 };
 
-void ImGuiHandler::Initialize(GLFWwindow* glfwWindow)
+ImGuiHandler::ImGuiHandler(GLFWwindow* glfwWindow)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -99,7 +99,7 @@ void ImGuiHandler::Render()
 {
 	BeginRender();
 
-	for (unique_ptr<ImGuiWindow>& window : windows)
+	for (const unique_ptr<ImGuiWindow>& window : windows)
 		window->Render();
 
 	EndRender();
@@ -111,7 +111,7 @@ void ImGuiHandler::EndRender()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void ImGuiHandler::Destroy()
+ImGuiHandler::~ImGuiHandler()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
