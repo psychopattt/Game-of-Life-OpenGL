@@ -31,7 +31,7 @@ enum DisplayFlags : unsigned char
 ImGuiMetrics::ImGuiMetrics()
 {
 	position = TopLeft;
-	metricsText.reserve(70);
+	metricsText.reserve(100);
 	displayFlags = static_cast<DisplayFlags>(Everything ^ DearImGui);
 	windowFlags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
