@@ -96,7 +96,7 @@ UpdateType CustomInterface::Update()
 	UpdateType updateType = None;
 
 	if (Settings::ThreadSleep)
-		this_thread::sleep_for(chrono::milliseconds(1));
+		this_thread::sleep_for(1ms);
 
 	if (gameFpsLimiter->Update())
 	{
