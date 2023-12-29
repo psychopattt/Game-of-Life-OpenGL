@@ -191,7 +191,7 @@ void CustomInterface::UpdateTitle() const
 	}
 }
 
-void CustomInterface::Destroy() const
+CustomInterface::~CustomInterface()
 {
 	delete title;
 	delete inputHandler;

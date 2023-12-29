@@ -38,9 +38,5 @@ int main()
 			screenDrawer.Draw();
 	}
 
-	screenDrawer.Destroy();
-	dualBuffer.Destroy();
-	gui.Destroy();
-
 	return EXIT_SUCCESS;
 }

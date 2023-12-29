@@ -8,7 +8,7 @@ class Texture
 		Texture(unsigned int width, unsigned int height, int format, int wrap, int filtering);
 		Texture(unsigned int width, unsigned int height, int format, int wrapX, int wrapY, int filtering);
 		unsigned int GetId() const;
-		void Destroy() const;
+		~Texture();
 
 	private:
 		unsigned int id;

@@ -89,7 +89,7 @@ void Shader::SetFloat(const std::string& name, float value) const
 	glProgramUniform1f(id, glGetUniformLocation(id, name.c_str()), value);
 }
 
-void Shader::Destroy()
+Shader::~Shader()
 {
 	glDeleteProgram(id);
 }

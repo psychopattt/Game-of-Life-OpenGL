@@ -33,7 +33,7 @@ unsigned int Texture::GetId() const
 	return id;
 }
 
-void Texture::Destroy() const
+Texture::~Texture()
 {
 	glDeleteTextures(1, &id);
 }

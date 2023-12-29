@@ -5,7 +5,7 @@ class ScreenDrawer
 	public:
 		ScreenDrawer(int width, int height);
 		void Draw();
-		void Destroy() const;
+		~ScreenDrawer();
 
 	private:
 		unsigned int vertexArrayId;

@@ -13,7 +13,7 @@ class DualComputeBuffer
 		}
 
 		void Swap();
-		void Destroy();
+		~DualComputeBuffer();
 
 	private:
 		ComputeBuffer* buffer1;

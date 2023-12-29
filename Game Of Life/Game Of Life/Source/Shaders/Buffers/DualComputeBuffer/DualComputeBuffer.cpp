@@ -7,11 +7,8 @@ void DualComputeBuffer::Swap()
 	buffer2->Rebind(bindingId1);
 }
 
-void DualComputeBuffer::Destroy()
+DualComputeBuffer::~DualComputeBuffer()
 {
-	buffer1->Destroy();
 	delete buffer1;
-
-	buffer2->Destroy();
 	delete buffer2;
 }

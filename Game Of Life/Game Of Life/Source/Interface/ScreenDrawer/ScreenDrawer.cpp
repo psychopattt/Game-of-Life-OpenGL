@@ -118,12 +118,8 @@ float ScreenDrawer::ComputePanAxis(int& lastPan, int& currentPan)
 	return currentPan / 2000000000.0f;
 }
 
-void ScreenDrawer::Destroy() const
+ScreenDrawer::~ScreenDrawer()
 {
-	texture->Destroy();
-	screenQuad->Destroy();
-	bufferConverter->Destroy();
-
 	delete texture;
 	delete screenQuad;
 	delete bufferConverter;

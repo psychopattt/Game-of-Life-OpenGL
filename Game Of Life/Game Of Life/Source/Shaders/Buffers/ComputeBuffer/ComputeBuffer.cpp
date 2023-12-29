@@ -16,7 +16,7 @@ void ComputeBuffer::Rebind(unsigned int bindingId)
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bindingId, id);
 }
 
-void ComputeBuffer::Destroy() const
+ComputeBuffer::~ComputeBuffer()
 {
 	glDeleteBuffers(1, &id);
 }

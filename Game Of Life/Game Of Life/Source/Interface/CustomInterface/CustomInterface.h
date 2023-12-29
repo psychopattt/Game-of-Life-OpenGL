@@ -22,7 +22,7 @@ class CustomInterface
 		const double* GetMetrics() const;
 		class WindowTitle* GetTitle();
 		GLFWwindow* GetWindow() const;
-		void Destroy() const;
+		~CustomInterface();
 
 	private:
 		int width = 0;

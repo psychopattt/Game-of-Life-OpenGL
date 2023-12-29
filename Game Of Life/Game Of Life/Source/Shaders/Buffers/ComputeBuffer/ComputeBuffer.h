@@ -19,7 +19,7 @@ class ComputeBuffer
 		unsigned int GetId() const;
 		unsigned int GetBindingId() const;
 		void Rebind(unsigned int bindingId);
-		void Destroy() const;
+		~ComputeBuffer();
 
 	private:
 		unsigned int id;
