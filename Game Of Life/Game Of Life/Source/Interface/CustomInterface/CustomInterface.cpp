@@ -17,7 +17,9 @@
 CustomInterface::CustomInterface(int width, int height, string title)
 {
 	this->width = width;
+	initialWidth = width;
 	this->height = height;
+	initialHeight = height;
 	this->title = new WindowTitle(title);
 
 	glfwInit();
@@ -146,8 +148,9 @@ void CustomInterface::ApplyFullscreenState() const
 	else
 	{
 		glfwSetWindowMonitor(
-			window, NULL, (videoMode->width / 2) - (width / 2),
-			(videoMode->height / 2) - (height / 2), width, height, GLFW_DONT_CARE
+			window, NULL, (videoMode->width / 2) - (initialWidth / 2),
+			(videoMode->height / 2) - (initialHeight / 2), initialWidth,
+			initialHeight, GLFW_DONT_CARE
 		);
 	}
 }

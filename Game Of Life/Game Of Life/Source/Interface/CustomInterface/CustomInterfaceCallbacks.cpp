@@ -7,7 +7,7 @@
 
 void CustomInterface::ActivateCallbacks()
 {
-	glfwSetWindowUserPointer(window, &inputHandler);
+	glfwSetWindowUserPointer(window, this);
 	glfwSetKeyCallback(window, KeyboardCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
@@ -16,15 +16,18 @@ void CustomInterface::ActivateCallbacks()
 
 void CustomInterface::ResizeCallback(GLFWwindow* window, int width, int height)
 {
+	CustomInterface* gui = (CustomInterface*)glfwGetWindowUserPointer(window);
 	glViewport(0, 0, width, height);
+	gui->height = height;
+	gui->width = width;
 }
 
 void CustomInterface::MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY)
 {
 	if (!ImGui::GetIO().WantCaptureMouse)
 	{
-		InputHandler* inputHandler = (InputHandler*)glfwGetWindowUserPointer(window);
-		inputHandler->HandleMouseScroll(window, offsetX, offsetY);
+		CustomInterface* gui = (CustomInterface*)glfwGetWindowUserPointer(window);
+		gui->inputHandler->HandleMouseScroll(window, offsetX, offsetY);
 	}
 }
 
@@ -32,8 +35,8 @@ void CustomInterface::MouseButtonCallback(GLFWwindow* window, int button, int ac
 {
 	if (!ImGui::GetIO().WantCaptureMouse)
 	{
-		InputHandler* inputHandler = (InputHandler*)glfwGetWindowUserPointer(window);
-		inputHandler->HandleMouseButton(window, button, action, mods);
+		CustomInterface* gui = (CustomInterface*)glfwGetWindowUserPointer(window);
+		gui->inputHandler->HandleMouseButton(window, button, action, mods);
 	}
 }
 
@@ -41,7 +44,7 @@ void CustomInterface::KeyboardCallback(GLFWwindow* window, int key, int scanCode
 {
 	if (!ImGui::GetIO().WantCaptureKeyboard)
 	{
-		InputHandler* inputHandler = (InputHandler*)glfwGetWindowUserPointer(window);
-		inputHandler->HandleKeyboard(window, key, scanCode, action, mods);
+		CustomInterface* gui = (CustomInterface*)glfwGetWindowUserPointer(window);
+		gui->inputHandler->HandleKeyboard(window, key, scanCode, action, mods);
 	}
 }

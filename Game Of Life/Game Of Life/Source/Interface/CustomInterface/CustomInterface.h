@@ -27,6 +27,8 @@ class CustomInterface
 	private:
 		int width = 0;
 		int height = 0;
+		int initialWidth;
+		int initialHeight;
 		double metrics[4] = { };
 
 		GLFWwindow* window;
