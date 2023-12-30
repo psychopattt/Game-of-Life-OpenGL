@@ -65,6 +65,10 @@ void ImGuiLog::RenderWindowBody()
 		ImGuiWindowFlags_HorizontalScrollbar);
 
 	TextUnformatted(Settings::log);
+
+	if (autoScroll && GetScrollY() >= GetScrollMaxY())
+		SetScrollHereY(1.0f);
+
 	EndChild();
 	RenderOptionsPopup("textAreaPopup");
 }
@@ -74,6 +78,7 @@ void ImGuiLog::RenderOptionsPopup(const char* popupId)
 	if (BeginPopupContextItem(popupId))
 	{
 		Checkbox("Fullscreen", &isFullscreen);
+		Checkbox("Auto-Scroll", &autoScroll);
 		float buttonWidth = (GetWindowWidth() - 24) / 2;
 
 		if (Button("Copy", ImVec2(buttonWidth, 0)))

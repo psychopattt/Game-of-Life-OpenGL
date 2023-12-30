@@ -9,6 +9,7 @@ class ImGuiLog : public ImGuiWindow
 
 	private:
 		int windowFlags = 0;
+		bool autoScroll = true;
 		bool isFullscreen = false;
 		bool wasFullscreen = true;
 
