@@ -11,21 +11,19 @@ FpsLimiter::FpsLimiter(double targetFps)
 
 void FpsLimiter::SetTargetFps(double targetFps)
 {
-	disabled = targetFps > 9999;
+	paused = targetFps < 0.01;
+	disabled = targetFps > 999999.0;
 
-	if (!disabled)
-	{
-		if (targetFps < 0.01)
-			targetFps = 0.01;
-
+	if (!paused && !disabled)
 		targetFrametime = 1 / targetFps;
-	}
 }
 
 bool FpsLimiter::Update()
 {
 	if (disabled)
 		return true;
+	else if (paused)
+		return false;
 
 	double currentTime = glfwGetTime();
 	double timeDiff = currentTime - lastUpdateTime;

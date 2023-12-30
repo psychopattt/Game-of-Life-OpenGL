@@ -9,6 +9,7 @@ class FpsLimiter
 		bool Update();
 
 	private:
+		bool paused;
 		bool disabled;
 		double lastUpdateTime;
 		double targetFrametime;
