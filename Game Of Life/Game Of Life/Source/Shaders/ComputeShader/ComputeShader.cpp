@@ -5,8 +5,6 @@
 #include "Settings/Settings.h"
 #include "glad/glad.h"
 
-using namespace std;
-
 ComputeShader::ComputeShader(const char* shaderName, unsigned int width, unsigned int height, unsigned int depth)
 {
 	const string code = ShaderProvider::GetCode(shaderName);

@@ -5,8 +5,6 @@
 #include "Settings/Settings.h"
 #include "glad/glad.h"
 
-using namespace std;
-
 Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
 {
 	const string vertexCode = ShaderProvider::GetCode(vertexShaderName);
