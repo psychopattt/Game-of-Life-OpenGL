@@ -23,7 +23,7 @@ unique_ptr<WindowTitle>& WindowTitle::SetSubText(string text)
 unique_ptr<WindowTitle>& WindowTitle::GetSubTitle()
 {
 	if (!subTitle)
-		subTitle = make_unique<WindowTitle>();
+		subTitle = std::make_unique<WindowTitle>();
 
 	return subTitle;
 }
