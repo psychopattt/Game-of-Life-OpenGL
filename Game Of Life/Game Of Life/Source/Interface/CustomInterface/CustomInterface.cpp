@@ -81,7 +81,7 @@ void CustomInterface::InitializeGlad()
 
 void CustomInterface::CreateFpsHandlers()
 {
-	Settings::TargetFps = float(glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate);
+	Settings::TargetFps = (float)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
 	gameFpsLimiter = new FpsLimiter(Settings::TargetFps);
 	uiFpsLimiter = new FpsLimiter(Settings::TargetFps);
 	gameFpsCounter = new FpsCounter(10);
@@ -98,7 +98,7 @@ UpdateType CustomInterface::Update()
 	UpdateType updateType = None;
 
 	if (Settings::ThreadSleep)
-		this_thread::sleep_for(1ms);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
 	if (gameFpsLimiter->Update())
 	{
@@ -160,11 +160,6 @@ void CustomInterface::SetTargetFps(double targetFps) const
 	gameFpsLimiter->SetTargetFps(targetFps);
 }
 
-GLFWwindow* CustomInterface::GetWindow() const
-{
-	return window;
-}
-
 int CustomInterface::GetWidth() const
 {
 	return width;
@@ -183,6 +178,16 @@ const double* CustomInterface::GetMetrics() const
 WindowTitle* CustomInterface::GetTitle()
 {
 	return title;
+}
+
+void CustomInterface::GetMousePosition(double* posX, double* posY)
+{
+	glfwGetCursorPos(Settings::gui->GetWindow(), posX, posY);
+}
+
+GLFWwindow* CustomInterface::GetWindow() const
+{
+	return window;
 }
 
 void CustomInterface::UpdateTitle() const

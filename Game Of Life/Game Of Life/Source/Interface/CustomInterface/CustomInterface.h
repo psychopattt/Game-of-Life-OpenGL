@@ -2,7 +2,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 class FpsLimiter;
 class FpsCounter;
@@ -21,6 +21,7 @@ class CustomInterface
 		int GetHeight() const;
 		const double* GetMetrics() const;
 		class WindowTitle* GetTitle();
+		void GetMousePosition(double* posX, double* posY);
 		GLFWwindow* GetWindow() const;
 		~CustomInterface();
 
