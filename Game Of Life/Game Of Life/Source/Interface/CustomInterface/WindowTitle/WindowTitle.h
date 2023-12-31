@@ -3,8 +3,7 @@
 #include <string>
 #include <memory>
 
-using std::string;
-using std::unique_ptr;
+using std::string, std::unique_ptr;
 
 class WindowTitle
 {

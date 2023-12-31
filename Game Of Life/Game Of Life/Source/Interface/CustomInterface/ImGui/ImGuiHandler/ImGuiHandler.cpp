@@ -13,8 +13,7 @@
 #include "../ImGuiWindow/ImGuiDebug/ImGuiDebug.h"
 #include "../ImGuiWindow/ImGuiMetrics/ImGuiMetrics.h"
 
-using std::unique_ptr;
-using std::make_unique;
+using std::unique_ptr, std::make_unique;
 
 const unique_ptr<ImGuiWindow> windows[] = {
 	make_unique<ImGuiDebug>(), make_unique<ImGuiMain>(),
