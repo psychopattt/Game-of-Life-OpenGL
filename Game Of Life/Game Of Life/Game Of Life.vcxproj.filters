@@ -130,6 +130,9 @@
     <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings\TransformSettings\TransformSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
@@ -232,6 +235,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\TransformSettings\TransformSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

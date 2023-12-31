@@ -2,81 +2,89 @@
 
 #include <cmath>
 
+#include "Settings/TransformSettings/TransformSettings.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
-#include "Settings/Settings.h"
 #include "imgui/imgui.h"
 #include "GLFW/glfw3.h"
 
+using namespace CurrentInputs;
+using namespace TransformSettings;
+
 void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
-	CurrentInputs::HoldingKeys = CurrentInputs::HoldingKeys || action != GLFW_RELEASE;
+	HoldingKeys = HoldingKeys || action != GLFW_RELEASE;
 
 	switch (key)
 	{
 		case GLFW_KEY_W:
 		case GLFW_KEY_UP:
-			CurrentInputs::UpKeyHeld = action != GLFW_RELEASE;
+			UpKeyHeld = action != GLFW_RELEASE;
 			break;
 		case GLFW_KEY_A:
 		case GLFW_KEY_LEFT:
-			CurrentInputs::LeftKeyHeld = action != GLFW_RELEASE;
+			LeftKeyHeld = action != GLFW_RELEASE;
 			break;
 		case GLFW_KEY_S:
 		case GLFW_KEY_DOWN:
-			CurrentInputs::DownKeyHeld = action != GLFW_RELEASE;
+			DownKeyHeld = action != GLFW_RELEASE;
 			break;
 		case GLFW_KEY_D:
 		case GLFW_KEY_RIGHT:
-			CurrentInputs::RightKeyHeld = action != GLFW_RELEASE;
+			RightKeyHeld = action != GLFW_RELEASE;
 			break;
 		case GLFW_KEY_LEFT_SHIFT:
 		case GLFW_KEY_RIGHT_SHIFT:
-			CurrentInputs::FastModifierHeld = action != GLFW_RELEASE;
+			FastModifierHeld = action != GLFW_RELEASE;
 			break;
 		case GLFW_KEY_LEFT_ALT:
 		case GLFW_KEY_RIGHT_ALT:
-			CurrentInputs::SlowModifierHeld = action != GLFW_RELEASE;
+			SlowModifierHeld = action != GLFW_RELEASE;
 			break;
 	}
 }
 
 void KeyboardInputs::ReleaseCapturedKeys()
 {
-	if (CurrentInputs::HoldingKeys && ImGui::GetIO().WantCaptureKeyboard)
+	if (HoldingKeys && ImGui::GetIO().WantCaptureKeyboard)
 	{
-		CurrentInputs::UpKeyHeld = false;
-		CurrentInputs::LeftKeyHeld = false;
-		CurrentInputs::DownKeyHeld = false;
-		CurrentInputs::RightKeyHeld = false;
-		CurrentInputs::FastModifierHeld = false;
-		CurrentInputs::SlowModifierHeld = false;
-
-		CurrentInputs::HoldingKeys = false;
+		UpKeyHeld = false;
+		LeftKeyHeld = false;
+		DownKeyHeld = false;
+		RightKeyHeld = false;
+		FastModifierHeld = false;
+		SlowModifierHeld = false;
+		HoldingKeys = false;
 	}
 }
 
 void KeyboardInputs::Update(double deltaTime)
 {
 	ReleaseCapturedKeys();
+	UpdateSpeedMultiplier();
 	UpdatePan(deltaTime);
+}
+
+void KeyboardInputs::UpdateSpeedMultiplier()
+{
+	SpeedMultiplier =
+		FastModifierHeld ? FastMultiplier :
+		SlowModifierHeld ? SlowMultiplier :
+		DefaultMultiplier;
 }
 
 void KeyboardInputs::UpdatePan(double deltaTime)
 {
-	int panSpeed = lround(deltaTime * 18000000 * (
-		CurrentInputs::FastModifierHeld ? 100 :
-		CurrentInputs::SlowModifierHeld ? 1 : 10
-	));
+	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
-	if (CurrentInputs::UpKeyHeld)
-		Settings::CurrentPanY += panSpeed;
+	if (UpKeyHeld)
+		PanY += panSpeed;
 
-	if (CurrentInputs::LeftKeyHeld)
-		Settings::CurrentPanX -= panSpeed;
+	if (LeftKeyHeld)
+		PanX -= panSpeed;
 
-	if (CurrentInputs::DownKeyHeld)
-		Settings::CurrentPanY -= panSpeed;
+	if (DownKeyHeld)
+		PanY -= panSpeed;
 
-	if (CurrentInputs::RightKeyHeld)
-		Settings::CurrentPanX += panSpeed;
+	if (RightKeyHeld)
+		PanX += panSpeed;
 }

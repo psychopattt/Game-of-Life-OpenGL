@@ -14,12 +14,12 @@ class ScreenDrawer
 		class Shader* screenQuad;
 		class ComputeShader* bufferConverter;
 
-		int lastZoom = -1;
-		int lastPanX = -1;
-		int lastPanY = -1;
+		long long lastPanX = 0;
+		long long lastPanY = 0;
+		unsigned short lastZoom = 0;
 
-		float quadVertices[16];
-		const float initialQuadVertices[16] = {
+		double quadVertices[16];
+		const double initialQuadVertices[16] = {
 			-1.0f, 1.0f, 0.0f, 1.0f,
 			-1.0f, -1.0f, 0.0f, 0.0f,
 			1.0f, 1.0f, 1.0f, 1.0f,
@@ -27,8 +27,12 @@ class ScreenDrawer
 		};
 
 		void GenerateVertexObjects();
-		void ApplyTranslations();
+		void ApplyTransforms();
 		bool UpdateZoom();
+		void ApplyMouseZoomPan();
+		double ComputeMaxPanAtZoom(unsigned short zoom);
+		long long ComputePanOffsetAxis(double screenCoord, double screenSize, double oldZoomMaxPan, double newZoomMaxPan);
+		double ScaleZoom(unsigned short zoom);
 		bool UpdatePan();
-		float ComputePanAxis(int& lastPan, int& currentPan);
+		double ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset);
 };

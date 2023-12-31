@@ -8,5 +8,6 @@ class KeyboardInputs
 
 	private:
 		void ReleaseCapturedKeys();
+		void UpdateSpeedMultiplier();
 		void UpdatePan(double deltaTime);
 };

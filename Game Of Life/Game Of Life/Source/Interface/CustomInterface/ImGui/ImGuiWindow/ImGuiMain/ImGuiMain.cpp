@@ -1,6 +1,7 @@
 #include "ImGuiMain.h"
 
 #include "imgui/imgui.h"
+#include "Settings/TransformSettings/TransformSettings.h"
 #include "Interface/CustomInterface/CustomInterface.h"
 #include "Settings/Settings.h"
 
@@ -34,16 +35,34 @@ void ImGuiMain::RenderSimulationSection()
 	if (CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		SeparatorText("Position");
-		int position[2] = { Settings::CurrentPanX, Settings::CurrentPanY };
-
-		if (SliderInt2("##sliderPosition", position, -1000000000, 1000000000))
+		long long position[2] = { TransformSettings::PanX, TransformSettings::PanY };
+		
+		if (SliderScalarN("##sliderPosition", ImGuiDataType_S64, position,
+			sizeof(position) / sizeof(*position), &TransformSettings::MinUiPan,
+			&TransformSettings::MaxUiPan))
 		{
-			Settings::CurrentPanX = position[0];
-			Settings::CurrentPanY = position[1];
+			TransformSettings::PanX = position[0];
+			TransformSettings::PanY = position[1];
 		}
 
 		SeparatorText("Zoom");
-		SliderInt("##sliderZoom", &Settings::CurrentZoom, 0, 4000);
+		if (RadioButton("Mouse", TransformSettings::ZoomOnMouse))
+			TransformSettings::ZoomOnMouse = true;
+		
+		SetItemTooltip("Zoom on the mouse cursor");
+		SameLine();
+		
+		if (RadioButton("Center", !TransformSettings::ZoomOnMouse))
+			TransformSettings::ZoomOnMouse = false;
+		
+		SetItemTooltip("Zoom on the center of the screen");
+
+		if (SliderScalar("##sliderZoom", ImGuiDataType_U16,
+			&TransformSettings::Zoom, &TransformSettings::MinUiZoom,
+			&TransformSettings::MaxUiZoom))
+		{
+			TransformSettings::ZoomOnMouse = false;
+		}
 	}
 }
 

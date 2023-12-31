@@ -1,13 +1,16 @@
 #include "MouseInputs.h"
 
+#include "Settings/TransformSettings/TransformSettings.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
-#include "Settings/Settings.h"
 #include "GLFW/glfw3.h"
+
+using namespace CurrentInputs;
+using namespace TransformSettings;
 
 void MouseInputs::HandleMouseScroll(GLFWwindow* window, double offsetX, double offsetY)
 {
-	CurrentInputs::ScrolledUp = offsetY > 0;
-	CurrentInputs::ScrolledDown = offsetY < 0;
+	ScrolledUp = offsetY > 0;
+	ScrolledDown = offsetY < 0;
 }
 
 void MouseInputs::HandleMouseButton(GLFWwindow* window, int button, int action, int mods)
@@ -22,24 +25,22 @@ void MouseInputs::Update()
 
 void MouseInputs::UpdateZoom()
 {
-	int zoomSpeed = CurrentInputs::FastModifierHeld ? 100 :
-		CurrentInputs::SlowModifierHeld ? 1 : 10;
-
-	if (CurrentInputs::ScrolledUp)
+	if (ScrolledUp)
 	{
-		CurrentInputs::ScrolledUp = false;
-		Settings::CurrentZoom += zoomSpeed;
+		ScrolledUp = false;
+		Zoom += SpeedMultiplier;
 
-		if (Settings::CurrentZoom > 2000000000)
-			Settings::CurrentZoom = 2000000000;
+		if (Zoom > MaxZoom)
+			Zoom = MaxZoom;
 	}
 
-	if (CurrentInputs::ScrolledDown)
+	if (ScrolledDown)
 	{
-		CurrentInputs::ScrolledDown = false;
-		Settings::CurrentZoom -= zoomSpeed;
+		ScrolledDown = false;
 
-		if (Settings::CurrentZoom < 0)
-			Settings::CurrentZoom = 0;
+		if (Zoom > SpeedMultiplier)
+			Zoom -= SpeedMultiplier;
+		else
+			Zoom = 0;
 	}
 }
