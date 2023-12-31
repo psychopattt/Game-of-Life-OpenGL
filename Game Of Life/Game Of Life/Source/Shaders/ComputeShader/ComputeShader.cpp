@@ -12,7 +12,7 @@ ComputeShader::ComputeShader(const char* shaderName, unsigned int width, unsigne
 	if (!code.empty())
 	{
 		unsigned int globalSize[3] = { width, height, depth };
-		copy(globalSize, globalSize + 3, this->globalSize);
+		std::copy(globalSize, std::end(globalSize), this->globalSize);
 
 		const unsigned int shaderId = Compile(code, shaderName);
 		Link(shaderId, shaderName);

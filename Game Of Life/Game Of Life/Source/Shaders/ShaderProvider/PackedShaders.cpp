@@ -2,7 +2,6 @@
 
 #if !DEBUG
 #include "ShaderProvider.h"
-#include <string>
 const string ShaderProvider::UnpackCode(const uint32_t& h) {
 switch (h) {
 case 1627215959: return "#version 460 core\n\nlayout (local_size_x = 8, local_size_y = 4, local_size_z = 1) in;\n\nuniform int width;\nlayout(rgba32f, binding = 0) writeonly uniform image2D texture;\n\nlayout(std430, binding = 2) restrict readonly buffer dataBuffer\n{\n	uint Data[];\n};\n\nvoid main()\n{\n	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);\n	uint id = pos.y * width + pos.x;\n\n	float color = float(Data[id]) / 2;\n	imageStore(texture, pos, vec4(color, color, color, 1.0));\n}\n";

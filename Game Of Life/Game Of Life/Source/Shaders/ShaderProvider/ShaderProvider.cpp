@@ -9,6 +9,8 @@
 #include <filesystem>
 #endif
 
+using namespace std;
+
 static const string shaderExtension = ".glsl";
 
 const string ShaderProvider::GetCode(string shaderName)
@@ -87,9 +89,8 @@ void ShaderProvider::PackShaders()
 	outputFile.open(packedShaderPath, ios_base::out | ios_base::trunc);
 
 	outputFile << "// Generated code\n\n#if !DEBUG\n#include \""
-		"ShaderProvider.h\"\n#include <string>\nconst string "
-		"ShaderProvider::UnpackCode(const uint32_t& h) {\n"
-		"switch (h) {\n";
+		"ShaderProvider.h\"\nconst string ShaderProvider::"
+		"UnpackCode(const uint32_t& h) {\nswitch (h) {\n";
 
 	for (const directory_entry& file : recursive_directory_iterator(shaderPath))
 	{
