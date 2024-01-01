@@ -82,10 +82,13 @@ void ImGuiMain::RenderPerformanceSection()
 		SeparatorText("Target FPS");
 
 		if (InputFloat("##textTargetFps", &Settings::TargetFps, 1, 10, "%.2f"))
-			UpdateTargetFps();
+			Settings::gui->SetTargetFps(Settings::TargetFps);
 
 		if (SliderFloat("##sliderTargetFps", &Settings::TargetFps, 0, 500, "%.2f"))
-			UpdateTargetFps();
+			Settings::gui->SetTargetFps(Settings::TargetFps);
+
+		if (Button("Step Frame", ImVec2(-1, 0)))
+			Settings::gui->StepFrame();
 	}
 }
 
@@ -109,13 +112,4 @@ void ImGuiMain::RenderInterfaceSection()
 			io.FontDefault = io.Fonts->Fonts[Settings::SelectedFontSize];
 		}
 	}
-}
-
-void ImGuiMain::UpdateTargetFps()
-{
-	if (Settings::TargetFps < 0)
-		Settings::TargetFps = 0;
-
-	Settings::ThreadSleep = Settings::TargetFps < 100;
-	Settings::gui->SetTargetFps(Settings::TargetFps);
 }

@@ -11,5 +11,4 @@ class ImGuiMain : public ImGuiWindow
         void RenderSimulationSection();
         void RenderPerformanceSection();
         void RenderInterfaceSection();
-        void UpdateTargetFps();
 };

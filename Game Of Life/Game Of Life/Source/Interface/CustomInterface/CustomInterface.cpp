@@ -100,8 +100,9 @@ UpdateType CustomInterface::Update()
 	if (Settings::ThreadSleep)
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-	if (gameFpsLimiter->Update())
+	if (gameFpsLimiter->Update() || stepFrame)
 	{
+		stepFrame = false;
 		updateType |= Game;
 
 		if (gameFpsCounter->Update())
@@ -155,9 +156,17 @@ void CustomInterface::ApplyFullscreenState() const
 	}
 }
 
-void CustomInterface::SetTargetFps(double targetFps) const
+void CustomInterface::SetTargetFps(float targetFps) const
 {
-	gameFpsLimiter->SetTargetFps(targetFps);
+	Settings::TargetFps = targetFps < 0 ? 0 : targetFps;
+	Settings::ThreadSleep = Settings::TargetFps < 100;
+	gameFpsLimiter->SetTargetFps(Settings::TargetFps);
+}
+
+void CustomInterface::StepFrame()
+{
+	SetTargetFps(0);
+	stepFrame = true;
 }
 
 int CustomInterface::GetWidth() const

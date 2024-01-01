@@ -16,7 +16,8 @@ class CustomInterface
 		bool ShouldExit() const;
 		UpdateType Update();
 		void ApplyFullscreenState() const;
-		void SetTargetFps(double targetFps) const;
+		void SetTargetFps(float targetFps) const;
+		void StepFrame();
 		int GetWidth() const;
 		int GetHeight() const;
 		const double* GetMetrics() const;
@@ -26,10 +27,11 @@ class CustomInterface
 		~CustomInterface();
 
 	private:
-		int width = 0;
-		int height = 0;
+		int width;
+		int height;
 		int initialWidth;
 		int initialHeight;
+		bool stepFrame = false;
 		double metrics[4] = { };
 
 		GLFWwindow* window;
