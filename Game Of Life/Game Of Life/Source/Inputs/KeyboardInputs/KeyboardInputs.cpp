@@ -3,7 +3,9 @@
 #include <cmath>
 
 #include "Settings/TransformSettings/TransformSettings.h"
+#include "Interface/CustomInterface/CustomInterface.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Settings/Settings.h"
 #include "imgui/imgui.h"
 #include "GLFW/glfw3.h"
 
@@ -39,6 +41,10 @@ void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, i
 		case GLFW_KEY_LEFT_ALT:
 		case GLFW_KEY_RIGHT_ALT:
 			SlowModifierHeld = action != GLFW_RELEASE;
+			break;
+		case GLFW_KEY_F:
+			if (action != GLFW_RELEASE)
+				Settings::gui->StepFrame();
 			break;
 	}
 }
