@@ -3,12 +3,13 @@
 
 namespace Settings
 {
-	CustomInterface* gui = nullptr;
-	bool ThreadSleep = true;
 	bool ShowMetrics = false;
-	bool FullscreenEnabled = false;
+	bool ThreadSleep = true;
 	float TargetFps = 100;
 
+	CustomInterface* gui = nullptr;
+	bool FullscreenEnabled = false;
 	int SelectedFontSize = 1;
+
 	LogString log;
 }
