@@ -3,7 +3,7 @@
 class ScreenDrawer
 {
 	public:
-		ScreenDrawer(int width, int height);
+		ScreenDrawer();
 		void Draw();
 		~ScreenDrawer();
 
@@ -31,7 +31,8 @@ class ScreenDrawer
 		bool UpdateZoom();
 		void ApplyMouseZoomPan();
 		double ComputeMaxPanAtZoom(unsigned short zoom);
-		long long ComputePanOffsetAxis(double screenCoord, double screenSize, double oldZoomMaxPan, double newZoomMaxPan);
+		long long ComputePanOffsetAxis(double screenCoord, double screenSize,
+			double viewportSize, double oldZoomMaxPan, double newZoomMaxPan);
 		double ScaleZoom(unsigned short zoom);
 		bool UpdatePan();
 		double ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset);

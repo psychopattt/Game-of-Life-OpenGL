@@ -12,7 +12,7 @@ enum UpdateType : char;
 class CustomInterface
 {
 	public:
-		CustomInterface(int width, int height, string title);
+		CustomInterface(int width, int height, int simWidth, int simHeight, string title);
 		bool ShouldExit() const;
 		UpdateType Update();
 		void ApplyFullscreenState() const;
@@ -20,17 +20,22 @@ class CustomInterface
 		void StepFrame();
 		int GetWidth() const;
 		int GetHeight() const;
+		int GetSimWidth() const;
+		int GetSimHeight() const;
+		void GetViewportSize(int& width, int& height) const;
 		const double* GetMetrics() const;
-		class WindowTitle* GetTitle();
-		void GetMousePosition(double* posX, double* posY);
+		class WindowTitle* GetTitle() const;
+		void GetMousePosition(double* posX, double* posY) const;
 		GLFWwindow* GetWindow() const;
 		~CustomInterface();
 
 	private:
 		int width;
 		int height;
-		int initialWidth;
-		int initialHeight;
+		int simWidth;
+		int simHeight;
+		const int initialWidth;
+		const int initialHeight;
 		bool stepFrame = false;
 		double metrics[4] = { };
 
@@ -50,6 +55,7 @@ class CustomInterface
 		void CreateFpsHandlers();
 		void ActivateCallbacks();
 		void UpdateTitle() const;
+		void ComputeViewportSettings();
 
 		static void ResizeCallback(GLFWwindow* window, int width, int height);
 		static void MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY);

@@ -6,23 +6,25 @@
 
 int main()
 {
-	int width = 1280;
-	int height = 720;
+	int uiWidth = 1280;
+	int uiHeight = 720;
+	int simWidth = 640;
+	int simHeight = 360;
 
-	CustomInterface gui(width, height, "Game Of Life");
-	ScreenDrawer screenDrawer(width, height);
+	CustomInterface gui(uiWidth, uiHeight, simWidth, simHeight, "Game Of Life");
+	ScreenDrawer screenDrawer = ScreenDrawer();
 
-	unsigned int* bufferData = new unsigned int[width * height] { };
-	DualComputeBuffer dualBuffer(bufferData, width * height * sizeof(*bufferData));
+	unsigned int* bufferData = new unsigned int[simWidth * simHeight] { };
+	DualComputeBuffer dualBuffer(bufferData, simWidth * simHeight * sizeof(*bufferData));
 	delete[] bufferData;
 
-	ComputeShader gameInitShader("GameOfLifeInit", width, height);
-	gameInitShader.SetInt("width", width);
+	ComputeShader gameInitShader("GameOfLifeInit", simWidth, simHeight);
+	gameInitShader.SetInt("width", simWidth);
 	gameInitShader.Execute();
 
-	ComputeShader gameShader("GameOfLife", width, height);
-	gameShader.SetInt("height", height);
-	gameShader.SetInt("width", width);
+	ComputeShader gameShader("GameOfLife", simWidth, simHeight);
+	gameShader.SetInt("height", simHeight);
+	gameShader.SetInt("width", simWidth);
 
 	while (!gui.ShouldExit())
 	{

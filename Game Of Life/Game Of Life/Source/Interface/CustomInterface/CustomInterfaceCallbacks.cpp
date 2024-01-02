@@ -1,5 +1,7 @@
 #include "CustomInterface.h"
 
+#include <cmath>
+
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
@@ -17,9 +19,9 @@ void CustomInterface::ActivateCallbacks()
 void CustomInterface::ResizeCallback(GLFWwindow* window, int width, int height)
 {
 	CustomInterface* gui = (CustomInterface*)glfwGetWindowUserPointer(window);
-	glViewport(0, 0, width, height);
 	gui->height = height;
 	gui->width = width;
+	gui->ComputeViewportSettings();
 }
 
 void CustomInterface::MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY)

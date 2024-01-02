@@ -1,5 +1,7 @@
 #include "ScreenDrawer.h"
 
+#include <cmath>
+
 #include "glad/glad.h"
 #include "Settings/TransformSettings/TransformSettings.h"
 #include "Interface/CustomInterface/CustomInterface.h"
@@ -8,22 +10,25 @@
 #include "Shaders/Buffers/Texture/Texture.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
 
-ScreenDrawer::ScreenDrawer(int width, int height)
+ScreenDrawer::ScreenDrawer()
 {
-	std::copy(initialQuadVertices, std::end(initialQuadVertices), quadVertices);
-
 	GenerateVertexObjects();
-	texture = new Texture(width, height);
+
+	int simWidth = Settings::gui->GetSimWidth();
+	int simHeight = Settings::gui->GetSimHeight();
+	texture = new Texture(simWidth, simHeight);
 
 	screenQuad = new Shader("VertexDefault", "FragmentDefault");
 	screenQuad->SetInt("dataTexture", 0);
 
-	bufferConverter = new ComputeShader("BufferConverter", width, height);
-	bufferConverter->SetInt("width", width);
+	bufferConverter = new ComputeShader("BufferConverter", simWidth, simHeight);
+	bufferConverter->SetInt("width", simWidth);
 }
 
 void ScreenDrawer::GenerateVertexObjects()
 {
+	std::copy(initialQuadVertices, std::end(initialQuadVertices), quadVertices);
+
 	glGenVertexArrays(1, &vertexArrayId);
 	glBindVertexArray(vertexArrayId);
 
@@ -100,8 +105,11 @@ void ScreenDrawer::ApplyMouseZoomPan()
 	double mousePosX, mousePosY;
 	Settings::gui->GetMousePosition(&mousePosX, &mousePosY);
 
-	PanOffsetX = ComputePanOffsetAxis(mousePosX, gui->GetWidth(), oldZoomMaxPan, newZoomMaxPan);
-	PanOffsetY = -ComputePanOffsetAxis(mousePosY, gui->GetHeight(), oldZoomMaxPan, newZoomMaxPan);
+	int viewportWidth, viewportHeight;
+	gui->GetViewportSize(viewportWidth, viewportHeight);
+
+	PanOffsetX = ComputePanOffsetAxis(mousePosX, gui->GetWidth(), viewportWidth, oldZoomMaxPan, newZoomMaxPan);
+	PanOffsetY = -ComputePanOffsetAxis(mousePosY, gui->GetHeight(), viewportHeight, oldZoomMaxPan, newZoomMaxPan);
 }
 
 double ScreenDrawer::ComputeMaxPanAtZoom(unsigned short zoom)
@@ -113,15 +121,21 @@ double ScreenDrawer::ComputeMaxPanAtZoom(unsigned short zoom)
 	return TransformSettings::MaxPan * panScale;
 }
 
-long long ScreenDrawer::ComputePanOffsetAxis(double screenCoord, double screenSize, double oldWorldSize, double newWorldSize)
+long long ScreenDrawer::ComputePanOffsetAxis(double screenCoord, double screenSize,
+	double viewportSize, double oldWorldSize, double newWorldSize)
 {
 	// Get screen coord relative to center [-1, 1] from absolute screen coord
 	double screenCoordRelativeCenter = 2.0 * screenCoord / screenSize - 1.0;
 
-	// Map world size to [-1, 1] by dividing by 2
+	// Calculate visible portion of the world size
+	double visibleWorldSizeRatio = screenSize / viewportSize;
+	double oldVisibleWorldSize = oldWorldSize * visibleWorldSizeRatio;
+	double newVisibleWorldSize = newWorldSize * visibleWorldSizeRatio;
+
+	// Map visible world size to [-1, 1] by dividing by 2
 	// Multiply relative screen coord by world size to get world coord
-	double oldWorldCoord = oldWorldSize / 2.0 * screenCoordRelativeCenter;
-	double newWorldCoord = newWorldSize / 2.0 * screenCoordRelativeCenter;
+	double oldWorldCoord = oldVisibleWorldSize / 2.0 * screenCoordRelativeCenter;
+	double newWorldCoord = newVisibleWorldSize / 2.0 * screenCoordRelativeCenter;
 
 	// Substract new coord from old coord to get world coord offset
 	return llround(oldWorldCoord - newWorldCoord);

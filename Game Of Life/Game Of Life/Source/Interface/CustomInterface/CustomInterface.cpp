@@ -1,5 +1,6 @@
 #include "CustomInterface.h"
 
+#include <cmath>
 #include <chrono>
 #include <thread>
 
@@ -14,12 +15,11 @@
 #include "WindowTitle/WindowTitle.h"
 #include "ImGui/ImGuiHandler/ImGuiHandler.h"
 
-CustomInterface::CustomInterface(int width, int height, string title)
+CustomInterface::CustomInterface(int width, int height, int simWidth,
+	int simHeight, string title) : width(width), height(height),
+	simWidth(simWidth), simHeight(simHeight), initialWidth(width),
+	initialHeight(height)
 {
-	this->width = width;
-	initialWidth = width;
-	this->height = height;
-	initialHeight = height;
 	this->title = new WindowTitle(title);
 
 	glfwInit();
@@ -134,6 +134,33 @@ UpdateType CustomInterface::Update()
 	return updateType;
 }
 
+void CustomInterface::UpdateTitle() const
+{
+	if (title->IsOutdated())
+	{
+		title->Update();
+		glfwSetWindowTitle(window, title->ToString().c_str());
+	}
+}
+
+void CustomInterface::ComputeViewportSettings()
+{
+	float simAspectRatio = static_cast<float>(simWidth) / simHeight;
+
+	if (width > height * simAspectRatio)
+	{
+		int viewportHeight = lround(simHeight * static_cast<float>(width) / simWidth);
+		int heightOffset = -lround((viewportHeight - height) / 2.0f);
+		glViewport(0, heightOffset, width, viewportHeight);
+	}
+	else
+	{
+		int viewportWidth = lround(simWidth * static_cast<float>(height) / simHeight);
+		int widthOffset = -lround((viewportWidth - width) / 2.0f);
+		glViewport(widthOffset, 0, viewportWidth, height);
+	}
+}
+
 void CustomInterface::ApplyFullscreenState() const
 {
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
@@ -165,7 +192,9 @@ void CustomInterface::SetTargetFps(float targetFps) const
 
 void CustomInterface::StepFrame()
 {
-	SetTargetFps(0);
+	if (Settings::TargetFps > 0)
+		SetTargetFps(0);
+
 	stepFrame = true;
 }
 
@@ -179,17 +208,35 @@ int CustomInterface::GetHeight() const
 	return height;
 }
 
+int CustomInterface::GetSimWidth() const
+{
+	return simWidth;
+}
+
+int CustomInterface::GetSimHeight() const
+{
+	return simHeight;
+}
+
+void CustomInterface::GetViewportSize(int& width, int& height) const
+{
+	int viewportSettings[4];
+	glGetIntegerv(GL_VIEWPORT, viewportSettings);
+	width = viewportSettings[2];
+	height = viewportSettings[3];
+}
+
 const double* CustomInterface::GetMetrics() const
 {
 	return metrics;
 }
 
-WindowTitle* CustomInterface::GetTitle()
+WindowTitle* CustomInterface::GetTitle() const
 {
 	return title;
 }
 
-void CustomInterface::GetMousePosition(double* posX, double* posY)
+void CustomInterface::GetMousePosition(double* posX, double* posY) const
 {
 	glfwGetCursorPos(Settings::gui->GetWindow(), posX, posY);
 }
@@ -197,15 +244,6 @@ void CustomInterface::GetMousePosition(double* posX, double* posY)
 GLFWwindow* CustomInterface::GetWindow() const
 {
 	return window;
-}
-
-void CustomInterface::UpdateTitle() const
-{
-	if (title->IsOutdated())
-	{
-		title->Update();
-		glfwSetWindowTitle(window, title->ToString().c_str());
-	}
 }
 
 CustomInterface::~CustomInterface()
