@@ -9,10 +9,9 @@ using namespace ImGui;
 
 void ImGuiDebug::Render()
 {
-	float initialWidth = 200;
-	float initialPosX = GetMainViewport()->WorkSize.x - initialWidth - 50;
-	SetNextWindowPos(ImVec2(initialPosX, 50), ImGuiCond_FirstUseEver);
-	SetNextWindowSize(ImVec2(initialWidth, 200), ImGuiCond_FirstUseEver);
+	SetNextWindowSize(ImVec2(200, -1), ImGuiCond_FirstUseEver);
+	SetNextWindowPos(ImVec2(GetMainViewport()->WorkSize.x - 10, 10),
+		ImGuiCond_FirstUseEver, ImVec2(1, 0));
 
 	if (Begin("Debug"))
 	{

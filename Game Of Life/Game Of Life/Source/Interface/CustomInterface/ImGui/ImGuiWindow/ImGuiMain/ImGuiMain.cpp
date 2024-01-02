@@ -13,8 +13,8 @@ const char* FontSizes[4] = {
 
 void ImGuiMain::Render()
 {
-	SetNextWindowPos(ImVec2(50, 50), ImGuiCond_FirstUseEver);
-	SetNextWindowSize(ImVec2(250, 600), ImGuiCond_FirstUseEver);
+	SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
+	SetNextWindowSize(ImVec2(250, -1), ImGuiCond_FirstUseEver);
 
 	if (Begin("Settings"))
 	{
