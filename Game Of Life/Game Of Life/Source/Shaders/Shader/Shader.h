@@ -2,7 +2,7 @@
 
 #include <string>
 
-using std::string;
+using std::string_view;
 
 class Shader
 {
@@ -10,16 +10,15 @@ class Shader
 		Shader(const char* vertexShaderName, const char* fragmentShaderName);
 		unsigned int GetId() const;
 		void Activate() const;
-		void SetInt(const string& name, int value) const;
-		void SetBool(const string& name, bool value) const;
-		void SetFloat(const string& name, float value) const;
+		void SetInt(const string_view name, int value) const;
+		void SetBool(const string_view name, bool value) const;
+		void SetFloat(const string_view name, float value) const;
 		~Shader();
 
 	protected:
 		Shader() = default;
 		unsigned int id = 0;
 
-	private:
-		unsigned int Compile(const string vertexCode, int type, const char* shaderName);
-		void Link(unsigned int vertexId, unsigned int fragmentId);
+		unsigned int Compile(const char* shaderName, int type, const char* code);
+		void Link(unsigned int* shaderIds, unsigned int shaderCount);
 };

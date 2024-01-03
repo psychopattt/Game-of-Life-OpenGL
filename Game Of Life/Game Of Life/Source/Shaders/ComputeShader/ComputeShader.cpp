@@ -5,79 +5,33 @@
 #include "Settings/Settings.h"
 #include "glad/glad.h"
 
-ComputeShader::ComputeShader(const char* shaderName, unsigned int width, unsigned int height, unsigned int depth)
+ComputeShader::ComputeShader(const char* shaderName, unsigned int width,
+	unsigned int height, unsigned int depth)
 {
-	const string code = ShaderProvider::GetCode(shaderName);
+	const std::string code = ShaderProvider::GetCode(shaderName);
 
 	if (!code.empty())
 	{
-		unsigned int globalSize[3] = { width, height, depth };
-		std::copy(globalSize, std::end(globalSize), this->globalSize);
-
-		const unsigned int shaderId = Compile(code, shaderName);
-		Link(shaderId, shaderName);
-		ExtractLocalGroupSize();
+		unsigned int shaderId = Compile(shaderName, GL_COMPUTE_SHADER, code.c_str());
+		Link(&shaderId, 1);
+		ComputeGroupCounts(width, height, depth);
 	}
 }
 
-unsigned int ComputeShader::Compile(const string code, const char* shaderName)
+void ComputeShader::ComputeGroupCounts(unsigned int globalWidth,
+	unsigned int globalHeight, unsigned int globalDepth)
 {
-	int success;
-	char log[512];
-	const char* codeChars = code.c_str();
-
-	unsigned int shaderId = glCreateShader(GL_COMPUTE_SHADER);
-	glShaderSource(shaderId, 1, &codeChars, NULL);
-	glCompileShader(shaderId);
-
-	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(shaderId, sizeof(log) / sizeof(*log), NULL, log);
-		Settings::log << "Compute Shader Error - Compilation failed for \"" <<
-			shaderName << "\"\n" << log << "\n";
-		return NULL;
-	}
-
-	return shaderId;
-}
-
-void ComputeShader::Link(unsigned int shaderId, const char* shaderName)
-{
-	int success;
-	char log[512];
-
-	id = glCreateProgram();
-	glAttachShader(id, shaderId);
-	glLinkProgram(id);
-
-	glGetProgramiv(id, GL_LINK_STATUS, &success);
-
-	if (!success)
-	{
-		glGetProgramInfoLog(id, sizeof(log) / sizeof(*log), NULL, log);
-		Settings::log << "Compute Shader Error - Linking failed for \"" <<
-			shaderName << "\"\n" << log << "\n";
-	}
-
-	glDeleteShader(shaderId);
-}
-
-void ComputeShader::ExtractLocalGroupSize()
-{
+	int localSize[3] = { 1, 1, 1 };
 	glGetProgramiv(id, GL_COMPUTE_WORK_GROUP_SIZE, localSize);
+	unsigned int globalSize[3] = { globalWidth, globalHeight, globalDepth };
+
+	for (char i = 0; i < std::size(localSize); i++)
+		groupCounts[i] = globalSize[i] / localSize[i];
 }
 
 void ComputeShader::Execute() const
 {
 	Activate();
-
-	glDispatchCompute(
-		globalSize[0] / localSize[0],
-		globalSize[1] / localSize[1],
-		globalSize[2] / localSize[2]
-	);
-
+	glDispatchCompute(groupCounts[0], groupCounts[1], groupCounts[2]);
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 }
