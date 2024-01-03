@@ -7,7 +7,7 @@
 
 using namespace ImGui;
 
-const char* FontSizes[] = {
+static const char* FontSizes[] = {
 	"Small", "Medium", "Large", "Very Large"
 };
 

@@ -1,5 +1,7 @@
 #include "ComputeShader.h"
 
+#include <string>
+
 #include "../ShaderProvider/ShaderProvider.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"

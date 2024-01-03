@@ -11,7 +11,7 @@
 
 using namespace std;
 
-static const string shaderExtension = ".glsl";
+static constexpr char shaderExtension[] = ".glsl";
 
 const string ShaderProvider::GetCode(string shaderName)
 {
@@ -37,14 +37,14 @@ constexpr uint32_t ShaderProvider::GetHash(const string_view text) noexcept
 
 #if DEBUG
 
-static const string shaderPath = "../../Game Of Life/Source/Shaders/Shaders/";
-static const string packedShaderPath = "../../Game Of Life/Source/Shaders/ShaderProvider/PackedShaders.cpp";
+static constexpr char shaderPath[] = "../../Game Of Life/Source/Shaders/Shaders/";
+static constexpr char packedShaderPath[] = "../../Game Of Life/Source/Shaders/ShaderProvider/PackedShaders.cpp";
 
 const string ShaderProvider::ReadFile(const string& shaderName)
 {
 	ifstream file;
 	file.exceptions(ifstream::failbit | ifstream::badbit);
-	const string& fullPath = FindFile(shaderName);
+	const string fullPath = FindFile(shaderName);
 
 	try
 	{
@@ -71,7 +71,7 @@ const string ShaderProvider::FindFile(const string& searchedFile)
 
 	for (const directory_entry& file : recursive_directory_iterator(shaderPath))
 	{
-		const string& filePath = file.path().string();
+		const string filePath = file.path().string();
 
 		if (filePath.ends_with(searchedFile))
 			return filePath;
@@ -133,7 +133,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
 
 const string ShaderProvider::UnpackShader(const string& shaderName)
 {
-	const string& code = UnpackCode(GetHash(shaderName));
+	const string code = UnpackCode(GetHash(shaderName));
 
 	if (code.empty())
 		Settings::log << "Shader Error - Failed to load shader \"" << shaderName << "\"\n";

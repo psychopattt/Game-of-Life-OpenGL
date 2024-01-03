@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+#include <string>
+
 #include "../ShaderProvider/ShaderProvider.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
@@ -76,19 +78,19 @@ void Shader::Activate() const
 	glUseProgram(id);
 }
 
-void Shader::SetInt(const string_view name, int value) const
+void Shader::SetInt(const char* name, int value) const
 {
-	glProgramUniform1i(id, glGetUniformLocation(id, name.data()), value);
+	glProgramUniform1i(id, glGetUniformLocation(id, name), value);
 }
 
-void Shader::SetBool(const string_view name, bool value) const
+void Shader::SetBool(const char* name, bool value) const
 {
 	SetInt(name, (int)value);
 }
 
-void Shader::SetFloat(const string_view name, float value) const
+void Shader::SetFloat(const char* name, float value) const
 {
-	glProgramUniform1f(id, glGetUniformLocation(id, name.data()), value);
+	glProgramUniform1f(id, glGetUniformLocation(id, name), value);
 }
 
 Shader::~Shader()
