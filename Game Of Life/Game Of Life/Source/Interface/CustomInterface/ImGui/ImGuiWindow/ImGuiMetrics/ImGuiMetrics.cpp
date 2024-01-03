@@ -96,7 +96,7 @@ void ImGuiMetrics::RenderMetrics()
 	AppendMetricsType(Interface, "Interface: ", metrics + 2);
 
 	double imGuiFps = GetIO().Framerate;
-	double imGuiMetrics[2] = { imGuiFps, 1000.0 / imGuiFps };
+	double imGuiMetrics[] = { imGuiFps, 1000.0 / imGuiFps };
 	AppendMetricsType(DearImGui, "ImGui: ", imGuiMetrics);
 
 	Text(metricsText.c_str());
@@ -130,7 +130,7 @@ void ImGuiMetrics::AppendFormattedMetric(double metric, const char* units)
 	char formattedMetric[10];
 
 	snprintf(
-		formattedMetric, sizeof(formattedMetric) / sizeof(*formattedMetric),
+		formattedMetric, std::size(formattedMetric),
 		"%.*f", metricsDigits, metric
 	);
 

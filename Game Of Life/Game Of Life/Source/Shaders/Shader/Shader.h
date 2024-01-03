@@ -20,5 +20,5 @@ class Shader
 		unsigned int id = 0;
 
 		unsigned int Compile(const char* shaderName, int type, const char* code);
-		void Link(unsigned int* shaderIds, unsigned int shaderCount);
+		void Link(unsigned int* shaderIds, size_t shaderCount);
 };

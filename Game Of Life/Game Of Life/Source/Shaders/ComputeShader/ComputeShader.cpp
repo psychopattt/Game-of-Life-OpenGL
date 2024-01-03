@@ -21,11 +21,11 @@ ComputeShader::ComputeShader(const char* shaderName, unsigned int width,
 void ComputeShader::ComputeGroupCounts(unsigned int globalWidth,
 	unsigned int globalHeight, unsigned int globalDepth)
 {
-	int localSize[3] = { 1, 1, 1 };
+	int localSize[] = { 1, 1, 1 };
 	glGetProgramiv(id, GL_COMPUTE_WORK_GROUP_SIZE, localSize);
-	unsigned int globalSize[3] = { globalWidth, globalHeight, globalDepth };
+	unsigned int globalSize[] = { globalWidth, globalHeight, globalDepth };
 
-	for (char i = 0; i < std::size(localSize); i++)
+	for (char i = 0; i < std::size(groupCounts); i++)
 		groupCounts[i] = globalSize[i] / localSize[i];
 }
 

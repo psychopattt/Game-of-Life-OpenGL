@@ -7,7 +7,7 @@
 
 using namespace ImGui;
 
-const char* FontSizes[4] = {
+const char* FontSizes[] = {
 	"Small", "Medium", "Large", "Very Large"
 };
 
@@ -35,10 +35,10 @@ void ImGuiMain::RenderSimulationSection()
 	if (CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		SeparatorText("Position");
-		long long position[2] = { TransformSettings::PanX, TransformSettings::PanY };
+		long long position[] = { TransformSettings::PanX, TransformSettings::PanY };
 		
 		if (SliderScalarN("##sliderPosition", ImGuiDataType_S64, position,
-			sizeof(position) / sizeof(*position), &TransformSettings::MinUiPan,
+			static_cast<int>(std::size(position)), &TransformSettings::MinUiPan,
 			&TransformSettings::MaxUiPan))
 		{
 			TransformSettings::PanX = position[0];

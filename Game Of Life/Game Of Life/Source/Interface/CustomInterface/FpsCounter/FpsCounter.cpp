@@ -40,8 +40,8 @@ std::string FpsCounter::ToString() const
 	char buffer[25];
 
 	snprintf(
-		buffer, sizeof(buffer) / sizeof(*buffer),
-		"%.2ffps, %.3fms", fps, frametime
+		buffer, std::size(buffer), "%.2ffps,"
+		"%.3fms", fps, frametime
 	);
 
 	return buffer;

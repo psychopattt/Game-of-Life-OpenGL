@@ -83,7 +83,7 @@ bool ScreenDrawer::UpdateZoom()
 
 	double scaledZoom = ScaleZoom(TransformSettings::Zoom);
 	
-	for (int i = 0; i < sizeof(quadVertices) / sizeof(*quadVertices); i += 4)
+	for (int i = 0; i < std::size(quadVertices); i += 4)
 	{
 		quadVertices[i] = initialQuadVertices[i] * scaledZoom;
 		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaledZoom;
@@ -158,7 +158,7 @@ bool ScreenDrawer::UpdatePan()
 	double panY = ComputePanAxis(lastPanY, PanY, PanOffsetY);
 
 	// Apply new vertex coordinates
-	for (int i = 2; i < sizeof(quadVertices) / sizeof(*quadVertices); i += 4)
+	for (int i = 2; i < std::size(quadVertices); i += 4)
 	{
 		quadVertices[i] = initialQuadVertices[i] + panX;
 		quadVertices[i + 1] = initialQuadVertices[i + 1] + panY;

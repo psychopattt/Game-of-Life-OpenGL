@@ -33,7 +33,7 @@ unsigned int Shader::Compile(const char* shaderName, int type, const char* code)
 	if (!success)
 	{
 		char log[512];
-		glGetShaderInfoLog(shaderId, std::size(log), NULL, log);
+		glGetShaderInfoLog(shaderId, static_cast<int>(std::size(log)), NULL, log);
 		Settings::log << "Shader Error - Compilation failed for \"" <<
 			shaderName << "\"\n" << log << "\n";
 
@@ -43,7 +43,7 @@ unsigned int Shader::Compile(const char* shaderName, int type, const char* code)
 	return shaderId;
 }
 
-void Shader::Link(unsigned int* shaderIds, unsigned int shaderCount)
+void Shader::Link(unsigned int* shaderIds, size_t shaderCount)
 {
 	id = glCreateProgram();
 
@@ -58,7 +58,7 @@ void Shader::Link(unsigned int* shaderIds, unsigned int shaderCount)
 	if (!success)
 	{
 		char log[512];
-		glGetProgramInfoLog(id, std::size(log), NULL, log);
+		glGetProgramInfoLog(id, static_cast<int>(std::size(log)), NULL, log);
 		Settings::log << "Shader Error - Linking failed\n" << log << "\n";
 	}
 
