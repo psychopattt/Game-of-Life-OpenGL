@@ -4,10 +4,12 @@
 #include "./MouseInputs/MouseInputs.h"
 #include "GLFW/glfw3.h"
 
+using std::make_unique;
+
 InputHandler::InputHandler()
 {
-	mouseInputs = new MouseInputs();
-	keyboardInputs = new KeyboardInputs();
+	mouseInputs = make_unique<MouseInputs>();
+	keyboardInputs = make_unique<KeyboardInputs>();
 }
 
 void InputHandler::HandleMouseScroll(GLFWwindow* window, double offsetX, double offsetY)
@@ -35,8 +37,4 @@ void InputHandler::Update()
 	keyboardInputs->Update(deltaTime);
 }
 
-InputHandler::~InputHandler()
-{
-	delete keyboardInputs;
-	delete mouseInputs;
-}
+InputHandler::~InputHandler() { }

@@ -15,12 +15,14 @@
 #include "WindowTitle/WindowTitle.h"
 #include "ImGui/ImGuiHandler/ImGuiHandler.h"
 
+using std::make_unique;
+
 CustomInterface::CustomInterface(int width, int height, int simWidth,
 	int simHeight, string title) : width(width), height(height),
 	simWidth(simWidth), simHeight(simHeight), initialWidth(width),
 	initialHeight(height)
 {
-	this->title = new WindowTitle(title);
+	this->title = make_unique<WindowTitle>(title);
 
 	glfwInit();
 	SetVersion(4, 6);
@@ -30,8 +32,8 @@ CustomInterface::CustomInterface(int width, int height, int simWidth,
 	CreateFpsHandlers();
 
 	Settings::gui = this;
-	inputHandler = new InputHandler();
-	imGuiHandler = new ImGuiHandler(window);
+	inputHandler = make_unique<InputHandler>();
+	imGuiHandler = make_unique<ImGuiHandler>(window);
 
 	// Create the OpenGL window
 	ResizeCallback(window, width, height);
@@ -82,10 +84,10 @@ void CustomInterface::InitializeGlad()
 void CustomInterface::CreateFpsHandlers()
 {
 	Settings::TargetFps = (float)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
-	gameFpsLimiter = new FpsLimiter(Settings::TargetFps);
-	uiFpsLimiter = new FpsLimiter(Settings::TargetFps);
-	gameFpsCounter = new FpsCounter(10);
-	uiFpsCounter = new FpsCounter(2);
+	gameFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
+	uiFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
+	gameFpsCounter = make_unique<FpsCounter>(10);
+	uiFpsCounter = make_unique<FpsCounter>(2);
 }
 
 bool CustomInterface::ShouldExit() const
@@ -233,7 +235,7 @@ const double* CustomInterface::GetMetrics() const
 
 WindowTitle* CustomInterface::GetTitle() const
 {
-	return title;
+	return title.get();
 }
 
 void CustomInterface::GetMousePosition(double* posX, double* posY) const
@@ -248,14 +250,6 @@ GLFWwindow* CustomInterface::GetWindow() const
 
 CustomInterface::~CustomInterface()
 {
-	delete title;
-	delete inputHandler;
-	delete uiFpsLimiter;
-	delete uiFpsCounter;
-	delete gameFpsLimiter;
-	delete gameFpsCounter;
-
-	delete imGuiHandler;
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }

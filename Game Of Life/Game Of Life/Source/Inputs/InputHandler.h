@@ -1,5 +1,9 @@
 #pragma once
 
+#include <memory>
+
+using std::unique_ptr;
+
 struct GLFWwindow;
 
 class InputHandler
@@ -14,6 +18,6 @@ class InputHandler
 
 	private:
 		double lastTime = 0;
-		class MouseInputs* mouseInputs;
-		class KeyboardInputs* keyboardInputs;
+		unique_ptr<class MouseInputs> mouseInputs;
+		unique_ptr<class KeyboardInputs> keyboardInputs;
 };

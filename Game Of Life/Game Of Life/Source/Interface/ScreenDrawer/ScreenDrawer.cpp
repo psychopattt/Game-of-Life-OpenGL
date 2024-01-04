@@ -10,18 +10,20 @@
 #include "Shaders/Buffers/Texture/Texture.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
 
+using std::make_unique;
+
 ScreenDrawer::ScreenDrawer()
 {
 	GenerateVertexObjects();
 
 	int simWidth = Settings::gui->GetSimWidth();
 	int simHeight = Settings::gui->GetSimHeight();
-	texture = new Texture(simWidth, simHeight);
+	texture = make_unique<Texture>(simWidth, simHeight);
 
-	screenQuad = new Shader("VertexDefault", "FragmentDefault");
+	screenQuad = make_unique<Shader>("VertexDefault", "FragmentDefault");
 	screenQuad->SetInt("dataTexture", 0);
 
-	bufferConverter = new ComputeShader("BufferConverter", simWidth, simHeight);
+	bufferConverter = make_unique<ComputeShader>("BufferConverter", simWidth, simHeight);
 	bufferConverter->SetInt("width", simWidth);
 }
 
@@ -197,9 +199,4 @@ double ScreenDrawer::ComputePanAxis(long long& lastPan, long long& currentPan, l
 	return static_cast<double>(currentPan) / MaxPan;
 }
 
-ScreenDrawer::~ScreenDrawer()
-{
-	delete texture;
-	delete screenQuad;
-	delete bufferConverter;
-}
+ScreenDrawer::~ScreenDrawer() { }

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
-using std::string;
+using std::unique_ptr, std::string;
 
 class FpsLimiter;
 class FpsCounter;
@@ -40,14 +41,13 @@ class CustomInterface
 		double metrics[4] = { };
 
 		GLFWwindow* window;
-		class WindowTitle* title;
-		FpsLimiter* uiFpsLimiter;
-		FpsCounter* uiFpsCounter;
-		FpsLimiter* gameFpsLimiter;
-		FpsCounter* gameFpsCounter;
-		class ImGuiWindow* imGuiWindows;
-		class ImGuiHandler* imGuiHandler;
-		class InputHandler* inputHandler;
+		unique_ptr<class WindowTitle> title;
+		unique_ptr<FpsLimiter> uiFpsLimiter;
+		unique_ptr<FpsCounter> uiFpsCounter;
+		unique_ptr<FpsLimiter> gameFpsLimiter;
+		unique_ptr<FpsCounter> gameFpsCounter;
+		unique_ptr<class ImGuiHandler> imGuiHandler;
+		unique_ptr<class InputHandler> inputHandler;
 
 		void SetVersion(char major, char minor) const;
 		void CreateWindow();

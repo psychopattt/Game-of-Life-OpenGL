@@ -1,5 +1,9 @@
 #pragma once
 
+#include <memory>
+
+using std::unique_ptr;
+
 class ScreenDrawer
 {
 	public:
@@ -10,9 +14,9 @@ class ScreenDrawer
 	private:
 		unsigned int vertexArrayId;
 		unsigned int vertexBufferId;
-		class Texture* texture;
-		class Shader* screenQuad;
-		class ComputeShader* bufferConverter;
+		unique_ptr<class Texture> texture;
+		unique_ptr<class Shader> screenQuad;
+		unique_ptr<class ComputeShader> bufferConverter;
 
 		long long lastPanX = 0;
 		long long lastPanY = 0;
