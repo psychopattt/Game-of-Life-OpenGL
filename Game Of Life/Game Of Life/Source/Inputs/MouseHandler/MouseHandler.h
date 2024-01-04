@@ -2,7 +2,7 @@
 
 struct GLFWwindow;
 
-class MouseInputs
+class MouseHandler
 {
 	public:
 		void HandleMouseScroll(GLFWwindow* window, double offsetX, double offsetY);

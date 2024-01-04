@@ -6,7 +6,7 @@ namespace Settings
 	extern bool ThreadSleep;
 	extern float TargetFps;
 
-	extern class CustomInterface* gui;
+	extern class Interface* gui;
 	extern bool FullscreenEnabled;
 	extern int SelectedFontSize;
 

@@ -1,30 +1,30 @@
 #include "InputHandler.h"
 
-#include "./KeyboardInputs/KeyboardInputs.h"
-#include "./MouseInputs/MouseInputs.h"
+#include "./KeyboardHandler/KeyboardHandler.h"
+#include "./MouseHandler/MouseHandler.h"
 #include "GLFW/glfw3.h"
 
 using std::make_unique;
 
 InputHandler::InputHandler()
 {
-	mouseInputs = make_unique<MouseInputs>();
-	keyboardInputs = make_unique<KeyboardInputs>();
+	mouseHandler = make_unique<MouseHandler>();
+	keyboardHandler = make_unique<KeyboardHandler>();
 }
 
 void InputHandler::HandleMouseScroll(GLFWwindow* window, double offsetX, double offsetY)
 {
-	mouseInputs->HandleMouseScroll(window, offsetX, offsetY);
+	mouseHandler->HandleMouseScroll(window, offsetX, offsetY);
 }
 
 void InputHandler::HandleMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
-	mouseInputs->HandleMouseButton(window, button, action, mods);
+	mouseHandler->HandleMouseButton(window, button, action, mods);
 }
 
 void InputHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
-	keyboardInputs->HandleKeyboard(window, key, scanCode, action, mods);
+	keyboardHandler->HandleKeyboard(window, key, scanCode, action, mods);
 }
 
 void InputHandler::Update()
@@ -33,8 +33,8 @@ void InputHandler::Update()
 	double deltaTime = currentTime - lastTime;
 	lastTime = currentTime;
 
-	mouseInputs->Update();
-	keyboardInputs->Update(deltaTime);
+	mouseHandler->Update();
+	keyboardHandler->Update(deltaTime);
 }
 
 InputHandler::~InputHandler() { }

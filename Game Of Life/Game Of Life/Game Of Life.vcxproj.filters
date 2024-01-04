@@ -37,10 +37,10 @@
     <ClInclude Include="Source\Shaders\ComputeShader\ComputeShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\FpsCounter\FpsCounter.h">
+    <ClInclude Include="Source\Interface\FpsCounter\FpsCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\FpsLimiter\FpsLimiter.h">
+    <ClInclude Include="Source\Interface\FpsLimiter\FpsLimiter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Shaders\Shader\Shader.h">
@@ -52,16 +52,16 @@
     <ClInclude Include="Source\Shaders\ShaderProvider\ShaderProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\CustomInterface.h">
+    <ClInclude Include="Source\Interface\Interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ScreenDrawer\ScreenDrawer.h">
+    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\WindowTitle\WindowTitle.h">
+    <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Libraries\include\imgui\imgui.h">
@@ -91,40 +91,40 @@
     <ClInclude Include="Libraries\include\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiHandler\ImGuiHandler.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiWindow.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\UpdateType.h">
+    <ClInclude Include="Source\Settings\UpdateType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Settings\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Settings\LogString\LogString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h">
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Inputs\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\KeyboardInputs\KeyboardInputs.h">
+    <ClInclude Include="Source\Inputs\KeyboardHandler\KeyboardHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\MouseInputs\MouseInputs.h">
+    <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h">
@@ -141,10 +141,10 @@
     <ClCompile Include="Source\Shaders\ComputeShader\ComputeShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\FpsCounter\FpsCounter.cpp">
+    <ClCompile Include="Source\Interface\FpsCounter\FpsCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\FpsLimiter\FpsLimiter.cpp">
+    <ClCompile Include="Source\Interface\FpsLimiter\FpsLimiter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shaders\Shader\Shader.cpp">
@@ -159,16 +159,16 @@
     <ClCompile Include="Libraries\include\glad\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\CustomInterface.cpp">
+    <ClCompile Include="Source\Interface\Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\ScreenDrawer\ScreenDrawer.cpp">
+    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\WindowTitle\WindowTitle.cpp">
+    <ClCompile Include="Source\Interface\WindowTitle\WindowTitle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\include\imgui\imgui.cpp">
@@ -192,13 +192,13 @@
     <ClCompile Include="Libraries\include\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiHandler\ImGuiHandler.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\include\imgui\ProggyRegular.cpp">
@@ -210,28 +210,28 @@
     <ClCompile Include="Source\Shaders\ShaderProvider\PackedShaders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\LogString\LogString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Inputs\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputs\KeyboardInputs\KeyboardInputs.cpp">
+    <ClCompile Include="Source\Inputs\KeyboardHandler\KeyboardHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputs\MouseInputs\MouseInputs.cpp">
+    <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\CustomInterface\CustomInterfaceCallbacks.cpp">
+    <ClCompile Include="Source\Interface\InterfaceCallbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp">

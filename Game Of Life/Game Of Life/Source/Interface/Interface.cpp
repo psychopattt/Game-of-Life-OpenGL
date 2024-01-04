@@ -1,4 +1,4 @@
-#include "CustomInterface.h"
+#include "Interface.h"
 
 #include <cmath>
 #include <chrono>
@@ -6,9 +6,9 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-#include "UpdateType.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
+#include "Settings/UpdateType.h"
 #include "Inputs/InputHandler.h"
 #include "FpsLimiter/FpsLimiter.h"
 #include "FpsCounter/FpsCounter.h"
@@ -17,7 +17,7 @@
 
 using std::make_unique;
 
-CustomInterface::CustomInterface(int width, int height, int simWidth,
+Interface::Interface(int width, int height, int simWidth,
 	int simHeight, string title) : width(width), height(height),
 	simWidth(simWidth), simHeight(simHeight), initialWidth(width),
 	initialHeight(height)
@@ -39,7 +39,7 @@ CustomInterface::CustomInterface(int width, int height, int simWidth,
 	ResizeCallback(window, width, height);
 }
 
-void CustomInterface::SetVersion(char major, char minor) const
+void Interface::SetVersion(char major, char minor) const
 {
 	// Set OpenGL major (x.) and minor (.x) version 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
@@ -49,7 +49,7 @@ void CustomInterface::SetVersion(char major, char minor) const
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-void CustomInterface::CreateWindow()
+void Interface::CreateWindow()
 {
 	// Create the GLFW window
 	window = glfwCreateWindow(width, height, title->ToString().c_str(), NULL, NULL);
@@ -72,7 +72,7 @@ void CustomInterface::CreateWindow()
 	);
 }
 
-void CustomInterface::InitializeGlad()
+void Interface::InitializeGlad()
 {
 	// Load GLAD and let it configure OpenGL
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -81,7 +81,7 @@ void CustomInterface::InitializeGlad()
 	}
 }
 
-void CustomInterface::CreateFpsHandlers()
+void Interface::CreateFpsHandlers()
 {
 	Settings::TargetFps = (float)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
 	gameFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
@@ -90,12 +90,12 @@ void CustomInterface::CreateFpsHandlers()
 	uiFpsCounter = make_unique<FpsCounter>(2);
 }
 
-bool CustomInterface::ShouldExit() const
+bool Interface::ShouldExit() const
 {
 	return glfwWindowShouldClose(window);
 }
 
-UpdateType CustomInterface::Update()
+UpdateType Interface::Update()
 {
 	UpdateType updateType = None;
 
@@ -105,7 +105,7 @@ UpdateType CustomInterface::Update()
 	if (gameFpsLimiter->Update() || stepFrame)
 	{
 		stepFrame = false;
-		updateType |= Game;
+		updateType |= Simulation;
 
 		if (gameFpsCounter->Update())
 		{
@@ -117,7 +117,7 @@ UpdateType CustomInterface::Update()
 
 	if (uiFpsLimiter->Update())
 	{
-		updateType |= Interface;
+		updateType |= Display;
 
 		if (uiFpsCounter->Update())
 		{
@@ -136,7 +136,7 @@ UpdateType CustomInterface::Update()
 	return updateType;
 }
 
-void CustomInterface::UpdateTitle() const
+void Interface::UpdateTitle() const
 {
 	if (title->IsOutdated())
 	{
@@ -145,7 +145,7 @@ void CustomInterface::UpdateTitle() const
 	}
 }
 
-void CustomInterface::ComputeViewportSettings()
+void Interface::ComputeViewportSettings()
 {
 	float simAspectRatio = static_cast<float>(simWidth) / simHeight;
 
@@ -163,7 +163,7 @@ void CustomInterface::ComputeViewportSettings()
 	}
 }
 
-void CustomInterface::ApplyFullscreenState() const
+void Interface::ApplyFullscreenState() const
 {
 	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* videoMode = glfwGetVideoMode(primaryMonitor);
@@ -185,14 +185,14 @@ void CustomInterface::ApplyFullscreenState() const
 	}
 }
 
-void CustomInterface::SetTargetFps(float targetFps) const
+void Interface::SetTargetFps(float targetFps) const
 {
 	Settings::TargetFps = targetFps < 0 ? 0 : targetFps;
 	Settings::ThreadSleep = Settings::TargetFps < 100;
 	gameFpsLimiter->SetTargetFps(Settings::TargetFps);
 }
 
-void CustomInterface::StepFrame()
+void Interface::StepFrame()
 {
 	if (Settings::TargetFps > 0)
 		SetTargetFps(0);
@@ -200,27 +200,27 @@ void CustomInterface::StepFrame()
 	stepFrame = true;
 }
 
-int CustomInterface::GetWidth() const
+int Interface::GetWidth() const
 {
 	return width;
 }
 
-int CustomInterface::GetHeight() const
+int Interface::GetHeight() const
 {
 	return height;
 }
 
-int CustomInterface::GetSimWidth() const
+int Interface::GetSimWidth() const
 {
 	return simWidth;
 }
 
-int CustomInterface::GetSimHeight() const
+int Interface::GetSimHeight() const
 {
 	return simHeight;
 }
 
-void CustomInterface::GetViewportSize(int& width, int& height) const
+void Interface::GetViewportSize(int& width, int& height) const
 {
 	int viewportSettings[4];
 	glGetIntegerv(GL_VIEWPORT, viewportSettings);
@@ -228,27 +228,27 @@ void CustomInterface::GetViewportSize(int& width, int& height) const
 	height = viewportSettings[3];
 }
 
-const double* CustomInterface::GetMetrics() const
+const double* Interface::GetMetrics() const
 {
 	return metrics;
 }
 
-WindowTitle* CustomInterface::GetTitle() const
+WindowTitle* Interface::GetTitle() const
 {
 	return title.get();
 }
 
-void CustomInterface::GetMousePosition(double* posX, double* posY) const
+void Interface::GetMousePosition(double* posX, double* posY) const
 {
-	glfwGetCursorPos(Settings::gui->GetWindow(), posX, posY);
+	glfwGetCursorPos(window, posX, posY);
 }
 
-GLFWwindow* CustomInterface::GetWindow() const
+GLFWwindow* Interface::GetWindow() const
 {
 	return window;
 }
 
-CustomInterface::~CustomInterface()
+Interface::~Interface()
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();

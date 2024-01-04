@@ -1,6 +1,6 @@
 #pragma once
 
-class KeyboardInputs
+class KeyboardHandler
 {
 	public:
 		void HandleKeyboard(struct GLFWwindow* window, int key, int scanCode, int action, int mods);

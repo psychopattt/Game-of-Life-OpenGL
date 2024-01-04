@@ -1,5 +1,5 @@
-#include "Interface/CustomInterface/CustomInterface.h"
 #include "Settings/LogString/LogString.h"
+#include "Interface/Interface.h"
 
 namespace Settings
 {
@@ -7,7 +7,7 @@ namespace Settings
 	bool ThreadSleep = true;
 	float TargetFps = 100;
 
-	CustomInterface* gui = nullptr;
+	Interface* gui = nullptr;
 	bool FullscreenEnabled = false;
 	int SelectedFontSize = 1;
 

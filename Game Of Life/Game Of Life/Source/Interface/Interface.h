@@ -10,10 +10,10 @@ class FpsCounter;
 struct GLFWwindow;
 enum UpdateType : char;
 
-class CustomInterface
+class Interface
 {
 	public:
-		CustomInterface(int width, int height, int simWidth, int simHeight, string title);
+		Interface(int width, int height, int simWidth, int simHeight, string title);
 		bool ShouldExit() const;
 		UpdateType Update();
 		void ApplyFullscreenState() const;
@@ -28,7 +28,7 @@ class CustomInterface
 		class WindowTitle* GetTitle() const;
 		void GetMousePosition(double* posX, double* posY) const;
 		GLFWwindow* GetWindow() const;
-		~CustomInterface();
+		~Interface();
 
 	private:
 		int width;

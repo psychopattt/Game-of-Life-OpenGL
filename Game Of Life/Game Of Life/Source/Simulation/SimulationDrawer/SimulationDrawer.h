@@ -4,12 +4,12 @@
 
 using std::unique_ptr;
 
-class ScreenDrawer
+class SimulationDrawer
 {
 	public:
-		ScreenDrawer();
+		SimulationDrawer();
 		void Draw();
-		~ScreenDrawer();
+		~SimulationDrawer();
 
 	private:
 		unsigned int vertexArrayId;

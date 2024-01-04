@@ -1,10 +1,10 @@
-#include "ScreenDrawer.h"
+#include "SimulationDrawer.h"
 
 #include <cmath>
 
 #include "glad/glad.h"
 #include "Settings/TransformSettings/TransformSettings.h"
-#include "Interface/CustomInterface/CustomInterface.h"
+#include "Interface/Interface.h"
 #include "Settings/Settings.h"
 #include "Shaders/Shader/Shader.h"
 #include "Shaders/Buffers/Texture/Texture.h"
@@ -12,7 +12,7 @@
 
 using std::make_unique;
 
-ScreenDrawer::ScreenDrawer()
+SimulationDrawer::SimulationDrawer()
 {
 	GenerateVertexObjects();
 
@@ -27,7 +27,7 @@ ScreenDrawer::ScreenDrawer()
 	bufferConverter->SetInt("width", simWidth);
 }
 
-void ScreenDrawer::GenerateVertexObjects()
+void SimulationDrawer::GenerateVertexObjects()
 {
 	std::copy(initialQuadVertices, std::end(initialQuadVertices), quadVertices);
 
@@ -48,7 +48,7 @@ void ScreenDrawer::GenerateVertexObjects()
 	);
 }
 
-void ScreenDrawer::Draw()
+void SimulationDrawer::Draw()
 {
 	ApplyTransforms();
 	bufferConverter->Execute();
@@ -62,7 +62,7 @@ void ScreenDrawer::Draw()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-void ScreenDrawer::ApplyTransforms()
+void SimulationDrawer::ApplyTransforms()
 {
 	bool updatedZoom = UpdateZoom();
 	bool updatedPan = UpdatePan();
@@ -78,7 +78,7 @@ void ScreenDrawer::ApplyTransforms()
 	}
 }
 
-bool ScreenDrawer::UpdateZoom()
+bool SimulationDrawer::UpdateZoom()
 {
 	if (lastZoom == TransformSettings::Zoom)
 		return false;
@@ -97,7 +97,7 @@ bool ScreenDrawer::UpdateZoom()
 	return true;
 }
 
-void ScreenDrawer::ApplyMouseZoomPan()
+void SimulationDrawer::ApplyMouseZoomPan()
 {
 	using Settings::gui, TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
 
@@ -114,7 +114,7 @@ void ScreenDrawer::ApplyMouseZoomPan()
 	PanOffsetY = -ComputePanOffsetAxis(mousePosY, gui->GetHeight(), viewportHeight, oldZoomMaxPan, newZoomMaxPan);
 }
 
-double ScreenDrawer::ComputeMaxPanAtZoom(unsigned short zoom)
+double SimulationDrawer::ComputeMaxPanAtZoom(unsigned short zoom)
 {
 	// Calculate pan scale at specified zoom
 	double panScale = 1.0 / ScaleZoom(zoom);
@@ -123,7 +123,7 @@ double ScreenDrawer::ComputeMaxPanAtZoom(unsigned short zoom)
 	return TransformSettings::MaxPan * panScale;
 }
 
-long long ScreenDrawer::ComputePanOffsetAxis(double screenCoord, double screenSize,
+long long SimulationDrawer::ComputePanOffsetAxis(double screenCoord, double screenSize,
 	double viewportSize, double oldWorldSize, double newWorldSize)
 {
 	// Get screen coord relative to center [-1, 1] from absolute screen coord
@@ -143,12 +143,12 @@ long long ScreenDrawer::ComputePanOffsetAxis(double screenCoord, double screenSi
 	return llround(oldWorldCoord - newWorldCoord);
 }
 
-double ScreenDrawer::ScaleZoom(unsigned short zoom)
+double SimulationDrawer::ScaleZoom(unsigned short zoom)
 {
 	return pow(1.2, static_cast<double>(zoom) / TransformSettings::FastMultiplier);
 }
 
-bool ScreenDrawer::UpdatePan()
+bool SimulationDrawer::UpdatePan()
 {
 	using TransformSettings::PanX, TransformSettings::PanY,
 		TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
@@ -169,7 +169,7 @@ bool ScreenDrawer::UpdatePan()
 	return true;
 }
 
-double ScreenDrawer::ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset)
+double SimulationDrawer::ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset)
 {
 	using TransformSettings::MaxPan, TransformSettings::Zoom, TransformSettings::FastMultiplier;
 
@@ -199,4 +199,4 @@ double ScreenDrawer::ComputePanAxis(long long& lastPan, long long& currentPan, l
 	return static_cast<double>(currentPan) / MaxPan;
 }
 
-ScreenDrawer::~ScreenDrawer() { }
+SimulationDrawer::~SimulationDrawer() { }

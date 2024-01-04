@@ -1,8 +1,8 @@
-#include "Shaders/ComputeShader/ComputeShader.h"
-#include "Interface/ScreenDrawer/ScreenDrawer.h"
-#include "Interface/CustomInterface/UpdateType.h"
-#include "Interface/CustomInterface/CustomInterface.h"
 #include "Shaders/Buffers/DualComputeBuffer/DualComputeBuffer.h"
+#include "Simulation/SimulationDrawer/SimulationDrawer.h"
+#include "Shaders/ComputeShader/ComputeShader.h"
+#include "Interface/Interface.h"
+#include "Settings/UpdateType.h"
 
 int main()
 {
@@ -11,8 +11,8 @@ int main()
 	int simWidth = 640;
 	int simHeight = 360;
 
-	CustomInterface gui(uiWidth, uiHeight, simWidth, simHeight, "Game Of Life");
-	ScreenDrawer screenDrawer = ScreenDrawer();
+	Interface gui(uiWidth, uiHeight, simWidth, simHeight, "Game Of Life");
+	SimulationDrawer simDrawer = SimulationDrawer();
 
 	unsigned int* bufferData = new unsigned int[simWidth * simHeight] { };
 	DualComputeBuffer dualBuffer(bufferData, simWidth * simHeight * sizeof(*bufferData));
@@ -30,14 +30,14 @@ int main()
 	{
 		UpdateType updateType = gui.Update();
 
-		if (updateType & Game)
+		if (updateType & Simulation)
 		{
 			gameShader.Execute();
 			dualBuffer.Swap();
 		}
 
-		if (updateType & Interface)
-			screenDrawer.Draw();
+		if (updateType & Display)
+			simDrawer.Draw();
 	}
 
 	return EXIT_SUCCESS;

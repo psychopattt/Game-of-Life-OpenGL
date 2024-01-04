@@ -1,10 +1,10 @@
-#include "KeyboardInputs.h"
+#include "KeyboardHandler.h"
 
 #include <cmath>
 
 #include "Settings/TransformSettings/TransformSettings.h"
-#include "Interface/CustomInterface/CustomInterface.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Interface/Interface.h"
 #include "Settings/Settings.h"
 #include "imgui/imgui.h"
 #include "GLFW/glfw3.h"
@@ -12,7 +12,7 @@
 using namespace CurrentInputs;
 using namespace TransformSettings;
 
-void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
+void KeyboardHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
 	HoldingKeys = HoldingKeys || action != GLFW_RELEASE;
 
@@ -49,7 +49,7 @@ void KeyboardInputs::HandleKeyboard(GLFWwindow* window, int key, int scanCode, i
 	}
 }
 
-void KeyboardInputs::ReleaseCapturedKeys()
+void KeyboardHandler::ReleaseCapturedKeys()
 {
 	if (HoldingKeys && ImGui::GetIO().WantCaptureKeyboard)
 	{
@@ -63,14 +63,14 @@ void KeyboardInputs::ReleaseCapturedKeys()
 	}
 }
 
-void KeyboardInputs::Update(double deltaTime)
+void KeyboardHandler::Update(double deltaTime)
 {
 	ReleaseCapturedKeys();
 	UpdateSpeedMultiplier();
 	UpdatePan(deltaTime);
 }
 
-void KeyboardInputs::UpdateSpeedMultiplier()
+void KeyboardHandler::UpdateSpeedMultiplier()
 {
 	SpeedMultiplier =
 		FastModifierHeld ? FastMultiplier :
@@ -78,7 +78,7 @@ void KeyboardInputs::UpdateSpeedMultiplier()
 		DefaultMultiplier;
 }
 
-void KeyboardInputs::UpdatePan(double deltaTime)
+void KeyboardHandler::UpdatePan(double deltaTime)
 {
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 

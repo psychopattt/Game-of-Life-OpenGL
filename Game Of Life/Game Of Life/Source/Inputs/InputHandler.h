@@ -18,6 +18,6 @@ class InputHandler
 
 	private:
 		double lastTime = 0;
-		unique_ptr<class MouseInputs> mouseInputs;
-		unique_ptr<class KeyboardInputs> keyboardInputs;
+		unique_ptr<class MouseHandler> mouseHandler;
+		unique_ptr<class KeyboardHandler> keyboardHandler;
 };
