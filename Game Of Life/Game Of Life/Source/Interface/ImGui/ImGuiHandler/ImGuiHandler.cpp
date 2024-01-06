@@ -6,7 +6,7 @@
 #include "imgui/imgui_impl_glfw.h"
 
 #include "Settings/Settings.h"
-#include "./ProggyRegular.cpp"
+#include "ProggyRegular.cpp"
 #include "../ImGuiWindow/ImGuiWindow.h"
 #include "../ImGuiWindow/ImGuiLog/ImGuiLog.h"
 #include "../ImGuiWindow/ImGuiMain/ImGuiMain.h"

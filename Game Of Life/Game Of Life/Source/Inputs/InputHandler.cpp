@@ -1,7 +1,7 @@
 #include "InputHandler.h"
 
-#include "./KeyboardHandler/KeyboardHandler.h"
-#include "./MouseHandler/MouseHandler.h"
+#include "KeyboardHandler/KeyboardHandler.h"
+#include "MouseHandler/MouseHandler.h"
 #include "GLFW/glfw3.h"
 
 using std::make_unique;

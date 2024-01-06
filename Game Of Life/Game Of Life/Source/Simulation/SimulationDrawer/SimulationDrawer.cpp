@@ -6,7 +6,7 @@
 #include "Shaders/Shader/Shader.h"
 #include "Shaders/Buffers/Texture/Texture.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
-#include "./SimulationTransforms/SimulationTransforms.h"
+#include "SimulationTransforms/SimulationTransforms.h"
 
 using std::make_unique;
 
