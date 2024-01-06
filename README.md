@@ -2,7 +2,11 @@
 Conway's Game of Life implemented with GLFW, OpenGL and Dear ImGui
 
 ## Features
- - Control the simulation's target FPS
+ - Pan
+ - Zoom
+ - Toggle fullscreen
+ - Control the simulation's FPS
+ - Show metrics window (FPS and frametimes)
 
 ## Credits
 - [GLFW](https://www.glfw.org)
