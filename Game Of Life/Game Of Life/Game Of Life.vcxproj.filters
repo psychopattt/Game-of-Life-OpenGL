@@ -133,6 +133,9 @@
     <ClInclude Include="Source\Settings\TransformSettings\TransformSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
@@ -238,6 +241,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Settings\TransformSettings\TransformSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
