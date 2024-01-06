@@ -204,7 +204,7 @@
     <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\ProggyRegular.cpp">
+    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\main.cpp">

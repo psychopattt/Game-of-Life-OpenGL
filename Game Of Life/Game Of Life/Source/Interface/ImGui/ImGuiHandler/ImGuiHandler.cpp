@@ -4,9 +4,9 @@
 
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_glfw.h"
-#include "imgui/ProggyRegular.cpp"
 
 #include "Settings/Settings.h"
+#include "./ProggyRegular.cpp"
 #include "../ImGuiWindow/ImGuiWindow.h"
 #include "../ImGuiWindow/ImGuiLog/ImGuiLog.h"
 #include "../ImGuiWindow/ImGuiMain/ImGuiMain.h"
