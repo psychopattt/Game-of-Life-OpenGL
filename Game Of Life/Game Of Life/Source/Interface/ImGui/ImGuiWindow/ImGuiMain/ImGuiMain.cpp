@@ -34,35 +34,44 @@ void ImGuiMain::RenderSimulationSection()
 {
 	if (CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		SeparatorText("Position");
-		long long position[] = { TransformSettings::PanX, TransformSettings::PanY };
-		
-		if (SliderScalarN("##sliderPosition", ImGuiDataType_S64, position,
-			static_cast<int>(std::size(position)), &TransformSettings::MinUiPan,
-			&TransformSettings::MaxUiPan))
-		{
-			TransformSettings::PanX = position[0];
-			TransformSettings::PanY = position[1];
-		}
+		RenderSimulationPositionSection();
+		RenderSimulationZoomSection();
+	}
+}
 
-		SeparatorText("Zoom");
-		if (RadioButton("Mouse", TransformSettings::ZoomOnMouse))
-			TransformSettings::ZoomOnMouse = true;
-		
-		SetItemTooltip("Zoom on the mouse cursor");
-		SameLine();
-		
-		if (RadioButton("Center", !TransformSettings::ZoomOnMouse))
-			TransformSettings::ZoomOnMouse = false;
-		
-		SetItemTooltip("Zoom on the center of the screen");
+void ImGuiMain::RenderSimulationPositionSection()
+{
+	SeparatorText("Position");
+	long long position[] = { TransformSettings::PanX, TransformSettings::PanY };
 
-		if (SliderScalar("##sliderZoom", ImGuiDataType_U16,
-			&TransformSettings::Zoom, &TransformSettings::MinUiZoom,
-			&TransformSettings::MaxUiZoom))
-		{
-			TransformSettings::ZoomOnMouse = false;
-		}
+	if (SliderScalarN("##sliderPosition", ImGuiDataType_S64, position,
+		static_cast<int>(std::size(position)), &TransformSettings::MinUiPan,
+		&TransformSettings::MaxUiPan))
+	{
+		TransformSettings::PanX = position[0];
+		TransformSettings::PanY = position[1];
+	}
+}
+
+void ImGuiMain::RenderSimulationZoomSection()
+{
+	SeparatorText("Zoom");
+	if (RadioButton("Mouse", TransformSettings::ZoomOnMouse))
+		TransformSettings::ZoomOnMouse = true;
+
+	SetItemTooltip("Zoom on the mouse cursor");
+	SameLine();
+
+	if (RadioButton("Center", !TransformSettings::ZoomOnMouse))
+		TransformSettings::ZoomOnMouse = false;
+
+	SetItemTooltip("Zoom on the center of the screen");
+
+	if (SliderScalar("##sliderZoom", ImGuiDataType_U16,
+		&TransformSettings::Zoom, &TransformSettings::MinUiZoom,
+		&TransformSettings::MaxUiZoom))
+	{
+		TransformSettings::ZoomOnMouse = false;
 	}
 }
 
