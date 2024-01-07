@@ -32,7 +32,7 @@ Interface::Interface(int width, int height, string title,
 	ActivateCallbacks();
 	CreateFpsHandlers();
 
-	Settings::gui = this;
+	Settings::Gui = this;
 	inputHandler = make_unique<InputHandler>();
 	imGuiHandler = make_unique<ImGuiHandler>(window);
 

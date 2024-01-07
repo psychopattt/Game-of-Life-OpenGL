@@ -82,13 +82,13 @@ void ImGuiMain::RenderPerformanceSection()
 		SeparatorText("Target FPS");
 
 		if (InputFloat("##textTargetFps", &Settings::TargetFps, 1, 10, "%.2f"))
-			Settings::gui->SetTargetFps(Settings::TargetFps);
+			Settings::Gui->SetTargetFps(Settings::TargetFps);
 
 		if (SliderFloat("##sliderTargetFps", &Settings::TargetFps, 0, 500, "%.2f"))
-			Settings::gui->SetTargetFps(Settings::TargetFps);
+			Settings::Gui->SetTargetFps(Settings::TargetFps);
 
 		if (Button("Step Frame", ImVec2(-1, 0)))
-			Settings::gui->StepFrame();
+			Settings::Gui->StepFrame();
 	}
 }
 
@@ -97,7 +97,7 @@ void ImGuiMain::RenderInterfaceSection()
 	if (CollapsingHeader("Interface"))
 	{
 		if (Checkbox("Fullscreen", &Settings::FullscreenEnabled))
-			Settings::gui->ApplyFullscreenState();
+			Settings::Gui->ApplyFullscreenState();
 
 		SeparatorText("Font Size");
 

@@ -255,6 +255,9 @@
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Simulation\Simulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\lib\glfw3.lib">

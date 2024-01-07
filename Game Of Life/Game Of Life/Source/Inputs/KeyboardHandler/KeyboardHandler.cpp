@@ -44,7 +44,7 @@ void KeyboardHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, 
 			break;
 		case GLFW_KEY_F:
 			if (action != GLFW_RELEASE)
-				Settings::gui->StepFrame();
+				Settings::Gui->StepFrame();
 			break;
 	}
 }

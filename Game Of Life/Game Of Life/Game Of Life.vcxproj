@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
+    <ClCompile Include="Source\Simulation\Simulation.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
     <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp" />
     <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp" />

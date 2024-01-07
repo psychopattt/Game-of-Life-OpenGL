@@ -13,11 +13,9 @@ class GameOfLife : public Simulation
 		void Initialize(int width, int height, unsigned int seed = 0);
 		void Restart();
 		void Execute();
-		void Draw();
 		~GameOfLife();
 
 	private:
-		unique_ptr<class SimulationDrawer> simDrawer;
 		unique_ptr<class DualComputeBuffer> dualBuffer;
 		unique_ptr<class ComputeShader> gameInitShader;
 		unique_ptr<class ComputeShader> gameShader;

@@ -52,19 +52,19 @@ bool SimulationTransforms::ApplyZoom()
 
 void SimulationTransforms::ApplyMouseZoomPan()
 {
-	using Settings::gui, TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
+	using Settings::Gui, TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
 
 	double oldZoomMaxPan = ComputeMaxPanAtZoom(lastZoom);
 	double newZoomMaxPan = ComputeMaxPanAtZoom(TransformSettings::Zoom);
 
 	double mousePosX, mousePosY;
-	Settings::gui->GetMousePosition(&mousePosX, &mousePosY);
+	Settings::Gui->GetMousePosition(&mousePosX, &mousePosY);
 
 	int viewportWidth, viewportHeight;
-	gui->GetViewportSize(viewportWidth, viewportHeight);
+	Gui->GetViewportSize(viewportWidth, viewportHeight);
 
-	PanOffsetX = ComputePanOffsetAxis(mousePosX, gui->GetWidth(), viewportWidth, oldZoomMaxPan, newZoomMaxPan);
-	PanOffsetY = -ComputePanOffsetAxis(mousePosY, gui->GetHeight(), viewportHeight, oldZoomMaxPan, newZoomMaxPan);
+	PanOffsetX = ComputePanOffsetAxis(mousePosX, Gui->GetWidth(), viewportWidth, oldZoomMaxPan, newZoomMaxPan);
+	PanOffsetY = -ComputePanOffsetAxis(mousePosY, Gui->GetHeight(), viewportHeight, oldZoomMaxPan, newZoomMaxPan);
 }
 
 double SimulationTransforms::ComputeMaxPanAtZoom(unsigned short zoom)

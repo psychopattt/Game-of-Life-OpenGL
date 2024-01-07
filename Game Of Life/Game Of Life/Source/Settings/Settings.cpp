@@ -1,4 +1,5 @@
 #include "Settings/LogString/LogString.h"
+#include "Simulation/Simulation.h"
 #include "Interface/Interface.h"
 
 namespace Settings
@@ -7,7 +8,8 @@ namespace Settings
 	bool ThreadSleep = true;
 	float TargetFps = 100;
 
-	Interface* gui = nullptr;
+	Interface* Gui = nullptr;
+	Simulation* Sim = nullptr;
 	bool FullscreenEnabled = false;
 	int SelectedFontSize = 1;
 

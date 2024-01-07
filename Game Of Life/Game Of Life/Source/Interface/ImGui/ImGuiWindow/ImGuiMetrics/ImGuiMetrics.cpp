@@ -90,7 +90,7 @@ void ImGuiMetrics::ApplyPosition()
 void ImGuiMetrics::RenderMetrics()
 {
 	metricsText.clear();
-	const double* metrics = Settings::gui->GetMetrics();
+	const double* metrics = Settings::Gui->GetMetrics();
 
 	AppendMetricsType(Simulation, "Simulation: ", metrics);
 	AppendMetricsType(Interface, "Interface: ", metrics + 2);

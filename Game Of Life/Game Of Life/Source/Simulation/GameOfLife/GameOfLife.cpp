@@ -51,9 +51,4 @@ void GameOfLife::Execute()
 	dualBuffer->Swap();
 }
 
-void GameOfLife::Draw()
-{
-	simDrawer->Draw();
-}
-
 GameOfLife::~GameOfLife() { }
