@@ -7,7 +7,7 @@ using std::unique_ptr;
 class SimulationDrawer
 {
 	public:
-		SimulationDrawer();
+		SimulationDrawer(int width, int height);
 		void Draw();
 		~SimulationDrawer();
 

@@ -1,8 +1,6 @@
 #include "SimulationDrawer.h"
 
 #include "glad/glad.h"
-#include "Interface/Interface.h"
-#include "Settings/Settings.h"
 #include "Shaders/Shader/Shader.h"
 #include "Shaders/Buffers/Texture/Texture.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
@@ -10,19 +8,17 @@
 
 using std::make_unique;
 
-SimulationDrawer::SimulationDrawer()
+SimulationDrawer::SimulationDrawer(int width, int height)
 {
 	GenerateVertexObjects();
 
-	int simWidth = Settings::gui->GetSimWidth();
-	int simHeight = Settings::gui->GetSimHeight();
-	texture = make_unique<Texture>(simWidth, simHeight);
+	texture = make_unique<Texture>(width, height);
 
 	screenQuad = make_unique<Shader>("VertexDefault", "FragmentDefault");
 	screenQuad->SetInt("dataTexture", 0);
 
-	bufferConverter = make_unique<ComputeShader>("BufferConverter", simWidth, simHeight);
-	bufferConverter->SetInt("width", simWidth);
+	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
+	bufferConverter->SetInt("width", width);
 
 	simTransforms = make_unique<SimulationTransforms>(
 		quadVertices, std::size(quadVertices)

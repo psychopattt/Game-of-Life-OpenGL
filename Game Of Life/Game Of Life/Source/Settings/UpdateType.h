@@ -3,8 +3,8 @@
 enum UpdateType : char
 {
 	None = 0,
-	Display = 1 << 0,
-	Simulation = 1 << 1
+	DisplayUpdate = 1 << 0,
+	SimulationUpdate = 1 << 1
 };
 
 inline UpdateType operator |(UpdateType a, UpdateType b)

@@ -10,6 +10,7 @@
 #include "Settings/Settings.h"
 #include "Settings/UpdateType.h"
 #include "Inputs/InputHandler.h"
+#include "Simulation/Simulation.h"
 #include "FpsLimiter/FpsLimiter.h"
 #include "FpsCounter/FpsCounter.h"
 #include "WindowTitle/WindowTitle.h"
@@ -17,10 +18,10 @@
 
 using std::make_unique;
 
-Interface::Interface(int width, int height, int simWidth,
-	int simHeight, string title) : width(width), height(height),
-	simWidth(simWidth), simHeight(simHeight), initialWidth(width),
-	initialHeight(height)
+Interface::Interface(int width, int height, string title,
+	Simulation* simulation) : width(width), height(height),
+	initialWidth(width), initialHeight(height),
+	simulation(simulation)
 {
 	this->title = make_unique<WindowTitle>(title);
 
@@ -105,7 +106,7 @@ UpdateType Interface::Update()
 	if (gameFpsLimiter->Update() || stepFrame)
 	{
 		stepFrame = false;
-		updateType |= Simulation;
+		updateType |= SimulationUpdate;
 
 		if (gameFpsCounter->Update())
 		{
@@ -117,7 +118,7 @@ UpdateType Interface::Update()
 
 	if (uiFpsLimiter->Update())
 	{
-		updateType |= Display;
+		updateType |= DisplayUpdate;
 
 		if (uiFpsCounter->Update())
 		{
@@ -147,6 +148,8 @@ void Interface::UpdateTitle() const
 
 void Interface::ComputeViewportSettings()
 {
+	int simWidth = simulation->GetWidth();
+	int simHeight = simulation->GetHeight();
 	float simAspectRatio = static_cast<float>(simWidth) / simHeight;
 
 	if (width > height * simAspectRatio)
@@ -208,16 +211,6 @@ int Interface::GetWidth() const
 int Interface::GetHeight() const
 {
 	return height;
-}
-
-int Interface::GetSimWidth() const
-{
-	return simWidth;
-}
-
-int Interface::GetSimHeight() const
-{
-	return simHeight;
 }
 
 void Interface::GetViewportSize(int& width, int& height) const

@@ -91,6 +91,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
+    <ClInclude Include="Source\Simulation\Simulation.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
     <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h" />
     <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h" />
@@ -132,6 +134,7 @@
     <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
     <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp" />
     <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp" />
