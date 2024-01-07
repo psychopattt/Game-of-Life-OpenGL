@@ -2,6 +2,7 @@
 
 #include "imgui/imgui.h"
 #include "Settings/TransformSettings/TransformSettings.h"
+#include "Simulation/Simulation.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
@@ -34,9 +35,25 @@ void ImGuiMain::RenderSimulationSection()
 {
 	if (CollapsingHeader("Simulation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		RenderSimulationSettingsSection();
 		RenderSimulationPositionSection();
 		RenderSimulationZoomSection();
 	}
+}
+
+void ImGuiMain::RenderSimulationSettingsSection()
+{
+	if (Button("Restart", ImVec2(-1, 0)))
+		Settings::Sim->Restart();
+
+	SeparatorText("Size");
+	int simSize[] = { Settings::Sim->GetWidth(), Settings::Sim->GetHeight() };
+	DragInt2("##dragSize", simSize, 1.0f, 0, INT32_MAX, "%d", ImGuiSliderFlags_AlwaysClamp);
+
+	SeparatorText("Seed");
+	unsigned int stepButtonsSpeed = 1;
+	unsigned int simSeed = Settings::Sim->GetSeed();
+	InputScalar("##textSeed", ImGuiDataType_U32, &simSeed, &stepButtonsSpeed);
 }
 
 void ImGuiMain::RenderSimulationPositionSection()

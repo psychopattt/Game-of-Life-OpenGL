@@ -9,6 +9,7 @@ class ImGuiMain : public ImGuiWindow
 
     private:
         void RenderSimulationSection();
+        void RenderSimulationSettingsSection();
         void RenderSimulationPositionSection();
         void RenderSimulationZoomSection();
         void RenderPerformanceSection();
