@@ -12,6 +12,13 @@ static const char* FontSizes[] = {
 	"Small", "Medium", "Large", "Very Large"
 };
 
+void ImGuiMain::Initialize()
+{
+	newSimSeed = Settings::Sim->GetSeed();
+	newSimSize[0] = Settings::Sim->GetWidth();
+	newSimSize[1] = Settings::Sim->GetHeight();
+}
+
 void ImGuiMain::Render()
 {
 	SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
@@ -44,16 +51,24 @@ void ImGuiMain::RenderSimulationSection()
 void ImGuiMain::RenderSimulationSettingsSection()
 {
 	if (Button("Restart", ImVec2(-1, 0)))
-		Settings::Sim->Restart();
+	{
+		if (newSimSize[0] != Settings::Sim->GetWidth() ||
+			newSimSize[1] != Settings::Sim->GetHeight() ||
+			newSimSeed != Settings::Sim->GetSeed())
+		{
+			Settings::Sim->Initialize(newSimSize[0], newSimSize[1], newSimSeed);
+		}
+		else
+		{
+			Settings::Sim->Restart();
+		}
+	}
 
 	SeparatorText("Size");
-	int simSize[] = { Settings::Sim->GetWidth(), Settings::Sim->GetHeight() };
-	DragInt2("##dragSize", simSize, 1.0f, 0, INT32_MAX, "%d", ImGuiSliderFlags_AlwaysClamp);
+	DragInt2("##dragSize", newSimSize, 1.0f, 0, INT32_MAX, "%d", ImGuiSliderFlags_AlwaysClamp);
 
 	SeparatorText("Seed");
-	unsigned int stepButtonsSpeed = 1;
-	unsigned int simSeed = Settings::Sim->GetSeed();
-	InputScalar("##textSeed", ImGuiDataType_U32, &simSeed, &stepButtonsSpeed);
+	InputScalar("##textSeed", ImGuiDataType_U32, &newSimSeed, &seedStepSpeed);
 }
 
 void ImGuiMain::RenderSimulationPositionSection()

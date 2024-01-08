@@ -35,6 +35,9 @@ ImGuiHandler::ImGuiHandler(GLFWwindow* glfwWindow)
 
 	ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
 	ImGui_ImplOpenGL3_Init();
+
+	for (const unique_ptr<ImGuiWindow>& window : windows)
+		window->Initialize();
 }
 
 void ImGuiHandler::LoadFonts()
