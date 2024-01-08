@@ -37,7 +37,7 @@ Interface::Interface(int width, int height, string title,
 	imGuiHandler = make_unique<ImGuiHandler>(window);
 
 	// Create the OpenGL window
-	ResizeCallback(window, width, height);
+	TriggerResize();
 }
 
 void Interface::SetVersion(char major, char minor) const
@@ -164,6 +164,11 @@ void Interface::ComputeViewportSettings()
 		int widthOffset = -lround((viewportWidth - width) / 2.0f);
 		glViewport(widthOffset, 0, viewportWidth, height);
 	}
+}
+
+void Interface::TriggerResize() const
+{
+	ResizeCallback(window, width, height);
 }
 
 void Interface::ApplyFullscreenState() const

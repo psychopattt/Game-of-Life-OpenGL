@@ -8,7 +8,7 @@ class SimulationDrawer
 {
 	public:
 		SimulationDrawer(int width, int height);
-		void Draw();
+		void Draw(unsigned int dataBufferBinding);
 		~SimulationDrawer();
 
 	private:

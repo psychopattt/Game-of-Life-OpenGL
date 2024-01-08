@@ -16,9 +16,11 @@ class DualComputeBuffer
 		}
 
 		void Swap();
+		unsigned int GetId(int bufferIndex);
 		~DualComputeBuffer();
 
 	private:
+		bool swapped = false;
 		unique_ptr<ComputeBuffer> buffer1;
 		unique_ptr<ComputeBuffer> buffer2;
 };

@@ -15,9 +15,10 @@ SimulationDrawer::SimulationDrawer(int width, int height)
 	texture = make_unique<Texture>(width, height);
 
 	screenQuad = make_unique<Shader>("VertexDefault", "FragmentDefault");
-	screenQuad->SetInt("dataTexture", 0);
+	screenQuad->SetInt("dataTexture", static_cast<int>(texture->GetId()));
 
 	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
+	bufferConverter->SetInt("dataTexture", static_cast<int>(texture->GetId()));
 	bufferConverter->SetInt("width", width);
 
 	simTransforms = make_unique<SimulationTransforms>(
@@ -49,17 +50,17 @@ void SimulationDrawer::UpdateQuadVertexBuffer()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_DYNAMIC_DRAW);
 }
 
-void SimulationDrawer::Draw()
+void SimulationDrawer::Draw(unsigned int dataBufferBinding)
 {
 	if (simTransforms->ApplyTransforms())
 		UpdateQuadVertexBuffer();
 
+	bufferConverter->SetBufferBinding("dataBuffer", dataBufferBinding);
 	bufferConverter->Execute();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	screenQuad->Activate();
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture->GetId());
+	texture->Activate();
 
 	glBindVertexArray(vertexArrayId);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

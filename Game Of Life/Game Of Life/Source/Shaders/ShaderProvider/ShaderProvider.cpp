@@ -103,7 +103,7 @@ void ShaderProvider::PackShaders()
 	outputFile << "default: return \"\"; }}\n#endif\n";
 
 	outputFile.close();
-	Settings::log << "Shader Packing - Finished packing shaders\n";
+	Settings::log << "Shader Packing - Finished packing shaders\n\n";
 }
 
 void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)

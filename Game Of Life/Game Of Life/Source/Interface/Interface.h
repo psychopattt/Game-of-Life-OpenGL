@@ -17,6 +17,7 @@ class Interface
 		Interface(int width, int height, string title, Simulation* simulation);
 		bool ShouldExit() const;
 		UpdateType Update();
+		void TriggerResize() const;
 		void ApplyFullscreenState() const;
 		void SetTargetFps(float targetFps) const;
 		void StepFrame();

@@ -80,17 +80,47 @@ void Shader::Activate() const
 
 void Shader::SetInt(const char* name, int value) const
 {
-	glProgramUniform1i(id, glGetUniformLocation(id, name), value);
+	unsigned int location = glGetUniformLocation(id, name);
+	glProgramUniform1i(id, location, value);
+	LogParameterFailures(name, location);
+}
+
+void Shader::SetInt(const char* name, unsigned int value) const
+{
+	unsigned int location = glGetUniformLocation(id, name);
+	glProgramUniform1ui(id, location, value);
+	LogParameterFailures(name, location);
 }
 
 void Shader::SetBool(const char* name, bool value) const
 {
-	SetInt(name, (int)value);
+	SetInt(name, static_cast<int>(value));
 }
 
 void Shader::SetFloat(const char* name, float value) const
 {
-	glProgramUniform1f(id, glGetUniformLocation(id, name), value);
+	unsigned int location = glGetUniformLocation(id, name);
+	glProgramUniform1f(id, location, value);
+	LogParameterFailures(name, location);
+}
+
+void Shader::SetBufferBinding(const char* name, unsigned int binding) const
+{
+	unsigned int blockIndex = glGetProgramResourceIndex(id, GL_SHADER_STORAGE_BLOCK, name);
+	glShaderStorageBlockBinding(id, blockIndex, binding);
+	LogParameterFailures(name, blockIndex);
+}
+
+void Shader::LogParameterFailures(const char* name, unsigned int location) const
+{
+	int errorCode = glGetError();
+
+	if (errorCode != GL_NO_ERROR || location == GL_INVALID_INDEX)
+	{
+		Settings::log << "Shader Error - Failed to set parameter\nName: \"" <<
+			name << "\", location: " << location << ", shader id: " << id <<
+			", error code: " << errorCode << "\n\n";
+	}
 }
 
 Shader::~Shader()

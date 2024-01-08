@@ -9,19 +9,14 @@ class ComputeBuffer
 		ComputeBuffer(const T data[], size_t size)
 		{
 			glGenBuffers(1, &id);
-			bindingId = id;
-
 			glBindBuffer(GL_SHADER_STORAGE_BUFFER, id);
 			glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_COPY);
-			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bindingId, id);
+			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, id, id);
 		}
 
 		unsigned int GetId() const;
-		unsigned int GetBindingId() const;
-		void Rebind(unsigned int bindingId);
 		~ComputeBuffer();
 
 	private:
 		unsigned int id;
-		unsigned int bindingId;
 };

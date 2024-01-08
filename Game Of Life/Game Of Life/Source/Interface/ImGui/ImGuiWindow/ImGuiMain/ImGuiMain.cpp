@@ -57,6 +57,7 @@ void ImGuiMain::RenderSimulationSettingsSection()
 			newSimSeed != Settings::Sim->GetSeed())
 		{
 			Settings::Sim->Initialize(newSimSize[0], newSimSize[1], newSimSeed);
+			Settings::Gui->TriggerResize();
 		}
 		else
 		{

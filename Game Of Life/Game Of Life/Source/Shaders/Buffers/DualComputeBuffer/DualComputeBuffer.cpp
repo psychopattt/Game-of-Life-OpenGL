@@ -2,9 +2,25 @@
 
 void DualComputeBuffer::Swap()
 {
-	const unsigned int bindingId1 = buffer1->GetBindingId();
-	buffer1->Rebind(buffer2->GetBindingId());
-	buffer2->Rebind(bindingId1);
+	swapped = !swapped;
+}
+
+unsigned int DualComputeBuffer::GetId(int bufferIndex)
+{
+	if (!swapped)
+	{
+		if (bufferIndex == 0)
+			return buffer1->GetId();
+		else
+			return buffer2->GetId();
+	}
+	else
+	{
+		if (bufferIndex == 0)
+			return buffer2->GetId();
+		else
+			return buffer1->GetId();
+	}
 }
 
 DualComputeBuffer::~DualComputeBuffer() { }

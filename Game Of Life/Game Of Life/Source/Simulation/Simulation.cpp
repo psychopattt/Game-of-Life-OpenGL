@@ -1,6 +1,5 @@
 #include "Simulation.h"
 
-#include "Simulation/SimulationDrawer/SimulationDrawer.h"
 #include "Settings/Settings.h"
 
 Simulation::Simulation(int width, int height, unsigned int seed) :
@@ -12,11 +11,6 @@ Simulation::Simulation(int width, int height, unsigned int seed) :
 void Simulation::Initialize()
 {
 	Initialize(width, height, seed);
-}
-
-void Simulation::Draw()
-{
-	simDrawer->Draw();
 }
 
 int Simulation::GetWidth() const
@@ -33,5 +27,3 @@ unsigned int Simulation::GetSeed() const
 {
 	return seed;
 }
-
-Simulation::~Simulation() { }

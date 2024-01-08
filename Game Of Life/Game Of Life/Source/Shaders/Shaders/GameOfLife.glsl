@@ -5,12 +5,12 @@ layout (local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
 uniform int width;
 uniform int height;
 
-layout(std430, binding = 2) restrict readonly buffer inputBuffer
+layout(std430) restrict readonly buffer inputBuffer
 {
 	uint Inputs[];
 };
 
-layout(std430, binding = 3) restrict writeonly buffer outputBuffer
+layout(std430) restrict writeonly buffer outputBuffer
 {
 	uint Outputs[];
 };
