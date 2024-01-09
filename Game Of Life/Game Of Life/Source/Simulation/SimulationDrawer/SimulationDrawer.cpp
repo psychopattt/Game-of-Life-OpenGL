@@ -34,10 +34,12 @@ void SimulationDrawer::GenerateVertexObjects()
 	glGenBuffers(1, &vertexBufferId);
 	UpdateQuadVertexBuffer();
 
-	glEnableVertexAttribArray(0);
+	// Set VAO's X and Y scale
+	glEnableVertexArrayAttrib(vertexArrayId, 0);
 	glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, 4 * sizeof(*quadVertices), (void*)0);
 
-	glEnableVertexAttribArray(1);
+	// Set VAO's X and Y position
+	glEnableVertexArrayAttrib(vertexArrayId, 1);
 	glVertexAttribPointer(
 		1, 2, GL_DOUBLE, GL_FALSE, 4 * sizeof(*quadVertices),
 		(void*)(2 * sizeof(*quadVertices))
@@ -66,4 +68,8 @@ void SimulationDrawer::Draw(unsigned int dataBufferBinding)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-SimulationDrawer::~SimulationDrawer() { }
+SimulationDrawer::~SimulationDrawer()
+{
+	glDeleteBuffers(1, &vertexBufferId);
+	glDeleteVertexArrays(1, &vertexArrayId);
+}
