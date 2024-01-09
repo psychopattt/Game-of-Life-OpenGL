@@ -75,14 +75,17 @@ void ImGuiMain::RenderSimulationSettingsSection()
 void ImGuiMain::RenderSimulationPositionSection()
 {
 	SeparatorText("Position");
-	long long position[] = { TransformSettings::PanX, TransformSettings::PanY };
+	long long position[] = {
+		TransformSettings::PanX / TransformSettings::UiPanScale,
+		TransformSettings::PanY / TransformSettings::UiPanScale
+	};
 
 	if (SliderScalarN("##sliderPosition", ImGuiDataType_S64, position,
 		static_cast<int>(std::size(position)), &TransformSettings::MinUiPan,
 		&TransformSettings::MaxUiPan))
 	{
-		TransformSettings::PanX = position[0];
-		TransformSettings::PanY = position[1];
+		TransformSettings::PanX = position[0] * TransformSettings::UiPanScale;
+		TransformSettings::PanY = position[1] * TransformSettings::UiPanScale;
 	}
 }
 

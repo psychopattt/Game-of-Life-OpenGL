@@ -103,14 +103,15 @@ double SimulationTransforms::ScaleZoom(unsigned short zoom)
 
 bool SimulationTransforms::ApplyPan()
 {
-	using TransformSettings::PanX, TransformSettings::PanY,
-		TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
+	using TransformSettings::PanX, TransformSettings::PanY, TransformSettings::PanOffsetX,
+		TransformSettings::PanOffsetY, TransformSettings::PanAspectMultiplierX,
+		TransformSettings::PanAspectMultiplierY;
 
 	if (lastPanX == PanX && lastPanY == PanY && PanOffsetX == 0 && PanOffsetY == 0)
 		return false;
 
-	double panX = ComputePanAxis(lastPanX, PanX, PanOffsetX);
-	double panY = ComputePanAxis(lastPanY, PanY, PanOffsetY);
+	double panX = ComputePanAxis(lastPanX, PanX, PanAspectMultiplierX, PanOffsetX);
+	double panY = ComputePanAxis(lastPanY, PanY, PanAspectMultiplierY, PanOffsetY);
 
 	// Apply new vertex coordinates
 	for (size_t i = 2; i < quadVertexCount; i += 4)
@@ -122,7 +123,8 @@ bool SimulationTransforms::ApplyPan()
 	return true;
 }
 
-double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset)
+double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& currentPan,
+	double aspectRatioMultiplier, long long& panOffset)
 {
 	using TransformSettings::MaxPan, TransformSettings::Zoom, TransformSettings::FastMultiplier;
 
@@ -132,6 +134,9 @@ double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& curre
 	// Scale pan difference according to current zoom
 	double scale = 1.0 / pow(1.14, static_cast<double>(Zoom) / FastMultiplier);
 	long long scaledPanOffset = llround(panDiff * scale);
+
+	// Keep pan speed consistent on all axes
+	scaledPanOffset = llround(scaledPanOffset * aspectRatioMultiplier);
 
 	// Ensure the scaled pan difference is at least 1
 	if (scaledPanOffset == 0 && panDiff != 0)

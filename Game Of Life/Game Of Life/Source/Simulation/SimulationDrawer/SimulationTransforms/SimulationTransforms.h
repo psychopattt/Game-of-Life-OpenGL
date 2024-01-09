@@ -24,5 +24,6 @@ class SimulationTransforms
 			double viewportSize, double oldZoomMaxPan, double newZoomMaxPan);
 		double ScaleZoom(unsigned short zoom);
 		bool ApplyPan();
-		double ComputePanAxis(long long& lastPan, long long& currentPan, long long& panOffset);
+		double ComputePanAxis(long long& lastPan, long long& currentPan,
+			double aspectRatioMultiplier, long long& panOffset);
 };

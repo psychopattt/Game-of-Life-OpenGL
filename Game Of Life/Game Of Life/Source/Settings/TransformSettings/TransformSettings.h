@@ -17,8 +17,11 @@ namespace TransformSettings
 	extern long long PanY;
 	extern long long PanOffsetX;
 	extern long long PanOffsetY;
+	extern double PanAspectMultiplierX;
+	extern double PanAspectMultiplierY;
 	extern long long PanMultiplier;
 	extern long long MaxPan;
+	extern long long UiPanScale;
 	extern long long MaxUiPan;
 	extern long long MinUiPan;
 }

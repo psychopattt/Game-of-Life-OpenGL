@@ -6,6 +6,7 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "Settings/TransformSettings/TransformSettings.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
 #include "Settings/UpdateType.h"
@@ -150,19 +151,25 @@ void Interface::ComputeViewportSettings()
 {
 	int simWidth = simulation->GetWidth();
 	int simHeight = simulation->GetHeight();
-	float simAspectRatio = static_cast<float>(simWidth) / simHeight;
+	double simAspectRatio = static_cast<double>(simWidth) / simHeight;
 
 	if (width > height * simAspectRatio)
 	{
 		int viewportHeight = lround(simHeight * static_cast<float>(width) / simWidth);
 		int heightOffset = -lround((viewportHeight - height) / 2.0f);
 		glViewport(0, heightOffset, width, viewportHeight);
+
+		TransformSettings::PanAspectMultiplierX = 1.0;
+		TransformSettings::PanAspectMultiplierY = simAspectRatio;
 	}
 	else
 	{
 		int viewportWidth = lround(simWidth * static_cast<float>(height) / simHeight);
 		int widthOffset = -lround((viewportWidth - width) / 2.0f);
 		glViewport(widthOffset, 0, viewportWidth, height);
+
+		TransformSettings::PanAspectMultiplierY = 1.0;
+		TransformSettings::PanAspectMultiplierX = 1.0 / simAspectRatio;
 	}
 }
 
