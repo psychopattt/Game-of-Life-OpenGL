@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "Settings/TransformSettings/TransformSettings.h"
+#include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 

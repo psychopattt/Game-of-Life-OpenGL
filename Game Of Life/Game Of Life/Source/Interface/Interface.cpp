@@ -6,8 +6,8 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-#include "Settings/TransformSettings/TransformSettings.h"
 #include "Settings/LogString/LogString.h"
+#include "Settings/TransformSettings.h"
 #include "Settings/Settings.h"
 #include "Settings/UpdateType.h"
 #include "Inputs/InputHandler.h"
@@ -58,7 +58,7 @@ void Interface::CreateWindow()
 
 	if (window == NULL)
 	{
-		Settings::log << "GLFW window creation error" << "\n";
+		Settings::Log << "GLFW window creation error" << "\n";
 		glfwTerminate();
 		return;
 	}
@@ -79,7 +79,7 @@ void Interface::InitializeGlad()
 	// Load GLAD and let it configure OpenGL
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		Settings::log << "GLAD initialization error" << "\n";
+		Settings::Log << "GLAD initialization error" << "\n";
 	}
 }
 

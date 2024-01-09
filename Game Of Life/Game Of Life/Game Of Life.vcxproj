@@ -117,7 +117,7 @@
     <ClInclude Include="Source\Settings\Settings.h" />
     <ClInclude Include="Source\Settings\UpdateType.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationDrawer.h" />
-    <ClInclude Include="Source\Settings\TransformSettings\TransformSettings.h" />
+    <ClInclude Include="Source\Settings\TransformSettings.h" />
     <ClInclude Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h" />
     <ClInclude Include="Source\Interface\Interface.h" />
     <ClInclude Include="Libraries\include\glad\glad.h" />
@@ -157,9 +157,7 @@
     <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Settings\Settings.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationDrawer.cpp" />
-    <ClCompile Include="Source\Settings\TransformSettings\TransformSettings.cpp" />
     <ClCompile Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp" />
     <ClCompile Include="Source\Interface\Interface.cpp" />
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp" />

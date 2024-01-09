@@ -1,5 +1,10 @@
 #include "LogString.h"
 
+namespace Settings
+{
+	LogString Log = LogString();
+}
+
 LogString::LogString()
 {
 	log.reserve(1024);

@@ -1,7 +1,7 @@
 #include "MouseHandler.h"
 
-#include "Settings/TransformSettings/TransformSettings.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Settings/TransformSettings.h"
 #include "GLFW/glfw3.h"
 
 using namespace CurrentInputs;

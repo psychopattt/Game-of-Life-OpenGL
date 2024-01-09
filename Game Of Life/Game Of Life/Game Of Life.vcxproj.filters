@@ -130,7 +130,7 @@
     <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Settings\TransformSettings\TransformSettings.h">
+    <ClInclude Include="Source\Settings\TransformSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h">
@@ -204,9 +204,6 @@
     <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Settings\Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -244,9 +241,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Settings\TransformSettings\TransformSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp">

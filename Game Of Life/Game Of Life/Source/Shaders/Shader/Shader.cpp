@@ -36,7 +36,7 @@ unsigned int Shader::Compile(const char* shaderName, int type, const char* code)
 	{
 		char log[512];
 		glGetShaderInfoLog(shaderId, static_cast<int>(std::size(log)), NULL, log);
-		Settings::log << "Shader Error - Compilation failed for \"" <<
+		Settings::Log << "Shader Error - Compilation failed for \"" <<
 			shaderName << "\"\n" << log << "\n";
 
 		return NULL;
@@ -61,7 +61,7 @@ void Shader::Link(unsigned int* shaderIds, size_t shaderCount)
 	{
 		char log[512];
 		glGetProgramInfoLog(id, static_cast<int>(std::size(log)), NULL, log);
-		Settings::log << "Shader Error - Linking failed\n" << log << "\n";
+		Settings::Log << "Shader Error - Linking failed\n" << log << "\n";
 	}
 
 	for (unsigned int i = 0; i < shaderCount; i++)
@@ -117,7 +117,7 @@ void Shader::LogParameterFailures(const char* name, unsigned int location) const
 
 	if (errorCode != GL_NO_ERROR || location == GL_INVALID_INDEX)
 	{
-		Settings::log << "Shader Error - Failed to set parameter\nName: \"" <<
+		Settings::Log << "Shader Error - Failed to set parameter\nName: \"" <<
 			name << "\", location: " << location << ", shader id: " << id <<
 			", error code: " << errorCode << "\n\n";
 	}

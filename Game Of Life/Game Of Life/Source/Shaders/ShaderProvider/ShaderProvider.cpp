@@ -57,7 +57,7 @@ const string ShaderProvider::ReadFile(const string& shaderName)
 	}
 	catch (ifstream::failure exception)
 	{
-		Settings::log << "Shader Error - Failed to load file \"" << fullPath << "\"\n";
+		Settings::Log << "Shader Error - Failed to load file \"" << fullPath << "\"\n";
 		return "";
 	}
 }
@@ -77,7 +77,7 @@ const string ShaderProvider::FindFile(const string& searchedFile)
 			return filePath;
 	}
 
-	Settings::log << "Shader Error - Failed to find file \"" << searchedFile << "\"\n";
+	Settings::Log << "Shader Error - Failed to find file \"" << searchedFile << "\"\n";
 	return searchedFile;
 }
 
@@ -103,7 +103,7 @@ void ShaderProvider::PackShaders()
 	outputFile << "default: return \"\"; }}\n#endif\n";
 
 	outputFile.close();
-	Settings::log << "Shader Packing - Finished packing shaders\n\n";
+	Settings::Log << "Shader Packing - Finished packing shaders\n\n";
 }
 
 void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
@@ -113,7 +113,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
 
 	if (code.empty())
 	{
-		Settings::log << "Shader Packing - Failed to pack shader \"" << shaderName << "\"\n";
+		Settings::Log << "Shader Packing - Failed to pack shader \"" << shaderName << "\"\n";
 		return;
 	}
 
@@ -126,7 +126,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
 	}
 
 	outputFile << "case " << GetHash(shaderName) << ": return \"" << code << "\";\n";
-	Settings::log << "Shader Packing - Successfully packed \"" << shaderName << "\"\n";
+	Settings::Log << "Shader Packing - Successfully packed \"" << shaderName << "\"\n";
 }
 
 #else
@@ -136,7 +136,7 @@ const string ShaderProvider::UnpackShader(const string& shaderName)
 	const string code = UnpackCode(GetHash(shaderName));
 
 	if (code.empty())
-		Settings::log << "Shader Error - Failed to load shader \"" << shaderName << "\"\n";
+		Settings::Log << "Shader Error - Failed to load shader \"" << shaderName << "\"\n";
 
 	return code;
 }

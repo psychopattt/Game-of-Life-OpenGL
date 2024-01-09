@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "Settings/TransformSettings/TransformSettings.h"
 #include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 #include "imgui/imgui.h"

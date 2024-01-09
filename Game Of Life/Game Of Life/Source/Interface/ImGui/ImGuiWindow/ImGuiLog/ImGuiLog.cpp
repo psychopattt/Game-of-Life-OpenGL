@@ -8,7 +8,7 @@ using namespace ImGui;
 
 void ImGuiLog::Render()
 {
-	if (Settings::log.IsEmpty())
+	if (Settings::Log.IsEmpty())
 		return;
 
 	HandleFullscreen();
@@ -23,7 +23,7 @@ void ImGuiLog::Render()
 	End();
 
 	if (!keepLog)
-		Settings::log.Clear();
+		Settings::Log.Clear();
 
 	if (wasFullscreen)
 		PopStyleVar();
@@ -64,7 +64,7 @@ void ImGuiLog::RenderWindowBody()
 	BeginChild("logScrollArea", ImVec2(0, 0), ImGuiChildFlags_None,
 		ImGuiWindowFlags_HorizontalScrollbar);
 
-	TextUnformatted(Settings::log);
+	TextUnformatted(Settings::Log);
 
 	if (autoScroll && GetScrollY() >= GetScrollMaxY())
 		SetScrollHereY(1.0f);
@@ -84,7 +84,7 @@ void ImGuiLog::RenderOptionsPopup(const char* popupId)
 		if (Button("Copy", ImVec2(buttonWidth, 0)))
 		{
 			LogToClipboard();
-			LogText(Settings::log);
+			LogText(Settings::Log);
 			LogFinish();
 			CloseCurrentPopup();
 			EndPopup();
@@ -94,7 +94,7 @@ void ImGuiLog::RenderOptionsPopup(const char* popupId)
 		SameLine();
 
 		if (Button("Clear", ImVec2(buttonWidth, 0)))
-			Settings::log.Clear();
+			Settings::Log.Clear();
 
 		EndPopup();
 	}
