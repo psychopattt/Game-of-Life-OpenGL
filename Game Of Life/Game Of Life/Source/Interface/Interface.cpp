@@ -19,10 +19,9 @@
 
 using std::make_unique;
 
-Interface::Interface(int width, int height, string title,
-	Simulation* simulation) : width(width), height(height),
-	initialWidth(width), initialHeight(height),
-	simulation(simulation)
+Interface::Interface(int width, int height, string title) :
+	width(width), height(height), initialWidth(width),
+	initialHeight(height)
 {
 	this->title = make_unique<WindowTitle>(title);
 
@@ -149,57 +148,56 @@ void Interface::UpdateTitle() const
 
 void Interface::ComputeViewportSettings()
 {
-	int simWidth = simulation->GetWidth();
-	int simHeight = simulation->GetHeight();
+	int simWidth = Settings::Sim->GetWidth();
+	int simHeight = Settings::Sim->GetHeight();
 	double simAspectRatio = static_cast<double>(simWidth) / simHeight;
 	
 	int maxViewportSize[2];
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
 
-	TransformSettings::ViewportSizeChanged = true;
+	int viewportWidth = width, widthOffset = 0;
+	int viewportHeight = height, heightOffset = 0;
 
 	if (width > height * simAspectRatio)
 	{
-		int viewportHeight = lround(simHeight * static_cast<float>(width) / simWidth);
-
-		if (viewportHeight > maxViewportSize[1])
-		{
-			TransformSettings::ViewportScaleY = static_cast<double>(viewportHeight) / maxViewportSize[1];
-			viewportHeight = maxViewportSize[1];
-		}
-		else
-		{
-			TransformSettings::ViewportScaleY = 1.0;
-		}
-
-		int heightOffset = -lround((viewportHeight - height) / 2.0f);
-		glViewport(0, heightOffset, width, viewportHeight);
-
+		TransformSettings::ViewportScaleX = 1.0;
 		TransformSettings::PanAspectMultiplierX = 1.0;
 		TransformSettings::PanAspectMultiplierY = simAspectRatio;
-		TransformSettings::ViewportScaleX = 1.0;
+		ComputeViewportSize(viewportHeight, heightOffset, TransformSettings::ViewportScaleY,
+			simHeight, simWidth, height, width, maxViewportSize[1]);
 	}
 	else
 	{
-		int viewportWidth = lround(simWidth * static_cast<float>(height) / simHeight);
-
-		if (viewportWidth > maxViewportSize[0])
-		{
-			TransformSettings::ViewportScaleX = static_cast<double>(viewportWidth) / maxViewportSize[0];
-			viewportWidth = maxViewportSize[0];
-		}
-		else
-		{
-			TransformSettings::ViewportScaleX = 1.0;
-		}
-
-		int widthOffset = -lround((viewportWidth - width) / 2.0f);
-		glViewport(widthOffset, 0, viewportWidth, height);
-
-		TransformSettings::PanAspectMultiplierY = 1.0;
-		TransformSettings::PanAspectMultiplierX = 1.0 / simAspectRatio;
 		TransformSettings::ViewportScaleY = 1.0;
+		TransformSettings::PanAspectMultiplierY = 1.0;
+		TransformSettings::PanAspectMultiplierX = static_cast<double>(simHeight) / simWidth;
+		ComputeViewportSize(viewportWidth, widthOffset, TransformSettings::ViewportScaleX,
+			simWidth, simHeight, width, height, maxViewportSize[0]);
 	}
+
+	glViewport(widthOffset, heightOffset, viewportWidth, viewportHeight);
+	TransformSettings::ViewportSizeChanged = true;
+}
+
+void Interface::ComputeViewportSize(int& viewportSize, int& sizeOffset, double& viewportScale,
+	int simSize1, int simSize2, int windowSize1, int windowSize2, int maxViewportSize)
+{
+	// Calculate size required to make the other dimension match the window
+	viewportSize = lround(simSize1 * static_cast<double>(windowSize2) / simSize2);
+
+	if (viewportSize > maxViewportSize)
+	{
+		// Calculate ratio required to scale max size to desired size
+		viewportScale = static_cast<double>(viewportSize) / maxViewportSize;
+		viewportSize = maxViewportSize;
+	}
+	else
+	{
+		viewportScale = 1.0;
+	}
+
+	// Center viewport by moving left by half the size
+	sizeOffset = -lround((viewportSize - windowSize1) / 2.0f);
 }
 
 void Interface::TriggerResize() const

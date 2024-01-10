@@ -7,7 +7,7 @@
 int main()
 {
 	std::unique_ptr<Simulation> sim = std::make_unique<GameOfLife>(640, 360);
-	Interface gui(1280, 720, "Game Of Life", sim.get());
+	Interface gui(1280, 720, "Game Of Life");
 
 	sim->Initialize();
 

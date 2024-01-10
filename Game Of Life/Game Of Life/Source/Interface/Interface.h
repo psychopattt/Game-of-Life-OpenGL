@@ -14,7 +14,7 @@ enum UpdateType : char;
 class Interface
 {
 	public:
-		Interface(int width, int height, string title, Simulation* simulation);
+		Interface(int width, int height, string title);
 		bool ShouldExit() const;
 		UpdateType Update();
 		void TriggerResize() const;
@@ -39,7 +39,6 @@ class Interface
 		double metrics[4] = { };
 
 		GLFWwindow* window;
-		Simulation* simulation;
 		unique_ptr<class WindowTitle> title;
 		unique_ptr<FpsLimiter> uiFpsLimiter;
 		unique_ptr<FpsCounter> uiFpsCounter;
@@ -55,6 +54,8 @@ class Interface
 		void ActivateCallbacks();
 		void UpdateTitle() const;
 		void ComputeViewportSettings();
+		void ComputeViewportSize(int& viewportSize, int& sizeOffset, double& viewportScale,
+			int simSize1, int simSize2, int windowSize1, int windowSize2, int maxViewportSize);
 
 		static void ResizeCallback(GLFWwindow* window, int width, int height);
 		static void MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY);

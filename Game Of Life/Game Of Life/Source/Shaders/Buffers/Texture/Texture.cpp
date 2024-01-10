@@ -43,8 +43,8 @@ void Texture::Activate() const
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::LogGenerationFailure(unsigned int width, unsigned int height,
-	int format, int wrapX, int wrapY, int filtering) const
+void Texture::LogGenerationFailure(int width, int height, int format,
+	int wrapX, int wrapY, int filtering) const
 {
 	if (int errorCode = glGetError() != GL_NO_ERROR)
 	{

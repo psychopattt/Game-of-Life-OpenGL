@@ -16,6 +16,6 @@ class Texture
 		unsigned int width;
 		unsigned int height;
 
-		void LogGenerationFailure(unsigned int width, unsigned int height,
-			int format, int wrapX, int wrapY, int filtering) const;
+		void LogGenerationFailure(int width, int height, int format,
+			int wrapX, int wrapY, int filtering) const;
 };
