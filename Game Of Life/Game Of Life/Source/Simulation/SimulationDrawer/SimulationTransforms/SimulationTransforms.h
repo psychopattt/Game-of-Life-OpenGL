@@ -21,7 +21,7 @@ class SimulationTransforms
 		void ApplyMouseZoomPan();
 		double ComputeMaxPanAtZoom(unsigned short zoom);
 		long long ComputePanOffsetAxis(double screenCoord, double screenSize,
-			double viewportSize, double oldZoomMaxPan, double newZoomMaxPan);
+			double viewportSize, double viewportScale, double worldSizeDiff);
 		double ScaleZoom(unsigned short zoom);
 		bool ApplyPan();
 		double ComputePanAxis(long long& lastPan, long long& currentPan,

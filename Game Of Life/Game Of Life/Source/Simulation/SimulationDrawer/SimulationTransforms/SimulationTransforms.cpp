@@ -24,6 +24,7 @@ bool SimulationTransforms::ApplyTransforms()
 		lastPanX = TransformSettings::PanX;
 		lastPanY = TransformSettings::PanY;
 		lastZoom = TransformSettings::Zoom;
+		TransformSettings::ViewportSizeChanged = false;
 
 		return true;
 	}
@@ -33,15 +34,19 @@ bool SimulationTransforms::ApplyTransforms()
 
 bool SimulationTransforms::ApplyZoom()
 {
-	if (lastZoom == TransformSettings::Zoom)
+	if (lastZoom == TransformSettings::Zoom && !TransformSettings::ViewportSizeChanged)
 		return false;
 
 	double scaledZoom = ScaleZoom(TransformSettings::Zoom);
 
+	// Ensure pixels are square on viewports larger than GL_MAX_VIEWPORT_DIMS
+	double scaledPixelX = scaledZoom * TransformSettings::ViewportScaleX;
+	double scaledPixelY = scaledZoom * TransformSettings::ViewportScaleY;
+
 	for (size_t i = 0; i < quadVertexCount; i += 4)
 	{
-		quadVertices[i] = initialQuadVertices[i] * scaledZoom;
-		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaledZoom;
+		quadVertices[i] = initialQuadVertices[i] * scaledPixelX;
+		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaledPixelY;
 	}
 
 	if (TransformSettings::ZoomOnMouse)
@@ -56,6 +61,7 @@ void SimulationTransforms::ApplyMouseZoomPan()
 
 	double oldZoomMaxPan = ComputeMaxPanAtZoom(lastZoom);
 	double newZoomMaxPan = ComputeMaxPanAtZoom(TransformSettings::Zoom);
+	double zoomMaxPanDiff = oldZoomMaxPan - newZoomMaxPan;
 
 	double mousePosX, mousePosY;
 	Settings::Gui->GetMousePosition(&mousePosX, &mousePosY);
@@ -63,8 +69,10 @@ void SimulationTransforms::ApplyMouseZoomPan()
 	int viewportWidth, viewportHeight;
 	Gui->GetViewportSize(viewportWidth, viewportHeight);
 
-	PanOffsetX = ComputePanOffsetAxis(mousePosX, Gui->GetWidth(), viewportWidth, oldZoomMaxPan, newZoomMaxPan);
-	PanOffsetY = -ComputePanOffsetAxis(mousePosY, Gui->GetHeight(), viewportHeight, oldZoomMaxPan, newZoomMaxPan);
+	PanOffsetX = ComputePanOffsetAxis(mousePosX, Gui->GetWidth(), viewportWidth,
+		TransformSettings::ViewportScaleX, zoomMaxPanDiff);
+	PanOffsetY = -ComputePanOffsetAxis(mousePosY, Gui->GetHeight(), viewportHeight,
+		TransformSettings::ViewportScaleY, zoomMaxPanDiff);
 }
 
 double SimulationTransforms::ComputeMaxPanAtZoom(unsigned short zoom)
@@ -77,23 +85,23 @@ double SimulationTransforms::ComputeMaxPanAtZoom(unsigned short zoom)
 }
 
 long long SimulationTransforms::ComputePanOffsetAxis(double screenCoord, double screenSize,
-	double viewportSize, double oldWorldSize, double newWorldSize)
+	double viewportSize, double viewportScale, double worldSizeDiff)
 {
 	// Get screen coord relative to center [-1, 1] from absolute screen coord
 	double screenCoordRelativeCenter = 2.0 * screenCoord / screenSize - 1.0;
 
-	// Calculate visible portion of the world size
+	// Calculate visible portion of the world size difference
 	double visibleWorldSizeRatio = screenSize / viewportSize;
-	double oldVisibleWorldSize = oldWorldSize * visibleWorldSizeRatio;
-	double newVisibleWorldSize = newWorldSize * visibleWorldSizeRatio;
+	double visibleWorldSizeDiff = worldSizeDiff * visibleWorldSizeRatio;
 
-	// Map visible world size to [-1, 1] by dividing by 2
-	// Multiply relative screen coord by world size to get world coord
-	double oldWorldCoord = oldVisibleWorldSize / 2.0 * screenCoordRelativeCenter;
-	double newWorldCoord = newVisibleWorldSize / 2.0 * screenCoordRelativeCenter;
+	// Map visible world size diff to [-1, 1] by dividing by 2
+	// Multiply visible world size diff by relative screen coord to get world coord diff
+	double worldCoordDiff = visibleWorldSizeDiff / 2.0 * screenCoordRelativeCenter;
 
-	// Substract new coord from old coord to get world coord offset
-	return llround(oldWorldCoord - newWorldCoord);
+	// Ensure world offset stays valid on viewports larger than GL_MAX_VIEWPORT_DIMS
+	worldCoordDiff /= viewportScale;
+
+	return llround(worldCoordDiff);
 }
 
 double SimulationTransforms::ScaleZoom(unsigned short zoom)

@@ -152,24 +152,53 @@ void Interface::ComputeViewportSettings()
 	int simWidth = simulation->GetWidth();
 	int simHeight = simulation->GetHeight();
 	double simAspectRatio = static_cast<double>(simWidth) / simHeight;
+	
+	int maxViewportSize[2];
+	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
+
+	TransformSettings::ViewportSizeChanged = true;
 
 	if (width > height * simAspectRatio)
 	{
 		int viewportHeight = lround(simHeight * static_cast<float>(width) / simWidth);
+
+		if (viewportHeight > maxViewportSize[1])
+		{
+			TransformSettings::ViewportScaleY = static_cast<double>(viewportHeight) / maxViewportSize[1];
+			viewportHeight = maxViewportSize[1];
+		}
+		else
+		{
+			TransformSettings::ViewportScaleY = 1.0;
+		}
+
 		int heightOffset = -lround((viewportHeight - height) / 2.0f);
 		glViewport(0, heightOffset, width, viewportHeight);
 
 		TransformSettings::PanAspectMultiplierX = 1.0;
 		TransformSettings::PanAspectMultiplierY = simAspectRatio;
+		TransformSettings::ViewportScaleX = 1.0;
 	}
 	else
 	{
 		int viewportWidth = lround(simWidth * static_cast<float>(height) / simHeight);
+
+		if (viewportWidth > maxViewportSize[0])
+		{
+			TransformSettings::ViewportScaleX = static_cast<double>(viewportWidth) / maxViewportSize[0];
+			viewportWidth = maxViewportSize[0];
+		}
+		else
+		{
+			TransformSettings::ViewportScaleX = 1.0;
+		}
+
 		int widthOffset = -lround((viewportWidth - width) / 2.0f);
 		glViewport(widthOffset, 0, viewportWidth, height);
 
 		TransformSettings::PanAspectMultiplierY = 1.0;
 		TransformSettings::PanAspectMultiplierX = 1.0 / simAspectRatio;
+		TransformSettings::ViewportScaleY = 1.0;
 	}
 }
 
