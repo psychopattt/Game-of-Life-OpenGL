@@ -286,6 +286,7 @@ GLFWwindow* Interface::GetWindow() const
 
 Interface::~Interface()
 {
+	imGuiHandler.reset();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }

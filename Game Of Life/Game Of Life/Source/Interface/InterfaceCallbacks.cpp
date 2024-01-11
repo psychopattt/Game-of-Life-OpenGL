@@ -12,8 +12,8 @@
 
 void Interface::ActivateCallbacks()
 {
-	glfwSetWindowUserPointer(window, this);
 	glfwSetErrorCallback(ErrorCallback);
+	glfwSetWindowUserPointer(window, this);
 	glfwSetKeyCallback(window, KeyboardCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
