@@ -2,7 +2,12 @@
 
 #if DEBUG
 
+#include "glad/gl.h"
+#include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
+
+#include "Settings/LogString/LogString.h"
+#include "Settings/Settings.h"
 #include "Shaders/ShaderProvider/ShaderProvider.h"
 
 using namespace ImGui;
@@ -18,6 +23,9 @@ void ImGuiDebug::Render()
 		if (Button("Pack Shaders", ImVec2(-1, 0)))
 			ShaderProvider::PackShaders();
 
+		if (Button("Log Versions", ImVec2(-1, 0)))
+			LogVersions();
+
 		SetItemTooltip("Generate PackedShaders.cpp");
 		Checkbox("Show ImGui Demo", &showImGuiDemo);
 	}
@@ -26,6 +34,15 @@ void ImGuiDebug::Render()
 
 	if (showImGuiDemo)
 		ShowDemoWindow();
+}
+
+void ImGuiDebug::LogVersions()
+{
+	Settings::Log << "GLFW: " << glfwGetVersionString() << "\n";
+	Settings::Log << "OpenGL: " << reinterpret_cast<const char*>(glGetString(GL_VERSION)) << "\n";
+	Settings::Log << "Dear ImGui: " << GetVersion() << "\n";
+	Settings::Log << "GLAD: " << GLAD_GENERATOR_VERSION << "\n";
+	Settings::Log << "\n";
 }
 
 #else
