@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-#include "glad/glad.h"
+#include "glad/gl.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
 

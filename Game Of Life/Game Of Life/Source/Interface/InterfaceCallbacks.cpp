@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "glad/glad.h"
+#include "glad/gl.h"
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
 #include "Inputs/InputHandler.h"

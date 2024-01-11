@@ -4,8 +4,9 @@
 #include <chrono>
 #include <thread>
 
-#include "glad/glad.h"
+#include "glad/gl.h"
 #include "GLFW/glfw3.h"
+
 #include "Settings/LogString/LogString.h"
 #include "Settings/TransformSettings.h"
 #include "Settings/Settings.h"
@@ -76,7 +77,7 @@ void Interface::CreateWindow()
 void Interface::InitializeGlad()
 {
 	// Load GLAD and let it configure OpenGL
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	if (!gladLoadGL(glfwGetProcAddress))
 	{
 		Settings::Log << "GLAD initialization error" << "\n";
 	}

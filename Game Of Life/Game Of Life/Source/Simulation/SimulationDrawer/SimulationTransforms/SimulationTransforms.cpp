@@ -40,13 +40,13 @@ bool SimulationTransforms::ApplyZoom()
 	double scaledZoom = ScaleZoom(TransformSettings::Zoom);
 
 	// Ensure pixels are square on viewports larger than GL_MAX_VIEWPORT_DIMS
-	double scaledPixelX = scaledZoom * TransformSettings::ViewportScaleX;
-	double scaledPixelY = scaledZoom * TransformSettings::ViewportScaleY;
+	double scaleX = scaledZoom * TransformSettings::ViewportScaleX;
+	double scaleY = scaledZoom * TransformSettings::ViewportScaleY;
 
 	for (size_t i = 0; i < quadVertexCount; i += 4)
 	{
-		quadVertices[i] = initialQuadVertices[i] * scaledPixelX;
-		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaledPixelY;
+		quadVertices[i] = initialQuadVertices[i] * scaleX;
+		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaleY;
 	}
 
 	if (TransformSettings::ZoomOnMouse)

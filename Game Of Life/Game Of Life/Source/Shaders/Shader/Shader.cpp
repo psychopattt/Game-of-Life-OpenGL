@@ -2,10 +2,10 @@
 
 #include <string>
 
+#include "glad/gl.h"
 #include "../ShaderProvider/ShaderProvider.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
-#include "glad/glad.h"
 
 Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
 {

@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\include\glad\gl.h" />
     <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
     <ClInclude Include="Source\Simulation\Simulation.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
@@ -120,7 +121,6 @@
     <ClInclude Include="Source\Settings\TransformSettings.h" />
     <ClInclude Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h" />
     <ClInclude Include="Source\Interface\Interface.h" />
-    <ClInclude Include="Libraries\include\glad\glad.h" />
     <ClInclude Include="Libraries\include\GLFW\glfw3.h" />
     <ClInclude Include="Libraries\include\GLFW\glfw3native.h" />
     <ClInclude Include="Libraries\include\KHR\khrplatform.h" />
@@ -134,6 +134,7 @@
     <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\include\glad\gl.c" />
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
     <ClCompile Include="Source\Simulation\Simulation.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
@@ -164,7 +165,6 @@
     <ClCompile Include="Source\Shaders\ComputeShader\ComputeShader.cpp" />
     <ClCompile Include="Source\Interface\FpsCounter\FpsCounter.cpp" />
     <ClCompile Include="Source\Interface\FpsLimiter\FpsLimiter.cpp" />
-    <ClCompile Include="Libraries\include\glad\glad.c" />
     <ClCompile Include="Source\Shaders\ShaderProvider\PackedShaders.cpp" />
     <ClCompile Include="Source\Shaders\Shader\Shader.cpp" />
     <ClCompile Include="Source\Shaders\Buffers\Texture\Texture.cpp" />
