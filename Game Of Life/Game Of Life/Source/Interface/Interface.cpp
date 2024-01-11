@@ -27,7 +27,7 @@ Interface::Interface(int width, int height, string title) :
 	this->title = make_unique<WindowTitle>(title);
 
 	glfwInit();
-	SetVersion(4, 6);
+	SetOpenGlVersion(4, 6);
 	CreateWindow();
 	InitializeGlad();
 	ActivateCallbacks();
@@ -41,9 +41,9 @@ Interface::Interface(int width, int height, string title) :
 	TriggerResize();
 }
 
-void Interface::SetVersion(char major, char minor) const
+void Interface::SetOpenGlVersion(int major, int minor)
 {
-	// Set OpenGL major (x.) and minor (.x) version 
+	// Set OpenGL major (x.) and minor (.x) version
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 
@@ -58,7 +58,7 @@ void Interface::CreateWindow()
 
 	if (window == NULL)
 	{
-		Settings::Log << "GLFW window creation error" << "\n";
+		Settings::Log << "GLFW Error - Failed to create window" << "\n";
 		glfwTerminate();
 		return;
 	}
@@ -77,15 +77,18 @@ void Interface::CreateWindow()
 void Interface::InitializeGlad()
 {
 	// Load GLAD and let it configure OpenGL
-	if (!gladLoadGL(glfwGetProcAddress))
-	{
-		Settings::Log << "GLAD initialization error" << "\n";
-	}
+	int openGlVersion = gladLoadGL(glfwGetProcAddress);
+
+	if (openGlVersion == 0)
+		Settings::Log << "GLAD Error - Failed to initialize OpenGL" << "\n";
 }
 
 void Interface::CreateFpsHandlers()
 {
-	Settings::TargetFps = (float)glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate;
+	Settings::TargetFps = static_cast<float>(
+		glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate
+	);
+
 	gameFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
 	uiFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
 	gameFpsCounter = make_unique<FpsCounter>(10);

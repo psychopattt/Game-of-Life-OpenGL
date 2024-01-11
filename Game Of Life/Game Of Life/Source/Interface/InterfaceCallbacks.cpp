@@ -5,15 +5,25 @@
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
+
+#include "Settings/LogString/LogString.h"
 #include "Inputs/InputHandler.h"
+#include "Settings/Settings.h"
 
 void Interface::ActivateCallbacks()
 {
 	glfwSetWindowUserPointer(window, this);
+	glfwSetErrorCallback(ErrorCallback);
 	glfwSetKeyCallback(window, KeyboardCallback);
 	glfwSetScrollCallback(window, MouseScrollCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetFramebufferSizeCallback(window, ResizeCallback);
+}
+
+void Interface::ErrorCallback(int error, const char* message)
+{
+	Settings::Log << "GLFW Error - Code " << error << "\n" <<
+		message << "\n";
 }
 
 void Interface::ResizeCallback(GLFWwindow* window, int width, int height)

@@ -9,8 +9,8 @@ class ImGuiMain : public ImGuiWindow
 		void Render();
 
 	private:
-		int newSimSize[2];
-		unsigned int newSimSeed;
+		int newSimSize[2] = { };
+		unsigned int newSimSeed = 0;
 		static constexpr unsigned int seedStepSpeed = 1;
 
 		void RenderSimulationSection();

@@ -47,7 +47,7 @@ class Interface
 		unique_ptr<class ImGuiHandler> imGuiHandler;
 		unique_ptr<class InputHandler> inputHandler;
 
-		void SetVersion(char major, char minor) const;
+		void SetOpenGlVersion(int major, int minor);
 		void CreateWindow();
 		void InitializeGlad();
 		void CreateFpsHandlers();
@@ -57,6 +57,7 @@ class Interface
 		void ComputeViewportSize(int& viewportSize, int& sizeOffset, double& viewportScale,
 			int simSize1, int simSize2, int windowSize1, int windowSize2, int maxViewportSize);
 
+		static void ErrorCallback(int error, const char* message);
 		static void ResizeCallback(GLFWwindow* window, int width, int height);
 		static void MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY);
 		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);

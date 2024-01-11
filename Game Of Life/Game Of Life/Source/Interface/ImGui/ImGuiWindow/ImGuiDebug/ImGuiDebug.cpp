@@ -23,10 +23,11 @@ void ImGuiDebug::Render()
 		if (Button("Pack Shaders", ImVec2(-1, 0)))
 			ShaderProvider::PackShaders();
 
+		SetItemTooltip("Generate PackedShaders.cpp");
+
 		if (Button("Log Versions", ImVec2(-1, 0)))
 			LogVersions();
 
-		SetItemTooltip("Generate PackedShaders.cpp");
 		Checkbox("Show ImGui Demo", &showImGuiDemo);
 	}
 
