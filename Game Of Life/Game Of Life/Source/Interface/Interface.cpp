@@ -274,9 +274,9 @@ WindowTitle* Interface::GetTitle() const
 	return title.get();
 }
 
-void Interface::GetMousePosition(double* posX, double* posY) const
+void Interface::GetMousePosition(double& posX, double& posY) const
 {
-	glfwGetCursorPos(window, posX, posY);
+	glfwGetCursorPos(window, &posX, &posY);
 }
 
 GLFWwindow* Interface::GetWindow() const

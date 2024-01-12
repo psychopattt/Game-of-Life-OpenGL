@@ -1,8 +1,9 @@
 #include "MouseHandler.h"
 
+#include "GLFW/glfw3.h"
+
 #include "Inputs/CurrentInputs.h"
 #include "Settings/TransformSettings.h"
-#include "GLFW/glfw3.h"
 
 using namespace CurrentInputs;
 using namespace TransformSettings;
@@ -15,7 +16,13 @@ void MouseHandler::HandleMouseScroll(GLFWwindow* window, double offsetX, double 
 
 void MouseHandler::HandleMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
-	
+	switch (button)
+	{
+		case GLFW_MOUSE_BUTTON_LEFT:
+			MousePanEnabled = action == GLFW_PRESS;
+			glfwGetCursorPos(window, &MousePanStartX, &MousePanStartY);
+			break;
+	}
 }
 
 void MouseHandler::Update()

@@ -95,7 +95,7 @@
     <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
     <ClInclude Include="Source\Simulation\Simulation.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
-    <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h" />
+    <ClInclude Include="Source\Inputs\CurrentInputs.h" />
     <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h" />
     <ClInclude Include="Source\Inputs\KeyboardHandler\KeyboardHandler.h" />
     <ClInclude Include="Source\Inputs\InputHandler.h" />
@@ -138,7 +138,6 @@
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
     <ClCompile Include="Source\Simulation\Simulation.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
-    <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp" />
     <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp" />
     <ClCompile Include="Source\Inputs\KeyboardHandler\KeyboardHandler.cpp" />
     <ClCompile Include="Source\Inputs\InputHandler.cpp" />

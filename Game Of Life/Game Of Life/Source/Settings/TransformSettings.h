@@ -17,6 +17,10 @@ namespace TransformSettings
 	inline double ViewportScaleY = 1.0;
 	inline bool ViewportSizeChanged = false;
 
+	inline double MousePanStartX = 0.0;
+	inline double MousePanStartY = 0.0;
+	inline bool MousePanEnabled = false;
+
 	inline long long PanX = 0;
 	inline long long PanY = 0;
 	inline long long PanOffsetX = 0;

@@ -2,12 +2,13 @@
 
 #include <cmath>
 
+#include "GLFW/glfw3.h"
+#include "imgui/imgui.h"
+
 #include "Inputs/CurrentInputs.h"
 #include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
-#include "imgui/imgui.h"
-#include "GLFW/glfw3.h"
 
 using namespace CurrentInputs;
 using namespace TransformSettings;

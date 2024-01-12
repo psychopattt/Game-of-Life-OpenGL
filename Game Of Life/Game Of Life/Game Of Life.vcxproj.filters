@@ -124,7 +124,7 @@
     <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\CurrentInputs\CurrentInputs.h">
+    <ClInclude Include="Source\Inputs\CurrentInputs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Settings\TransformSettings.h">
@@ -235,9 +235,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Interface\InterfaceCallbacks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputs\CurrentInputs\CurrentInputs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp">

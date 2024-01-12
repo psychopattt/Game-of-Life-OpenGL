@@ -26,7 +26,7 @@ class Interface
 		void GetViewportSize(int& width, int& height) const;
 		const double* GetMetrics() const;
 		class WindowTitle* GetTitle() const;
-		void GetMousePosition(double* posX, double* posY) const;
+		void GetMousePosition(double& posX, double& posY) const;
 		GLFWwindow* GetWindow() const;
 		~Interface();
 

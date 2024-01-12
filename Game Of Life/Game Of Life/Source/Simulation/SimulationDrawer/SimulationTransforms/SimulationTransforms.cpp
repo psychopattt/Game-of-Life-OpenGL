@@ -16,10 +16,12 @@ SimulationTransforms::SimulationTransforms(double* quadVertices, size_t quadVert
 
 bool SimulationTransforms::ApplyTransforms()
 {
-	bool updatedZoom = ApplyZoom();
-	bool updatedPan = ApplyPan();
+	bool updatedTransforms = ApplyZoom();
+	updatedTransforms = ApplyZoomPan() || updatedTransforms;
+	updatedTransforms = ApplyMousePan() || updatedTransforms;
+	updatedTransforms = ApplyPan() || updatedTransforms;
 
-	if (updatedZoom || updatedPan)
+	if (updatedTransforms)
 	{
 		lastPanX = TransformSettings::PanX;
 		lastPanY = TransformSettings::PanY;
@@ -49,64 +51,96 @@ bool SimulationTransforms::ApplyZoom()
 		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaleY;
 	}
 
-	if (TransformSettings::ZoomOnMouse)
-		ApplyMouseZoomPan();
-
 	return true;
 }
 
-void SimulationTransforms::ApplyMouseZoomPan()
+bool SimulationTransforms::ApplyZoomPan()
 {
-	using Settings::Gui, TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
+	using Settings::Gui, TransformSettings::Zoom;
 
-	double oldZoomMaxPan = ComputeMaxPanAtZoom(lastZoom);
-	double newZoomMaxPan = ComputeMaxPanAtZoom(TransformSettings::Zoom);
+	if (!TransformSettings::ZoomOnMouse || lastZoom == Zoom)
+		return false;
+
+	double oldZoomMaxPan = GetMaxPanAtZoom(lastZoom);
+	double newZoomMaxPan = GetMaxPanAtZoom(Zoom);
 	double zoomMaxPanDiff = oldZoomMaxPan - newZoomMaxPan;
 
 	double mousePosX, mousePosY;
-	Settings::Gui->GetMousePosition(&mousePosX, &mousePosY);
+	Gui->GetMousePosition(mousePosX, mousePosY);
 
 	int viewportWidth, viewportHeight;
 	Gui->GetViewportSize(viewportWidth, viewportHeight);
 
-	PanOffsetX = ComputePanOffsetAxis(mousePosX, Gui->GetWidth(), viewportWidth,
-		TransformSettings::ViewportScaleX, zoomMaxPanDiff);
-	PanOffsetY = -ComputePanOffsetAxis(mousePosY, Gui->GetHeight(), viewportHeight,
-		TransformSettings::ViewportScaleY, zoomMaxPanDiff);
+	TransformSettings::PanOffsetX += ComputeZoomPanAxis(mousePosX, Gui->GetWidth(),
+		viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPanDiff);
+	TransformSettings::PanOffsetY -= ComputeZoomPanAxis(mousePosY, Gui->GetHeight(),
+		viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPanDiff);
+
+	return true;
 }
 
-double SimulationTransforms::ComputeMaxPanAtZoom(unsigned short zoom)
-{
-	// Calculate pan scale at specified zoom
-	double panScale = 1.0 / ScaleZoom(zoom);
-
-	// Multipy max pan without zoom by pan scale
-	return TransformSettings::MaxPan * panScale;
-}
-
-long long SimulationTransforms::ComputePanOffsetAxis(double screenCoord, double screenSize,
+long long SimulationTransforms::ComputeZoomPanAxis(double screenCoord, double screenSize,
 	double viewportSize, double viewportScale, double worldSizeDiff)
 {
 	// Get screen coord relative to center [-1, 1] from absolute screen coord
 	double screenCoordRelativeCenter = 2.0 * screenCoord / screenSize - 1.0;
 
 	// Calculate visible portion of the world size difference
-	double visibleWorldSizeRatio = screenSize / viewportSize;
-	double visibleWorldSizeDiff = worldSizeDiff * visibleWorldSizeRatio;
+	double visibleWorldSizeDiff = GetVisibleWorldSize(worldSizeDiff, screenSize, viewportSize);
 
 	// Map visible world size diff to [-1, 1] by dividing by 2
 	// Multiply visible world size diff by relative screen coord to get world coord diff
 	double worldCoordDiff = visibleWorldSizeDiff / 2.0 * screenCoordRelativeCenter;
 
-	// Ensure world offset stays valid on viewports larger than GL_MAX_VIEWPORT_DIMS
+	// Ensure world diff stays valid on viewports larger than GL_MAX_VIEWPORT_DIMS
 	worldCoordDiff /= viewportScale;
 
 	return llround(worldCoordDiff);
 }
 
-double SimulationTransforms::ScaleZoom(unsigned short zoom)
+bool SimulationTransforms::ApplyMousePan()
 {
-	return pow(1.2, static_cast<double>(zoom) / TransformSettings::FastMultiplier);
+	using Settings::Gui;
+
+	if (!TransformSettings::MousePanEnabled)
+		return false;
+
+	double mousePosX, mousePosY;
+	Gui->GetMousePosition(mousePosX, mousePosY);
+
+	int viewportWidth, viewportHeight;
+	Gui->GetViewportSize(viewportWidth, viewportHeight);
+
+	double zoomMaxPan = GetMaxPanAtZoom(TransformSettings::Zoom);
+
+	TransformSettings::PanOffsetX -= ComputeMousePanAxis(TransformSettings::MousePanStartX,
+		mousePosX, Gui->GetWidth(), viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPan);
+	TransformSettings::PanOffsetY += ComputeMousePanAxis(TransformSettings::MousePanStartY,
+		mousePosY, Gui->GetHeight(), viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPan);
+
+	return true;
+}
+
+long long SimulationTransforms::ComputeMousePanAxis(double& lastScreenCoord, double currentScreenCoord,
+	double screenSize, double viewportSize, double viewportScale, double worldSize)
+{
+	// Calculate screen coord difference and update last coord
+	double screenCoordDiff = currentScreenCoord - lastScreenCoord;
+	lastScreenCoord = currentScreenCoord;
+
+	// Calculate screen coord diff relative to screen size
+	double screenCoordDiffRelative = screenCoordDiff / screenSize;
+
+	// Calculate visible portion of the world size
+	double visibleWorldSize = GetVisibleWorldSize(worldSize, screenSize, viewportSize);
+
+	// Multiply visible world size by relative screen coord diff to get world coord diff
+	double worldCoordDiff = visibleWorldSize * screenCoordDiffRelative;
+
+	// Ensure world diff stays valid on viewports larger than GL_MAX_VIEWPORT_DIMS
+	worldCoordDiff /= viewportScale;
+
+	return llround(worldCoordDiff);
 }
 
 bool SimulationTransforms::ApplyPan()
@@ -131,7 +165,7 @@ bool SimulationTransforms::ApplyPan()
 	return true;
 }
 
-double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& currentPan,
+double SimulationTransforms::ComputePanAxis(long long lastPan, long long& currentPan,
 	double aspectRatioMultiplier, long long& panOffset)
 {
 	using TransformSettings::MaxPan, TransformSettings::Zoom, TransformSettings::FastMultiplier;
@@ -153,7 +187,7 @@ double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& curre
 	// Add scaled pan difference to last frame's pan
 	currentPan = lastPan + scaledPanOffset;
 
-	// Add pan offset from mouse zoom
+	// Add pan offset from zoom pan and mouse pan
 	currentPan += panOffset;
 	panOffset = 0;
 
@@ -163,4 +197,27 @@ double SimulationTransforms::ComputePanAxis(long long& lastPan, long long& curre
 
 	// Convert pan to vertex coordinates
 	return static_cast<double>(currentPan) / MaxPan;
+}
+
+double SimulationTransforms::ScaleZoom(double zoom)
+{
+	return pow(1.2, zoom / TransformSettings::FastMultiplier);
+}
+
+double SimulationTransforms::GetMaxPanAtZoom(double zoom)
+{
+	// Calculate pan scale at specified zoom
+	double panScale = 1.0 / ScaleZoom(zoom);
+
+	// Multipy max pan without zoom by pan scale
+	return TransformSettings::MaxPan * panScale;
+}
+
+double SimulationTransforms::GetVisibleWorldSize(double worldSize,
+	double screenSize, double viewportSize)
+{
+	double visibleWorldSizeRatio = screenSize / viewportSize;
+	double visibleWorldSize = worldSize * visibleWorldSizeRatio;
+
+	return visibleWorldSize;
 }
