@@ -1,6 +1,6 @@
 #include "MouseHandler.h"
 
-#include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Inputs/CurrentInputs.h"
 #include "Settings/TransformSettings.h"
 #include "GLFW/glfw3.h"
 

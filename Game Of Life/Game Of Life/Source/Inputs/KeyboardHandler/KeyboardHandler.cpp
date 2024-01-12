@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "Inputs/CurrentInputs/CurrentInputs.h"
+#include "Inputs/CurrentInputs.h"
 #include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
