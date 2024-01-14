@@ -17,17 +17,21 @@ class Interface
 		Interface(int width, int height, string title);
 		bool ShouldExit() const;
 		UpdateType Update();
+
 		void TriggerResize() const;
 		void ApplyFullscreenState() const;
 		void SetTargetFps(float targetFps) const;
 		void StepFrame();
-		int GetWidth() const;
-		int GetHeight() const;
+
+		void GetSize(int& width, int& height) const;
 		void GetViewportSize(int& width, int& height) const;
 		const double* GetMetrics() const;
 		class WindowTitle* GetTitle() const;
+		bool GetKey(int key) const;
+		bool GetMouseButton(int button) const;
 		void GetMousePosition(double& posX, double& posY) const;
 		GLFWwindow* GetWindow() const;
+
 		~Interface();
 
 	private:

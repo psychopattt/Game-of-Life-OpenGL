@@ -5,41 +5,40 @@
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
 
-#include "Inputs/InputStates/InputStates.h"
 #include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
+using Settings::Gui;
 using namespace TransformSettings;
-
-KeyboardHandler::KeyboardHandler() : DeviceHandler(GLFW_KEY_LAST) { }
 
 void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	int key, int scanCode, int action, int mods)
 {
-	inputStates->Set(key, action != GLFW_RELEASE);
+	if (!ImGui::GetIO().WantCaptureKeyboard)
+		ApplyFrameStep(key, action);
+}
+
+void KeyboardHandler::ApplyFrameStep(int key, int action)
+{
+	if (key == GLFW_KEY_F && action != GLFW_RELEASE)
+		Gui->StepFrame();
 }
 
 void KeyboardHandler::Update(double deltaTime)
 {
-	ReleaseCapturedKeys();
 	ApplySpeedMultiplier();
-	ApplyPan(deltaTime);
-	ApplyFrameStep();
-}
 
-void KeyboardHandler::ReleaseCapturedKeys()
-{
-	if (ImGui::GetIO().WantCaptureKeyboard)
-		inputStates->ResetInputs();
+	if (!ImGui::GetIO().WantCaptureKeyboard)
+		ApplyPan(deltaTime);
 }
 
 void KeyboardHandler::ApplySpeedMultiplier()
 {
-	bool slowModifierHeld = inputStates->Get(GLFW_KEY_LEFT_ALT) ||
-		inputStates->Get(GLFW_KEY_RIGHT_ALT);
-	bool fastModifierHeld = inputStates->Get(GLFW_KEY_LEFT_SHIFT) ||
-		inputStates->Get(GLFW_KEY_RIGHT_SHIFT);
+	bool slowModifierHeld = Gui->GetKey(GLFW_KEY_LEFT_ALT) ||
+		Gui->GetKey(GLFW_KEY_RIGHT_ALT);
+	bool fastModifierHeld = Gui->GetKey(GLFW_KEY_LEFT_SHIFT) ||
+		Gui->GetKey(GLFW_KEY_RIGHT_SHIFT);
 
 	SpeedMultiplier =
 		slowModifierHeld && !fastModifierHeld ? SlowMultiplier :
@@ -51,21 +50,15 @@ void KeyboardHandler::ApplyPan(double deltaTime)
 {
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
-	if (inputStates->Get(GLFW_KEY_W) || inputStates->Get(GLFW_KEY_UP))
+	if (Gui->GetKey(GLFW_KEY_W) || Gui->GetKey(GLFW_KEY_UP))
 		PanY += panSpeed;
 
-	if (inputStates->Get(GLFW_KEY_A) || inputStates->Get(GLFW_KEY_LEFT))
+	if (Gui->GetKey(GLFW_KEY_A) || Gui->GetKey(GLFW_KEY_LEFT))
 		PanX -= panSpeed;
 
-	if (inputStates->Get(GLFW_KEY_S) || inputStates->Get(GLFW_KEY_DOWN))
+	if (Gui->GetKey(GLFW_KEY_S) || Gui->GetKey(GLFW_KEY_DOWN))
 		PanY -= panSpeed;
 
-	if (inputStates->Get(GLFW_KEY_D) || inputStates->Get(GLFW_KEY_RIGHT))
+	if (Gui->GetKey(GLFW_KEY_D) || Gui->GetKey(GLFW_KEY_RIGHT))
 		PanX += panSpeed;
-}
-
-void KeyboardHandler::ApplyFrameStep()
-{
-	if (inputStates->Pop(GLFW_KEY_F))
-		Settings::Gui->StepFrame();
 }

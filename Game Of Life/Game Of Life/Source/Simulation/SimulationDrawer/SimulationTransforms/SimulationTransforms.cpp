@@ -65,15 +65,18 @@ bool SimulationTransforms::ApplyZoomPan()
 	double newZoomMaxPan = GetMaxPanAtZoom(Zoom);
 	double zoomMaxPanDiff = oldZoomMaxPan - newZoomMaxPan;
 
-	double mousePosX, mousePosY;
-	Gui->GetMousePosition(mousePosX, mousePosY);
+	int interfaceWidth, interfaceHeight;
+	Gui->GetSize(interfaceWidth, interfaceHeight);
 
 	int viewportWidth, viewportHeight;
 	Gui->GetViewportSize(viewportWidth, viewportHeight);
 
-	TransformSettings::PanOffsetX += ComputeZoomPanAxis(mousePosX, Gui->GetWidth(),
+	double mousePosX, mousePosY;
+	Gui->GetMousePosition(mousePosX, mousePosY);
+
+	TransformSettings::PanOffsetX += ComputeZoomPanAxis(mousePosX, interfaceWidth,
 		viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPanDiff);
-	TransformSettings::PanOffsetY -= ComputeZoomPanAxis(mousePosY, Gui->GetHeight(),
+	TransformSettings::PanOffsetY -= ComputeZoomPanAxis(mousePosY, interfaceHeight,
 		viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPanDiff);
 
 	return true;
@@ -105,18 +108,21 @@ bool SimulationTransforms::ApplyMousePan()
 	if (!TransformSettings::MousePanEnabled)
 		return false;
 
-	double mousePosX, mousePosY;
-	Gui->GetMousePosition(mousePosX, mousePosY);
+	int interfaceWidth, interfaceHeight;
+	Gui->GetSize(interfaceWidth, interfaceHeight);
 
 	int viewportWidth, viewportHeight;
 	Gui->GetViewportSize(viewportWidth, viewportHeight);
 
+	double mousePosX, mousePosY;
+	Gui->GetMousePosition(mousePosX, mousePosY);
+
 	double zoomMaxPan = GetMaxPanAtZoom(TransformSettings::Zoom);
 
 	TransformSettings::PanOffsetX -= ComputeMousePanAxis(TransformSettings::MousePanStartX,
-		mousePosX, Gui->GetWidth(), viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPan);
+		mousePosX, interfaceWidth, viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPan);
 	TransformSettings::PanOffsetY += ComputeMousePanAxis(TransformSettings::MousePanStartY,
-		mousePosY, Gui->GetHeight(), viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPan);
+		mousePosY, interfaceHeight, viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPan);
 
 	return true;
 }

@@ -91,9 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Inputs\InputStates\InputStates.h" />
     <ClInclude Include="Libraries\include\glad\gl.h" />
-    <ClInclude Include="Source\Inputs\DeviceHandler\DeviceHandler.h" />
     <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
     <ClInclude Include="Source\Simulation\Simulation.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
@@ -135,8 +133,6 @@
     <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Inputs\DeviceHandler\DeviceHandler.cpp" />
-    <ClCompile Include="Source\Inputs\InputStates\InputStates.cpp" />
     <ClCompile Include="Libraries\include\glad\gl.c" />
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
     <ClCompile Include="Source\Simulation\Simulation.cpp" />

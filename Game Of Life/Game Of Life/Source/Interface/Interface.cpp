@@ -246,14 +246,10 @@ void Interface::StepFrame()
 	stepFrame = true;
 }
 
-int Interface::GetWidth() const
+void Interface::GetSize(int& width, int& height) const
 {
-	return width;
-}
-
-int Interface::GetHeight() const
-{
-	return height;
+	width = this->width;
+	height = this->height;
 }
 
 void Interface::GetViewportSize(int& width, int& height) const
@@ -272,6 +268,16 @@ const double* Interface::GetMetrics() const
 WindowTitle* Interface::GetTitle() const
 {
 	return title.get();
+}
+
+bool Interface::GetKey(int key) const
+{
+	return glfwGetKey(window, key) == GLFW_PRESS;
+}
+
+bool Interface::GetMouseButton(int button) const
+{
+	return glfwGetMouseButton(window, button) == GLFW_PRESS;
 }
 
 void Interface::GetMousePosition(double& posX, double& posY) const

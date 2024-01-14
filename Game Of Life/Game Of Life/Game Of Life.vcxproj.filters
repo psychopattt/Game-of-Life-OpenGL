@@ -139,12 +139,6 @@
     <ClInclude Include="Libraries\include\glad\gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\InputStates\InputStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Inputs\DeviceHandler\DeviceHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
@@ -250,12 +244,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\include\glad\gl.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputs\InputStates\InputStates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inputs\DeviceHandler\DeviceHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
