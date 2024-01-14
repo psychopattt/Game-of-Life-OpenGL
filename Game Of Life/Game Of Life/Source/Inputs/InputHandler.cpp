@@ -1,8 +1,9 @@
 #include "InputHandler.h"
 
-#include "KeyboardHandler/KeyboardHandler.h"
-#include "MouseHandler/MouseHandler.h"
 #include "GLFW/glfw3.h"
+
+#include "MouseHandler/MouseHandler.h"
+#include "KeyboardHandler/KeyboardHandler.h"
 
 using std::make_unique;
 
@@ -29,12 +30,18 @@ void InputHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int
 
 void InputHandler::Update()
 {
+	double deltaTime = ComputeDeltaTime();
+	keyboardHandler->Update(deltaTime);
+	mouseHandler->Update(deltaTime);
+}
+
+double InputHandler::ComputeDeltaTime()
+{
 	double currentTime = glfwGetTime();
 	double deltaTime = currentTime - lastTime;
 	lastTime = currentTime;
 
-	mouseHandler->Update();
-	keyboardHandler->Update(deltaTime);
+	return deltaTime;
 }
 
 InputHandler::~InputHandler() { }

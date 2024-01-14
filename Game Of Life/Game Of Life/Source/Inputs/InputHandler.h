@@ -20,4 +20,6 @@ class InputHandler
 		double lastTime = 0;
 		unique_ptr<class MouseHandler> mouseHandler;
 		unique_ptr<class KeyboardHandler> keyboardHandler;
+
+		double ComputeDeltaTime();
 };

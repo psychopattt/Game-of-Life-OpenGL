@@ -5,93 +5,67 @@
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
 
-#include "Inputs/CurrentInputs.h"
+#include "Inputs/InputStates/InputStates.h"
 #include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
-using namespace CurrentInputs;
 using namespace TransformSettings;
 
-void KeyboardHandler::HandleKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
-{
-	HoldingKeys = HoldingKeys || action != GLFW_RELEASE;
+KeyboardHandler::KeyboardHandler() : DeviceHandler(GLFW_KEY_LAST) { }
 
-	switch (key)
-	{
-		case GLFW_KEY_W:
-		case GLFW_KEY_UP:
-			UpKeyHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_A:
-		case GLFW_KEY_LEFT:
-			LeftKeyHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_S:
-		case GLFW_KEY_DOWN:
-			DownKeyHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_D:
-		case GLFW_KEY_RIGHT:
-			RightKeyHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_LEFT_SHIFT:
-		case GLFW_KEY_RIGHT_SHIFT:
-			FastModifierHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_LEFT_ALT:
-		case GLFW_KEY_RIGHT_ALT:
-			SlowModifierHeld = action != GLFW_RELEASE;
-			break;
-		case GLFW_KEY_F:
-			if (action != GLFW_RELEASE)
-				Settings::Gui->StepFrame();
-			break;
-	}
-}
-
-void KeyboardHandler::ReleaseCapturedKeys()
+void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
+	int key, int scanCode, int action, int mods)
 {
-	if (HoldingKeys && ImGui::GetIO().WantCaptureKeyboard)
-	{
-		UpKeyHeld = false;
-		LeftKeyHeld = false;
-		DownKeyHeld = false;
-		RightKeyHeld = false;
-		FastModifierHeld = false;
-		SlowModifierHeld = false;
-		HoldingKeys = false;
-	}
+	inputStates->Set(key, action != GLFW_RELEASE);
 }
 
 void KeyboardHandler::Update(double deltaTime)
 {
 	ReleaseCapturedKeys();
-	UpdateSpeedMultiplier();
-	UpdatePan(deltaTime);
+	ApplySpeedMultiplier();
+	ApplyPan(deltaTime);
+	ApplyFrameStep();
 }
 
-void KeyboardHandler::UpdateSpeedMultiplier()
+void KeyboardHandler::ReleaseCapturedKeys()
 {
+	if (ImGui::GetIO().WantCaptureKeyboard)
+		inputStates->ResetInputs();
+}
+
+void KeyboardHandler::ApplySpeedMultiplier()
+{
+	bool slowModifierHeld = inputStates->Get(GLFW_KEY_LEFT_ALT) ||
+		inputStates->Get(GLFW_KEY_RIGHT_ALT);
+	bool fastModifierHeld = inputStates->Get(GLFW_KEY_LEFT_SHIFT) ||
+		inputStates->Get(GLFW_KEY_RIGHT_SHIFT);
+
 	SpeedMultiplier =
-		FastModifierHeld ? FastMultiplier :
-		SlowModifierHeld ? SlowMultiplier :
+		slowModifierHeld && !fastModifierHeld ? SlowMultiplier :
+		!slowModifierHeld && fastModifierHeld ? FastMultiplier :
 		DefaultMultiplier;
 }
 
-void KeyboardHandler::UpdatePan(double deltaTime)
+void KeyboardHandler::ApplyPan(double deltaTime)
 {
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
-	if (UpKeyHeld)
+	if (inputStates->Get(GLFW_KEY_W) || inputStates->Get(GLFW_KEY_UP))
 		PanY += panSpeed;
 
-	if (LeftKeyHeld)
+	if (inputStates->Get(GLFW_KEY_A) || inputStates->Get(GLFW_KEY_LEFT))
 		PanX -= panSpeed;
 
-	if (DownKeyHeld)
+	if (inputStates->Get(GLFW_KEY_S) || inputStates->Get(GLFW_KEY_DOWN))
 		PanY -= panSpeed;
 
-	if (RightKeyHeld)
+	if (inputStates->Get(GLFW_KEY_D) || inputStates->Get(GLFW_KEY_RIGHT))
 		PanX += panSpeed;
+}
+
+void KeyboardHandler::ApplyFrameStep()
+{
+	if (inputStates->Pop(GLFW_KEY_F))
+		Settings::Gui->StepFrame();
 }

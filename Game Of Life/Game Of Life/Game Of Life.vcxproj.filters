@@ -124,9 +124,6 @@
     <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\CurrentInputs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Settings\TransformSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -140,6 +137,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Libraries\include\glad\gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inputs\InputStates\InputStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inputs\DeviceHandler\DeviceHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -247,6 +250,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\include\glad\gl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inputs\InputStates\InputStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inputs\DeviceHandler\DeviceHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
