@@ -16,42 +16,53 @@ SimulationTransforms::SimulationTransforms(double* quadVertices, size_t quadVert
 
 bool SimulationTransforms::ApplyTransforms()
 {
-	bool updatedTransforms = ApplyZoom();
+	bool updatedTransforms = ApplyPanOffset();
 	updatedTransforms = ApplyZoomPan() || updatedTransforms;
 	updatedTransforms = ApplyMousePan() || updatedTransforms;
+	updatedTransforms = ApplyZoom() || updatedTransforms;
 	updatedTransforms = ApplyPan() || updatedTransforms;
 
-	if (updatedTransforms)
-	{
-		lastPanX = TransformSettings::PanX;
-		lastPanY = TransformSettings::PanY;
-		lastZoom = TransformSettings::Zoom;
-		TransformSettings::ViewportSizeChanged = false;
-
-		return true;
-	}
-
-	return false;
+	return updatedTransforms;
 }
 
-bool SimulationTransforms::ApplyZoom()
+bool SimulationTransforms::ApplyPanOffset()
 {
-	if (lastZoom == TransformSettings::Zoom && !TransformSettings::ViewportSizeChanged)
+	using TransformSettings::PanOffsetX, TransformSettings::PanOffsetY;
+
+	if (PanOffsetX == 0 && PanOffsetY == 0)
 		return false;
 
-	double scaledZoom = ScaleZoom(TransformSettings::Zoom);
-
-	// Ensure pixels are square on viewports larger than GL_MAX_VIEWPORT_DIMS
-	double scaleX = scaledZoom * TransformSettings::ViewportScaleX;
-	double scaleY = scaledZoom * TransformSettings::ViewportScaleY;
-
-	for (size_t i = 0; i < quadVertexCount; i += 4)
-	{
-		quadVertices[i] = initialQuadVertices[i] * scaleX;
-		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaleY;
-	}
+	TransformSettings::PanX += ComputePanOffsetAxis(PanOffsetX,
+		TransformSettings::PanAspectMultiplierX);
+	TransformSettings::PanY += ComputePanOffsetAxis(PanOffsetY,
+		TransformSettings::PanAspectMultiplierY);
 
 	return true;
+}
+
+long long SimulationTransforms::ComputePanOffsetAxis(
+	long long& panOffset, double aspectRatioMultiplier)
+{
+	using TransformSettings::Zoom, TransformSettings::FastMultiplier;
+
+	if (panOffset == 0)
+		return 0;
+
+	// Scale pan offset according to current zoom
+	double scale = 1.0 / pow(1.14, static_cast<double>(Zoom) / FastMultiplier);
+	long long scaledPanOffset = llround(panOffset * scale);
+
+	// Keep pan speed consistent on all axes
+	scaledPanOffset = llround(scaledPanOffset * aspectRatioMultiplier);
+
+	// Ensure the scaled pan offset is at least 1
+	if (scaledPanOffset == 0)
+		scaledPanOffset = panOffset / abs(panOffset);
+
+	// Reset pan offset
+	panOffset = 0;
+
+	return scaledPanOffset;
 }
 
 bool SimulationTransforms::ApplyZoomPan()
@@ -60,10 +71,6 @@ bool SimulationTransforms::ApplyZoomPan()
 
 	if (!TransformSettings::ZoomOnMouse || lastZoom == Zoom)
 		return false;
-
-	double oldZoomMaxPan = GetMaxPanAtZoom(lastZoom);
-	double newZoomMaxPan = GetMaxPanAtZoom(Zoom);
-	double zoomMaxPanDiff = oldZoomMaxPan - newZoomMaxPan;
 
 	int interfaceWidth, interfaceHeight;
 	Gui->GetSize(interfaceWidth, interfaceHeight);
@@ -74,9 +81,11 @@ bool SimulationTransforms::ApplyZoomPan()
 	double mousePosX, mousePosY;
 	Gui->GetMousePosition(mousePosX, mousePosY);
 
-	TransformSettings::PanOffsetX += ComputeZoomPanAxis(mousePosX, interfaceWidth,
+	double zoomMaxPanDiff = GetMaxPanAtZoom(lastZoom) - GetMaxPanAtZoom(Zoom);
+
+	TransformSettings::PanX += ComputeZoomPanAxis(mousePosX, interfaceWidth,
 		viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPanDiff);
-	TransformSettings::PanOffsetY -= ComputeZoomPanAxis(mousePosY, interfaceHeight,
+	TransformSettings::PanY -= ComputeZoomPanAxis(mousePosY, interfaceHeight,
 		viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPanDiff);
 
 	return true;
@@ -119,10 +128,10 @@ bool SimulationTransforms::ApplyMousePan()
 
 	double zoomMaxPan = GetMaxPanAtZoom(TransformSettings::Zoom);
 
-	TransformSettings::PanOffsetX -= ComputeMousePanAxis(TransformSettings::MousePanStartX,
-		mousePosX, interfaceWidth, viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPan);
-	TransformSettings::PanOffsetY += ComputeMousePanAxis(TransformSettings::MousePanStartY,
-		mousePosY, interfaceHeight, viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPan);
+	TransformSettings::PanX -= ComputeMousePanAxis(TransformSettings::MousePanStartX, mousePosX,
+		interfaceWidth, viewportWidth, TransformSettings::ViewportScaleX, zoomMaxPan);
+	TransformSettings::PanY += ComputeMousePanAxis(TransformSettings::MousePanStartY, mousePosY,
+		interfaceHeight, viewportHeight, TransformSettings::ViewportScaleY, zoomMaxPan);
 
 	return true;
 }
@@ -149,17 +158,40 @@ long long SimulationTransforms::ComputeMousePanAxis(double& lastScreenCoord, dou
 	return llround(worldCoordDiff);
 }
 
-bool SimulationTransforms::ApplyPan()
+bool SimulationTransforms::ApplyZoom()
 {
-	using TransformSettings::PanX, TransformSettings::PanY, TransformSettings::PanOffsetX,
-		TransformSettings::PanOffsetY, TransformSettings::PanAspectMultiplierX,
-		TransformSettings::PanAspectMultiplierY;
+	using TransformSettings::Zoom, TransformSettings::ViewportSizeChanged;
 
-	if (lastPanX == PanX && lastPanY == PanY && PanOffsetX == 0 && PanOffsetY == 0)
+	if (lastZoom == Zoom && !ViewportSizeChanged)
 		return false;
 
-	double panX = ComputePanAxis(lastPanX, PanX, PanAspectMultiplierX, PanOffsetX);
-	double panY = ComputePanAxis(lastPanY, PanY, PanAspectMultiplierY, PanOffsetY);
+	double scaledZoom = ScaleZoom(Zoom);
+
+	// Ensure pixels are square on viewports larger than GL_MAX_VIEWPORT_DIMS
+	double scaleX = scaledZoom * TransformSettings::ViewportScaleX;
+	double scaleY = scaledZoom * TransformSettings::ViewportScaleY;
+
+	for (size_t i = 0; i < quadVertexCount; i += 4)
+	{
+		quadVertices[i] = initialQuadVertices[i] * scaleX;
+		quadVertices[i + 1] = initialQuadVertices[i + 1] * scaleY;
+	}
+
+	lastZoom = Zoom;
+	ViewportSizeChanged = false;
+
+	return true;
+}
+
+bool SimulationTransforms::ApplyPan()
+{
+	using TransformSettings::PanX, TransformSettings::PanY;
+
+	if (lastPanX == PanX && lastPanY == PanY)
+		return false;
+
+	double panX = ComputePanAxis(PanX);
+	double panY = ComputePanAxis(PanY);
 
 	// Apply new vertex coordinates
 	for (size_t i = 2; i < quadVertexCount; i += 4)
@@ -168,41 +200,22 @@ bool SimulationTransforms::ApplyPan()
 		quadVertices[i + 1] = initialQuadVertices[i + 1] + panY;
 	}
 
+	lastPanX = PanX;
+	lastPanY = PanY;
+
 	return true;
 }
 
-double SimulationTransforms::ComputePanAxis(long long lastPan, long long& currentPan,
-	double aspectRatioMultiplier, long long& panOffset)
+double SimulationTransforms::ComputePanAxis(long long& pan)
 {
-	using TransformSettings::MaxPan, TransformSettings::Zoom, TransformSettings::FastMultiplier;
-
-	// Calculate pan difference
-	long long panDiff = currentPan - lastPan;
-
-	// Scale pan difference according to current zoom
-	double scale = 1.0 / pow(1.14, static_cast<double>(Zoom) / FastMultiplier);
-	long long scaledPanOffset = llround(panDiff * scale);
-
-	// Keep pan speed consistent on all axes
-	scaledPanOffset = llround(scaledPanOffset * aspectRatioMultiplier);
-
-	// Ensure the scaled pan difference is at least 1
-	if (scaledPanOffset == 0 && panDiff != 0)
-		scaledPanOffset = panDiff / abs(panDiff);
-
-	// Add scaled pan difference to last frame's pan
-	currentPan = lastPan + scaledPanOffset;
-
-	// Add pan offset from zoom pan and mouse pan
-	currentPan += panOffset;
-	panOffset = 0;
+	using TransformSettings::MaxPan;
 
 	// Loop pan to opposite side if min or max is reached
-	if (currentPan < -MaxPan || currentPan > MaxPan)
-		currentPan -= currentPan / abs(currentPan) * MaxPan * 2;
+	if (pan < -MaxPan || pan > MaxPan)
+		pan -= pan / abs(pan) * MaxPan * 2;
 
 	// Convert pan to vertex coordinates
-	return static_cast<double>(currentPan) / MaxPan;
+	return static_cast<double>(pan) / MaxPan;
 }
 
 double SimulationTransforms::ScaleZoom(double zoom)

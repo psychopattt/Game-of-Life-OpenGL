@@ -51,14 +51,14 @@ void KeyboardHandler::ApplyPan(double deltaTime)
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
 	if (Gui->GetKey(GLFW_KEY_W) || Gui->GetKey(GLFW_KEY_UP))
-		PanY += panSpeed;
+		PanOffsetY += panSpeed;
 
 	if (Gui->GetKey(GLFW_KEY_A) || Gui->GetKey(GLFW_KEY_LEFT))
-		PanX -= panSpeed;
+		PanOffsetX -= panSpeed;
 
 	if (Gui->GetKey(GLFW_KEY_S) || Gui->GetKey(GLFW_KEY_DOWN))
-		PanY -= panSpeed;
+		PanOffsetY -= panSpeed;
 
 	if (Gui->GetKey(GLFW_KEY_D) || Gui->GetKey(GLFW_KEY_RIGHT))
-		PanX += panSpeed;
+		PanOffsetX += panSpeed;
 }

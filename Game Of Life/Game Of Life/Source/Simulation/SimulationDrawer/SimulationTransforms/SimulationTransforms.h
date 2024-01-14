@@ -17,7 +17,10 @@ class SimulationTransforms
 		long long lastPanY = 0;
 		unsigned short lastZoom = 0;
 
-		bool ApplyZoom();
+		bool ApplyPanOffset();
+		long long ComputePanOffsetAxis(long long& panOffset,
+			double aspectRatioMultiplier);
+
 		bool ApplyZoomPan();
 		long long ComputeZoomPanAxis(double screenCoord, double screenSize,
 			double viewportSize, double viewportScale, double worldSizeDiff);
@@ -26,9 +29,10 @@ class SimulationTransforms
 		long long ComputeMousePanAxis(double& lastScreenCoord, double currentScreenCoord,
 			double screenSize, double viewportSize, double viewportScale, double worldSize);
 
+		bool ApplyZoom();
+
 		bool ApplyPan();
-		double ComputePanAxis(long long lastPan, long long& currentPan,
-			double aspectRatioMultiplier, long long& panOffset);
+		double ComputePanAxis(long long& pan);
 
 		double ScaleZoom(double zoom);
 		double GetMaxPanAtZoom(double zoom);
