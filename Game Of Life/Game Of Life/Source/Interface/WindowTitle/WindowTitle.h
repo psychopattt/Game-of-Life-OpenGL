@@ -3,16 +3,17 @@
 #include <string>
 #include <memory>
 
-using std::string, std::unique_ptr;
+using std::string;
 
 class WindowTitle
 {
 	public:
 		WindowTitle();
 		WindowTitle(string title);
+		WindowTitle(const char* title);
 		void SetText(string text);
-		unique_ptr<WindowTitle>& SetSubText(string text);
-		unique_ptr<WindowTitle>& GetSubTitle();
+		WindowTitle* SetSubText(string text);
+		WindowTitle* GetSubTitle();
 		string ToString() const;
 		bool IsOutdated() const;
 		void Update();
@@ -20,5 +21,5 @@ class WindowTitle
 	private:
 		string text;
 		bool modified = false;
-		unique_ptr<WindowTitle> subTitle;
+		std::unique_ptr<WindowTitle> subTitle;
 };

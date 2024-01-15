@@ -1,8 +1,9 @@
 #include "ImGuiMetrics.h"
 
+#include "imgui/imgui.h"
+
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
-#include "imgui/imgui.h"
 
 using namespace ImGui;
 
@@ -63,7 +64,8 @@ void ImGuiMetrics::ApplyPosition()
 	}
 	else if (position == Center)
 	{
-		SetNextWindowPos(GetMainViewport()->GetCenter(), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		SetNextWindowPos(GetMainViewport()->GetCenter(),
+			ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 		windowFlags |= ImGuiWindowFlags_NoMove;
 	}
 	else
@@ -102,7 +104,8 @@ void ImGuiMetrics::RenderMetrics()
 	Text(metricsText.c_str());
 }
 
-void ImGuiMetrics::AppendMetricsType(DisplayFlags type, const char* label, const double* metrics)
+void ImGuiMetrics::AppendMetricsType(DisplayFlags type,
+	const char* label, const double* metrics)
 {
 	if (displayFlags & type)
 	{

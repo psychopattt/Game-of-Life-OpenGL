@@ -3,6 +3,7 @@
 #include <cmath>
 #include <chrono>
 #include <thread>
+#include <string>
 
 #include "glad/gl.h"
 #include "GLFW/glfw3.h"
@@ -20,7 +21,7 @@
 
 using std::make_unique;
 
-Interface::Interface(int width, int height, string title) :
+Interface::Interface(int width, int height, const char* title) :
 	width(width), height(height), initialWidth(width),
 	initialHeight(height)
 {

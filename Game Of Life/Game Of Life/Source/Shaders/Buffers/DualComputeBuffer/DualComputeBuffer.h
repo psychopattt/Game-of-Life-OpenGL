@@ -1,9 +1,8 @@
 #pragma once
 
 #include <memory>
-#include "../ComputeBuffer/ComputeBuffer.h"
 
-using std::unique_ptr, std::make_unique;
+class ComputeBuffer;
 
 class DualComputeBuffer
 {
@@ -16,6 +15,6 @@ class DualComputeBuffer
 
 	private:
 		bool swapped = false;
-		unique_ptr<ComputeBuffer> buffer1;
-		unique_ptr<ComputeBuffer> buffer2;
+		std::unique_ptr<ComputeBuffer> buffer1;
+		std::unique_ptr<ComputeBuffer> buffer2;
 };

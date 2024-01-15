@@ -9,7 +9,7 @@
 
 using namespace ImGui;
 
-static const char* FontSizes[] = {
+static const char* fontSizes[] = {
 	"Small", "Medium", "Large", "Very Large"
 };
 
@@ -147,7 +147,7 @@ void ImGuiMain::RenderInterfaceSection()
 
 		bool fontChanged = SliderInt(
 			"##sliderFontSize", &Settings::SelectedFontSize, 0, 3,
-			FontSizes[Settings::SelectedFontSize], ImGuiSliderFlags_NoInput
+			fontSizes[Settings::SelectedFontSize], ImGuiSliderFlags_NoInput
 		);
 
 		if (fontChanged)

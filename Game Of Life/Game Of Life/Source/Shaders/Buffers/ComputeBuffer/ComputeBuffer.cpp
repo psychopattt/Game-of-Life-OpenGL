@@ -1,5 +1,7 @@
 #include "ComputeBuffer.h"
 
+#include "glad/gl.h"
+
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
 

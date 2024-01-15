@@ -2,7 +2,9 @@
 
 WindowTitle::WindowTitle() : WindowTitle("") { }
 
-WindowTitle::WindowTitle(string title)
+WindowTitle::WindowTitle(string title) : WindowTitle(title.c_str()) { }
+
+WindowTitle::WindowTitle(const char* title)
 {
 	text = title;
 }
@@ -13,19 +15,19 @@ void WindowTitle::SetText(string text)
 	this->text = text;
 }
 
-unique_ptr<WindowTitle>& WindowTitle::SetSubText(string text)
+WindowTitle* WindowTitle::SetSubText(string text)
 {
-	unique_ptr<WindowTitle>& subTitle = GetSubTitle();
+	WindowTitle* subTitle = GetSubTitle();
 	subTitle->SetText(text);
 	return subTitle;
 }
 
-unique_ptr<WindowTitle>& WindowTitle::GetSubTitle()
+WindowTitle* WindowTitle::GetSubTitle()
 {
 	if (!subTitle)
 		subTitle = std::make_unique<WindowTitle>();
 
-	return subTitle;
+	return subTitle.get();
 }
 
 string WindowTitle::ToString() const

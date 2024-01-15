@@ -22,7 +22,8 @@ class ImGuiMetrics : public ImGuiWindow
 
 		void ApplyPosition();
 		void RenderMetrics();
-		void AppendMetricsType(DisplayFlags type, const char* label, const double* metrics);
+		void AppendMetricsType(DisplayFlags type,
+			const char* label, const double* metrics);
 		void AppendFormattedMetric(double metric, const char* units);
 		void RenderMainMenu();
 		void RenderDisplayMenu();

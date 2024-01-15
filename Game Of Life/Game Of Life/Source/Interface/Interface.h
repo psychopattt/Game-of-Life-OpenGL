@@ -1,9 +1,8 @@
 #pragma once
 
 #include <memory>
-#include <string>
 
-using std::unique_ptr, std::string;
+using std::unique_ptr;
 
 class Simulation;
 class FpsLimiter;
@@ -14,7 +13,7 @@ enum UpdateType : char;
 class Interface
 {
 	public:
-		Interface(int width, int height, string title);
+		Interface(int width, int height, const char* title);
 		bool ShouldExit() const;
 		UpdateType Update();
 

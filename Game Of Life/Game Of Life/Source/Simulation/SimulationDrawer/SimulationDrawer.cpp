@@ -1,6 +1,7 @@
 #include "SimulationDrawer.h"
 
 #include "glad/gl.h"
+
 #include "Shaders/Shader/Shader.h"
 #include "Shaders/Buffers/Texture/Texture.h"
 #include "Shaders/ComputeShader/ComputeShader.h"

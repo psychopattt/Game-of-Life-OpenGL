@@ -1,14 +1,15 @@
 #include "Texture.h"
 
 #include "glad/gl.h"
+
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
 
 Texture::Texture(unsigned int width, unsigned int height) :
-	Texture(width, height, GL_RGBA32F, GL_CLAMP_TO_EDGE, GL_NEAREST) { }
+	Texture(width, height, GL_RGBA32F, GL_CLAMP_TO_BORDER, GL_NEAREST) { }
 
 Texture::Texture(unsigned int width, unsigned int height, int format) :
-	Texture(width, height, format, GL_CLAMP_TO_EDGE, GL_NEAREST) { }
+	Texture(width, height, format, GL_CLAMP_TO_BORDER, GL_NEAREST) { }
 
 Texture::Texture(unsigned int width, unsigned int height, int format, int wrap, int filtering) :
 	Texture(width, height, format, wrap, wrap, filtering) { }
@@ -26,7 +27,7 @@ Texture::Texture(unsigned int width, unsigned int height, int format, int wrapX,
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filtering);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filtering);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_FLOAT, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
 	glBindImageTexture(id, id, 0, GL_FALSE, 0, GL_READ_WRITE, format);
 
 	LogGenerationFailure(width, height, format, wrapX, wrapY, filtering);

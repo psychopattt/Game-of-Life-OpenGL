@@ -1,7 +1,5 @@
 #pragma once
 
-#include "glad/gl.h"
-
 class ComputeBuffer
 {
 	public:
