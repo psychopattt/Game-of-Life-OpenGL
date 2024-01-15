@@ -8,6 +8,7 @@ class KeyboardHandler
 		void Update(double deltaTime);
 
 	private:
+		void ApplyFullscreen(int key, int action);
 		void ApplyFrameStep(int key, int action);
 		void ApplySpeedMultiplier();
 		void ApplyPan(double deltaTime);

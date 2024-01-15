@@ -15,8 +15,19 @@ using namespace TransformSettings;
 void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	int key, int scanCode, int action, int mods)
 {
+	ApplyFullscreen(key, action);
+
 	if (!ImGui::GetIO().WantCaptureKeyboard)
 		ApplyFrameStep(key, action);
+}
+
+void KeyboardHandler::ApplyFullscreen(int key, int action)
+{
+	if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+	{
+		Settings::FullscreenEnabled = !Settings::FullscreenEnabled;
+		Gui->ApplyFullscreenState();
+	}
 }
 
 void KeyboardHandler::ApplyFrameStep(int key, int action)
