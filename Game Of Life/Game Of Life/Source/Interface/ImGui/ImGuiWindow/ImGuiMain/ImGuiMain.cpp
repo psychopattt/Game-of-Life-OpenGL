@@ -1,6 +1,7 @@
 #include "ImGuiMain.h"
 
 #include "imgui/imgui.h"
+
 #include "Settings/TransformSettings.h"
 #include "Simulation/Simulation.h"
 #include "Interface/Interface.h"
@@ -28,9 +29,7 @@ void ImGuiMain::Render()
 	{
 		PushItemWidth(-1);
 		RenderSimulationSection();
-		Spacing();
 		RenderPerformanceSection();
-		Spacing();
 		RenderInterfaceSection();
 		PopItemWidth();
 	}

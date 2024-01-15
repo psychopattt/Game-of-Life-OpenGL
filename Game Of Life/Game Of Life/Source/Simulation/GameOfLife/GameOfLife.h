@@ -21,6 +21,4 @@ class GameOfLife : public Simulation
 		unique_ptr<class DualComputeBuffer> dualBuffer;
 		unique_ptr<class ComputeShader> gameInitShader;
 		unique_ptr<class ComputeShader> gameShader;
-
-		void InitializeDualBuffer();
 };

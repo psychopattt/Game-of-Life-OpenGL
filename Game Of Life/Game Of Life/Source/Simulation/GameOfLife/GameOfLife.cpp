@@ -16,7 +16,9 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 	this->seed = seed;
 
 	simDrawer = make_unique<SimulationDrawer>(width, height);
-	InitializeDualBuffer();
+	dualBuffer = make_unique<DualComputeBuffer>(
+		sizeof(unsigned int) * width * height
+	);
 
 	gameInitShader = make_unique<ComputeShader>("GameOfLifeInit", width, height);
 	gameInitShader->SetInt("width", width);
@@ -27,18 +29,6 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 	gameShader->SetInt("width", width);
 
 	Restart();
-}
-
-void GameOfLife::InitializeDualBuffer()
-{
-	size_t bufferSize = static_cast<size_t>(width) * height;
-	unsigned int* bufferData = new unsigned int[bufferSize];
-
-	dualBuffer = make_unique<DualComputeBuffer>(
-		bufferData, bufferSize * sizeof(*bufferData)
-	);
-
-	delete[] bufferData;
 }
 
 void GameOfLife::Restart()

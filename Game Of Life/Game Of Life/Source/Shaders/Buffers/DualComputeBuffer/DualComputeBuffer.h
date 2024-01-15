@@ -8,15 +8,10 @@ using std::unique_ptr, std::make_unique;
 class DualComputeBuffer
 {
 	public:
-		template <typename T>
-		DualComputeBuffer(const T data[], size_t size)
-		{
-			buffer1 = make_unique<ComputeBuffer>(data, size);
-			buffer2 = make_unique<ComputeBuffer>(data, size);
-		}
-
-		void Swap();
+		DualComputeBuffer(size_t sizeBytes);
+		DualComputeBuffer(const void* data, size_t sizeBytes);
 		unsigned int GetId(int bufferIndex);
+		void Swap();
 		~DualComputeBuffer();
 
 	private:

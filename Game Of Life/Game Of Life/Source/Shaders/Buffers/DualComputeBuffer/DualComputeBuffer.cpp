@@ -1,8 +1,12 @@
 #include "DualComputeBuffer.h"
 
-void DualComputeBuffer::Swap()
+DualComputeBuffer::DualComputeBuffer(size_t sizeBytes) :
+	DualComputeBuffer(nullptr, sizeBytes) { }
+
+DualComputeBuffer::DualComputeBuffer(const void* data, size_t sizeBytes)
 {
-	swapped = !swapped;
+	buffer1 = make_unique<ComputeBuffer>(data, sizeBytes);
+	buffer2 = make_unique<ComputeBuffer>(data, sizeBytes);
 }
 
 unsigned int DualComputeBuffer::GetId(int bufferIndex)
@@ -21,6 +25,11 @@ unsigned int DualComputeBuffer::GetId(int bufferIndex)
 		else
 			return buffer1->GetId();
 	}
+}
+
+void DualComputeBuffer::Swap()
+{
+	swapped = !swapped;
 }
 
 DualComputeBuffer::~DualComputeBuffer() { }
