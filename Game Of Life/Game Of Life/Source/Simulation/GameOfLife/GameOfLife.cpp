@@ -9,11 +9,14 @@ using std::make_unique;
 GameOfLife::GameOfLife(int width, int height, unsigned int seed) :
 	Simulation(width, height, seed) { };
 
+void GameOfLife::Initialize()
+{
+	Initialize(width, height, seed);
+}
+
 void GameOfLife::Initialize(int width, int height, unsigned int seed)
 {
-	this->width = width;
-	this->height = height;
-	this->seed = seed;
+	Simulation::Initialize(width, height, seed);
 
 	simDrawer = make_unique<SimulationDrawer>(width, height);
 	dualBuffer = make_unique<DualComputeBuffer>(

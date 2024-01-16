@@ -12,6 +12,7 @@ class GameOfLife : public Simulation
 {
 	public:
 		GameOfLife(int width, int height, unsigned int seed = 0);
+		void Initialize();
 		void Initialize(int width, int height, unsigned int seed = 0);
 		void Restart();
 		void Execute();
