@@ -92,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\include\glad\gl.h" />
+    <ClInclude Include="Source\Interface\Viewport\Viewport.h" />
     <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
     <ClInclude Include="Source\Simulation\Simulation.h" />
     <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
@@ -134,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\include\glad\gl.c" />
+    <ClCompile Include="Source\Interface\Viewport\Viewport.cpp" />
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
     <ClCompile Include="Source\Simulation\Simulation.cpp" />
     <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />

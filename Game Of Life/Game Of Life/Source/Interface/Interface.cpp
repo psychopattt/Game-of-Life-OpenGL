@@ -1,6 +1,5 @@
 #include "Interface.h"
 
-#include <cmath>
 #include <chrono>
 #include <thread>
 #include <string>
@@ -9,11 +8,10 @@
 #include "GLFW/glfw3.h"
 
 #include "Settings/LogString/LogString.h"
-#include "Settings/TransformSettings.h"
 #include "Settings/Settings.h"
+#include "Viewport/Viewport.h"
 #include "Settings/UpdateType.h"
 #include "Inputs/InputHandler.h"
-#include "Simulation/Simulation.h"
 #include "FpsLimiter/FpsLimiter.h"
 #include "FpsCounter/FpsCounter.h"
 #include "WindowTitle/WindowTitle.h"
@@ -35,6 +33,7 @@ Interface::Interface(int width, int height, const char* title) :
 	CreateFpsHandlers();
 
 	Settings::Gui = this;
+	viewport = make_unique<Viewport>();
 	inputHandler = make_unique<InputHandler>();
 	imGuiHandler = make_unique<ImGuiHandler>(window);
 
@@ -151,60 +150,6 @@ void Interface::UpdateTitle() const
 	}
 }
 
-void Interface::ComputeViewportSettings()
-{
-	int simWidth = Settings::Sim->GetWidth();
-	int simHeight = Settings::Sim->GetHeight();
-	double simAspectRatio = static_cast<double>(simWidth) / simHeight;
-	
-	int maxViewportSize[2];
-	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
-
-	int viewportWidth = width, widthOffset = 0;
-	int viewportHeight = height, heightOffset = 0;
-
-	if (width > height * simAspectRatio)
-	{
-		TransformSettings::ViewportScaleX = 1.0;
-		TransformSettings::PanAspectMultiplierX = 1.0;
-		TransformSettings::PanAspectMultiplierY = simAspectRatio;
-		ComputeViewportSize(viewportHeight, heightOffset, TransformSettings::ViewportScaleY,
-			simHeight, simWidth, height, width, maxViewportSize[1]);
-	}
-	else
-	{
-		TransformSettings::ViewportScaleY = 1.0;
-		TransformSettings::PanAspectMultiplierY = 1.0;
-		TransformSettings::PanAspectMultiplierX = static_cast<double>(simHeight) / simWidth;
-		ComputeViewportSize(viewportWidth, widthOffset, TransformSettings::ViewportScaleX,
-			simWidth, simHeight, width, height, maxViewportSize[0]);
-	}
-
-	glViewport(widthOffset, heightOffset, viewportWidth, viewportHeight);
-	TransformSettings::ViewportSizeChanged = true;
-}
-
-void Interface::ComputeViewportSize(int& viewportSize, int& sizeOffset, double& viewportScale,
-	int simSize1, int simSize2, int windowSize1, int windowSize2, int maxViewportSize)
-{
-	// Calculate size required to make the other dimension match the window
-	viewportSize = lround(simSize1 * static_cast<double>(windowSize2) / simSize2);
-
-	if (viewportSize > maxViewportSize)
-	{
-		// Calculate ratio required to scale max size to desired size
-		viewportScale = static_cast<double>(viewportSize) / maxViewportSize;
-		viewportSize = maxViewportSize;
-	}
-	else
-	{
-		viewportScale = 1.0;
-	}
-
-	// Center viewport by moving left by half the size
-	sizeOffset = -lround((viewportSize - windowSize1) / 2.0f);
-}
-
 void Interface::TriggerResize() const
 {
 	ResizeCallback(window, width, height);
@@ -253,14 +198,6 @@ void Interface::GetSize(int& width, int& height) const
 	height = this->height;
 }
 
-void Interface::GetViewportSize(int& width, int& height) const
-{
-	int viewportSettings[4];
-	glGetIntegerv(GL_VIEWPORT, viewportSettings);
-	width = viewportSettings[2];
-	height = viewportSettings[3];
-}
-
 const double* Interface::GetMetrics() const
 {
 	return metrics;
@@ -274,6 +211,11 @@ WindowTitle* Interface::GetTitle() const
 void Interface::GetMousePosition(double& posX, double& posY) const
 {
 	glfwGetCursorPos(window, &posX, &posY);
+}
+
+Viewport* Interface::GetViewport() const
+{
+	return viewport.get();
 }
 
 GLFWwindow* Interface::GetWindow() const

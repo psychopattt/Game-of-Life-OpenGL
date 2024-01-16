@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "Interface/Viewport/Viewport.h"
 #include "Settings/TransformSettings.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
@@ -76,7 +77,7 @@ bool SimulationTransforms::ApplyZoomPan()
 	Gui->GetSize(interfaceWidth, interfaceHeight);
 
 	int viewportWidth, viewportHeight;
-	Gui->GetViewportSize(viewportWidth, viewportHeight);
+	Gui->GetViewport()->GetSize(viewportWidth, viewportHeight);
 
 	double mousePosX, mousePosY;
 	Gui->GetMousePosition(mousePosX, mousePosY);
@@ -121,7 +122,7 @@ bool SimulationTransforms::ApplyMousePan()
 	Gui->GetSize(interfaceWidth, interfaceHeight);
 
 	int viewportWidth, viewportHeight;
-	Gui->GetViewportSize(viewportWidth, viewportHeight);
+	Gui->GetViewport()->GetSize(viewportWidth, viewportHeight);
 
 	double mousePosX, mousePosY;
 	Gui->GetMousePosition(mousePosX, mousePosY);

@@ -4,7 +4,7 @@
 
 using std::unique_ptr;
 
-class Simulation;
+class Viewport;
 class FpsLimiter;
 class FpsCounter;
 struct GLFWwindow;
@@ -23,10 +23,10 @@ class Interface
 		void StepFrame();
 
 		void GetSize(int& width, int& height) const;
-		void GetViewportSize(int& width, int& height) const;
 		const double* GetMetrics() const;
 		class WindowTitle* GetTitle() const;
 		void GetMousePosition(double& posX, double& posY) const;
+		Viewport* GetViewport() const;
 		GLFWwindow* GetWindow() const;
 
 		~Interface();
@@ -40,6 +40,7 @@ class Interface
 		double metrics[4] = { };
 
 		GLFWwindow* window;
+		unique_ptr<Viewport> viewport;
 		unique_ptr<class WindowTitle> title;
 		unique_ptr<FpsLimiter> uiFpsLimiter;
 		unique_ptr<FpsCounter> uiFpsCounter;
@@ -54,9 +55,6 @@ class Interface
 		void CreateFpsHandlers();
 		void ActivateCallbacks();
 		void UpdateTitle() const;
-		void ComputeViewportSettings();
-		void ComputeViewportSize(int& viewportSize, int& sizeOffset, double& viewportScale,
-			int simSize1, int simSize2, int windowSize1, int windowSize2, int maxViewportSize);
 
 		static void ErrorCallback(int error, const char* message);
 		static void ResizeCallback(GLFWwindow* window, int width, int height);

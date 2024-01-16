@@ -1,12 +1,11 @@
 #include "Interface.h"
 
-#include <cmath>
-
 #include "GLFW/glfw3.h"
 
 #include "Settings/LogString/LogString.h"
 #include "Inputs/InputHandler.h"
 #include "Settings/Settings.h"
+#include "Viewport/Viewport.h"
 
 void Interface::ActivateCallbacks()
 {
@@ -29,7 +28,7 @@ void Interface::ResizeCallback(GLFWwindow* window, int width, int height)
 	Interface* gui = reinterpret_cast<Interface*>(glfwGetWindowUserPointer(window));
 	gui->height = height;
 	gui->width = width;
-	gui->ComputeViewportSettings();
+	gui->viewport->ComputeSettings();
 }
 
 void Interface::MouseScrollCallback(GLFWwindow* window, double offsetX, double offsetY)
