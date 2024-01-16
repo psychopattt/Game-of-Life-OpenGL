@@ -54,10 +54,10 @@ void KeyboardHandler::Update(double deltaTime)
 
 void KeyboardHandler::ApplySpeedMultiplier()
 {
-	bool slowModifierHeld = Gui->GetKey(GLFW_KEY_LEFT_ALT) ||
-		Gui->GetKey(GLFW_KEY_RIGHT_ALT);
-	bool fastModifierHeld = Gui->GetKey(GLFW_KEY_LEFT_SHIFT) ||
-		Gui->GetKey(GLFW_KEY_RIGHT_SHIFT);
+	bool slowModifierHeld = GetKey(GLFW_KEY_LEFT_ALT) ||
+		GetKey(GLFW_KEY_RIGHT_ALT);
+	bool fastModifierHeld = GetKey(GLFW_KEY_LEFT_SHIFT) ||
+		GetKey(GLFW_KEY_RIGHT_SHIFT);
 
 	SpeedMultiplier =
 		slowModifierHeld && !fastModifierHeld ? SlowMultiplier :
@@ -69,15 +69,20 @@ void KeyboardHandler::ApplyPan(double deltaTime)
 {
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
-	if (Gui->GetKey(GLFW_KEY_W) || Gui->GetKey(GLFW_KEY_UP))
+	if (GetKey(GLFW_KEY_W) || GetKey(GLFW_KEY_UP))
 		PanOffsetY += panSpeed;
 
-	if (Gui->GetKey(GLFW_KEY_A) || Gui->GetKey(GLFW_KEY_LEFT))
+	if (GetKey(GLFW_KEY_A) || GetKey(GLFW_KEY_LEFT))
 		PanOffsetX -= panSpeed;
 
-	if (Gui->GetKey(GLFW_KEY_S) || Gui->GetKey(GLFW_KEY_DOWN))
+	if (GetKey(GLFW_KEY_S) || GetKey(GLFW_KEY_DOWN))
 		PanOffsetY -= panSpeed;
 
-	if (Gui->GetKey(GLFW_KEY_D) || Gui->GetKey(GLFW_KEY_RIGHT))
+	if (GetKey(GLFW_KEY_D) || GetKey(GLFW_KEY_RIGHT))
 		PanOffsetX += panSpeed;
+}
+
+bool KeyboardHandler::GetKey(int key)
+{
+	return glfwGetKey(Settings::Gui->GetWindow(), key) == GLFW_PRESS;
 }

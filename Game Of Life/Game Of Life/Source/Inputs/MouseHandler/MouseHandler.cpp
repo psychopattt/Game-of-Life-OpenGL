@@ -47,10 +47,15 @@ void MouseHandler::Update(double deltaTime)
 
 void MouseHandler::ApplyMousePan()
 {
-	bool leftClickPressed = Gui->GetMouseButton(GLFW_MOUSE_BUTTON_LEFT);
+	bool leftClickPressed = GetButton(GLFW_MOUSE_BUTTON_LEFT);
 
 	if (leftClickPressed && !MousePanEnabled)
 		Gui->GetMousePosition(MousePanStartX, MousePanStartY);
 
 	MousePanEnabled = leftClickPressed;
+}
+
+bool MouseHandler::GetButton(int button)
+{
+	return glfwGetMouseButton(Gui->GetWindow(), button) == GLFW_PRESS;
 }

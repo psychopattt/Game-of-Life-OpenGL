@@ -13,4 +13,5 @@ class KeyboardHandler
 		void ApplyFrameStep(int key, int action);
 		void ApplySpeedMultiplier();
 		void ApplyPan(double deltaTime);
+		bool GetKey(int key);
 };
