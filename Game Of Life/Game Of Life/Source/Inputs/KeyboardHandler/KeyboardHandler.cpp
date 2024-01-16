@@ -6,6 +6,7 @@
 #include "imgui/imgui.h"
 
 #include "Settings/TransformSettings.h"
+#include "Simulation/Simulation.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
@@ -15,10 +16,17 @@ using namespace TransformSettings;
 void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	int key, int scanCode, int action, int mods)
 {
+	ApplyRestart(key, action);
 	ApplyFullscreen(key, action);
 
 	if (!ImGui::GetIO().WantCaptureKeyboard)
 		ApplyFrameStep(key, action);
+}
+
+void KeyboardHandler::ApplyRestart(int key, int action)
+{
+	if (key == GLFW_KEY_F5 && action == GLFW_PRESS)
+		Settings::Sim->Restart();
 }
 
 void KeyboardHandler::ApplyFullscreen(int key, int action)
