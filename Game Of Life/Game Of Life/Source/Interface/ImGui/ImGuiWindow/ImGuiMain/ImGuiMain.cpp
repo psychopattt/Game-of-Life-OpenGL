@@ -51,17 +51,8 @@ void ImGuiMain::RenderSimulationSettingsSection()
 {
 	if (Button("Restart", ImVec2(-1, 0)))
 	{
-		if (newSimSize[0] != Settings::Sim->GetWidth() ||
-			newSimSize[1] != Settings::Sim->GetHeight() ||
-			newSimSeed != Settings::Sim->GetSeed())
-		{
-			Settings::Sim->Initialize(newSimSize[0], newSimSize[1], newSimSeed);
-			Settings::Gui->TriggerResize();
-		}
-		else
-		{
-			Settings::Sim->Restart();
-		}
+		Settings::Sim->Restart(newSimSize[0], newSimSize[1], newSimSeed);
+		Settings::Gui->TriggerResize();
 	}
 
 	SeparatorText("Size");
@@ -117,7 +108,7 @@ void ImGuiMain::RenderPerformanceSection()
 		Checkbox("Show Metrics", &Settings::ShowMetrics);
 		Checkbox("Thread Sleep", &Settings::ThreadSleep);
 		SetItemTooltip(
-			"Reduce CPU usage by sleeping as close\n"
+			"Reduces CPU usage by sleeping as close\n"
 			"to 1ms as possible every update\n"
 			"Reduces max FPS and FPS stability"
 		);

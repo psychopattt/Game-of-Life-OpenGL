@@ -3,6 +3,7 @@
 #include <string>
 
 #include "glad/gl.h"
+
 #include "../ShaderProvider/ShaderProvider.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"
@@ -49,7 +50,7 @@ void Shader::Link(unsigned int* shaderIds, size_t shaderCount)
 {
 	id = glCreateProgram();
 
-	for (unsigned int i = 0 ; i < shaderCount; i++)
+	for (int i = 0 ; i < shaderCount; i++)
 		glAttachShader(id, shaderIds[i]);
 	
 	glLinkProgram(id);
@@ -64,7 +65,7 @@ void Shader::Link(unsigned int* shaderIds, size_t shaderCount)
 		Settings::Log << "Shader Error - Linking failed\n" << log << "\n";
 	}
 
-	for (unsigned int i = 0; i < shaderCount; i++)
+	for (int i = 0; i < shaderCount; i++)
 		glDeleteShader(shaderIds[i]);
 }
 
@@ -82,14 +83,14 @@ void Shader::SetInt(const char* name, int value) const
 {
 	unsigned int location = glGetUniformLocation(id, name);
 	glProgramUniform1i(id, location, value);
-	LogParameterFailures(name, location);
+	LogParameterFailure(name, location);
 }
 
 void Shader::SetInt(const char* name, unsigned int value) const
 {
 	unsigned int location = glGetUniformLocation(id, name);
 	glProgramUniform1ui(id, location, value);
-	LogParameterFailures(name, location);
+	LogParameterFailure(name, location);
 }
 
 void Shader::SetBool(const char* name, bool value) const
@@ -101,25 +102,33 @@ void Shader::SetFloat(const char* name, float value) const
 {
 	unsigned int location = glGetUniformLocation(id, name);
 	glProgramUniform1f(id, location, value);
-	LogParameterFailures(name, location);
+	LogParameterFailure(name, location);
 }
 
 void Shader::SetBufferBinding(const char* name, unsigned int binding) const
 {
 	unsigned int blockIndex = glGetProgramResourceIndex(id, GL_SHADER_STORAGE_BLOCK, name);
 	glShaderStorageBlockBinding(id, blockIndex, binding);
-	LogParameterFailures(name, blockIndex);
+	LogParameterFailure(name, blockIndex);
 }
 
-void Shader::LogParameterFailures(const char* name, unsigned int location) const
+void Shader::SetTextureBinding(const char* name, unsigned int binding) const
+{
+	SetInt(name, static_cast<int>(binding));
+}
+
+void Shader::LogParameterFailure(const char* name, unsigned int location) const
 {
 	int errorCode = glGetError();
+	bool invalidLocation = location == GL_INVALID_INDEX;
+	const char* accessType = invalidLocation ? "get" : "set";
 
-	if (errorCode != GL_NO_ERROR || location == GL_INVALID_INDEX)
+	if (errorCode != GL_NO_ERROR || invalidLocation)
 	{
-		Settings::Log << "Shader Error - Failed to set parameter\nName: \"" <<
-			name << "\", location: " << location << ", shader id: " << id <<
-			", error code: " << errorCode << "\n\n";
+		Settings::Log << "Shader Error - Failed to " << accessType <<
+			" parameter\nName: \"" << name << "\", location: " <<
+			location << ", shader id: " << id << ", error code: " <<
+			errorCode << "\n\n";
 	}
 }
 

@@ -1,6 +1,6 @@
 #version 460 core
 
-layout (local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
+layout(local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
 
 uniform int width;
 uniform int height;
@@ -23,8 +23,8 @@ unsigned int GetNeighborCount(ivec2 pos, uint id)
 	{
 		for (int x = -1; x < 2; x++)
 		{
-			int neighborX = int(pos.x) + x;
-			int neighborY = int(pos.y) + y;
+			int neighborX = pos.x + x;
+			int neighborY = pos.y + y;
 
 			if (neighborX < 0 || neighborX >= width || neighborY < 0 || neighborY >= height)
 				continue;

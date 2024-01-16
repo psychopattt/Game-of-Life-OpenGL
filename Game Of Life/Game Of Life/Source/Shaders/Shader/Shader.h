@@ -11,6 +11,7 @@ class Shader
 		void SetBool(const char* name, bool value) const;
 		void SetFloat(const char* name, float value) const;
 		void SetBufferBinding(const char* name, unsigned int binding) const;
+		void SetTextureBinding(const char* name, unsigned int binding) const;
 		~Shader();
 
 	protected:
@@ -19,5 +20,5 @@ class Shader
 
 		unsigned int Compile(const char* shaderName, int type, const char* code);
 		void Link(unsigned int* shaderIds, size_t shaderCount);
-		void LogParameterFailures(const char* name, unsigned int location) const;
+		void LogParameterFailure(const char* name, unsigned int location) const;
 };

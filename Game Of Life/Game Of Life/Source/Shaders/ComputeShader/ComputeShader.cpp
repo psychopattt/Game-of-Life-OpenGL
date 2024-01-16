@@ -3,6 +3,7 @@
 #include <string>
 
 #include "glad/gl.h"
+
 #include "../ShaderProvider/ShaderProvider.h"
 #include "Settings/LogString/LogString.h"
 #include "Settings/Settings.h"

@@ -13,13 +13,13 @@ SimulationDrawer::SimulationDrawer(int width, int height)
 {
 	GenerateVertexObjects();
 
-	texture = make_unique<Texture>(width, height);
+	texture = make_unique<Texture>(width, height, GL_RGBA8);
 
 	screenQuad = make_unique<Shader>("VertexDefault", "FragmentDefault");
-	screenQuad->SetInt("dataTexture", static_cast<int>(texture->GetId()));
+	screenQuad->SetTextureBinding("dataTexture", texture->GetId());
 
 	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
-	bufferConverter->SetInt("dataTexture", static_cast<int>(texture->GetId()));
+	bufferConverter->SetTextureBinding("dataTexture", texture->GetId());
 	bufferConverter->SetInt("width", width);
 
 	simTransforms = make_unique<SimulationTransforms>(

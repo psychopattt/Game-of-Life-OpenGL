@@ -57,7 +57,7 @@ long long SimulationTransforms::ComputePanOffsetAxis(
 
 	// Ensure the scaled pan offset is at least 1
 	if (scaledPanOffset == 0)
-		scaledPanOffset = panOffset / abs(panOffset);
+		scaledPanOffset = panOffset < 0 ? -1 : 1;
 
 	// Reset pan offset
 	panOffset = 0;
@@ -212,7 +212,7 @@ double SimulationTransforms::ComputePanAxis(long long& pan)
 
 	// Loop pan to opposite side if min or max is reached
 	if (pan < -MaxPan || pan > MaxPan)
-		pan -= pan / abs(pan) * MaxPan * 2;
+		pan += (pan < 0 ? 2 : -2) * MaxPan;
 
 	// Convert pan to vertex coordinates
 	return static_cast<double>(pan) / MaxPan;

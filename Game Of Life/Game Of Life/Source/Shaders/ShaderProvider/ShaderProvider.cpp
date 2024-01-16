@@ -29,7 +29,7 @@ constexpr uint32_t ShaderProvider::GetHash(const string_view text) noexcept
 {
 	uint32_t hash = 5381;
 
-	for (const auto& c : text)
+	for (const char& c : text)
 		hash = ((hash << 5) + hash) + c;
 
 	return hash;
@@ -101,9 +101,28 @@ void ShaderProvider::PackShaders()
 	}
 
 	outputFile << "default: return \"\"; }}\n#endif\n";
-
 	outputFile.close();
+
 	Settings::Log << "Shader Packing - Finished packing shaders\n\n";
+}
+
+void ShaderProvider::ShortenShaderCode(string& code)
+{
+	const string findTokens[] = { ";\n", "\n\n", "\n", "\t", "  ", "\\n ", " = " };
+	const string replaceTokens[] = { ";", "\\n", "\\n", " ", " ", "\\n", "=" };
+	static_assert(std::size(findTokens) == std::size(replaceTokens));
+
+	for (int i = 0; i < std::size(findTokens); i++)
+	{
+		size_t matchPosition = code.find(findTokens[i]);
+
+		while (matchPosition != string::npos)
+		{
+			code.replace(matchPosition, findTokens[i].size(), replaceTokens[i]);
+			size_t findOffset = matchPosition + replaceTokens[i].size() - 1;
+			matchPosition = code.find(findTokens[i], findOffset);
+		}
+	}
 }
 
 void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
@@ -117,14 +136,7 @@ void ShaderProvider::PackShader(const string& shaderPath, ofstream& outputFile)
 		return;
 	}
 
-	size_t matchPosition = code.find("\n");
-
-	while (matchPosition != string::npos)
-	{
-		code.replace(matchPosition, 1, "\\n");
-		matchPosition = code.find("\n", matchPosition + 1);
-	}
-
+	ShortenShaderCode(code);
 	outputFile << "case " << GetHash(shaderName) << ": return \"" << code << "\";\n";
 	Settings::Log << "Shader Packing - Successfully packed \"" << shaderName << "\"\n";
 }

@@ -6,6 +6,8 @@
 
 using std::unique_ptr;
 
+class ComputeShader;
+
 class GameOfLife : public Simulation
 {
 	public:
@@ -19,6 +21,6 @@ class GameOfLife : public Simulation
 	private:
 		unique_ptr<class SimulationDrawer> simDrawer;
 		unique_ptr<class DualComputeBuffer> dualBuffer;
-		unique_ptr<class ComputeShader> gameInitShader;
-		unique_ptr<class ComputeShader> gameShader;
+		unique_ptr<ComputeShader> gameInitShader;
+		unique_ptr<ComputeShader> gameShader;
 };
