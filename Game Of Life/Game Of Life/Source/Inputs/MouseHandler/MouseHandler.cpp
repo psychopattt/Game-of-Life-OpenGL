@@ -42,17 +42,24 @@ void MouseHandler::HandleMouseButton(GLFWwindow* window, int button, int action,
 void MouseHandler::Update(double deltaTime)
 {
 	if (!ImGui::GetIO().WantCaptureMouse)
+	{
+		ApplyDragStatus();
 		ApplyMousePan();
+	}
+}
+
+void MouseHandler::ApplyDragStatus()
+{
+	DraggingLeftClick = GetButton(GLFW_MOUSE_BUTTON_LEFT);
+	DraggingRightClick = GetButton(GLFW_MOUSE_BUTTON_RIGHT);
 }
 
 void MouseHandler::ApplyMousePan()
 {
-	bool leftClickPressed = GetButton(GLFW_MOUSE_BUTTON_LEFT);
-
-	if (leftClickPressed && !MousePanEnabled)
+	if (DraggingLeftClick && !MousePanEnabled)
 		Gui->GetMousePosition(MousePanStartX, MousePanStartY);
 
-	MousePanEnabled = leftClickPressed;
+	MousePanEnabled = DraggingLeftClick;
 }
 
 bool MouseHandler::GetButton(int button)

@@ -11,6 +11,7 @@ class MouseHandler
 
 	private:
 		void ApplyZoom(bool scrolledUp, bool scrolledDown);
+		void ApplyDragStatus();
 		void ApplyMousePan();
 		bool GetButton(int button);
 };

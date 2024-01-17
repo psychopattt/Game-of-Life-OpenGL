@@ -20,6 +20,8 @@ namespace TransformSettings
 	inline double MousePanStartX = 0.0;
 	inline double MousePanStartY = 0.0;
 	inline bool MousePanEnabled = false;
+	inline bool DraggingLeftClick = false;
+	inline bool DraggingRightClick = false;
 
 	inline long long PanX = 0;
 	inline long long PanY = 0;
