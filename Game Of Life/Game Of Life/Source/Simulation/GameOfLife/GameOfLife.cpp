@@ -3,6 +3,7 @@
 #include "Shaders/Buffers/DualComputeBuffer/DualComputeBuffer.h"
 #include "Simulation/SimulationDrawer/SimulationDrawer.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
+#include "Settings/Settings.h"
 
 using std::make_unique;
 
@@ -34,8 +35,14 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 	Restart();
 }
 
+void GameOfLife::ApplySettings()
+{
+	gameShader->SetBool("edgeLoop", Settings::EdgeLoop);
+}
+
 void GameOfLife::Restart()
 {
+	ApplySettings();
 	gameInitShader->SetBufferBinding("dataBuffer", dualBuffer->GetId(1));
 	gameInitShader->Execute();
 }

@@ -12,12 +12,14 @@
 #include "../ImGuiWindow/ImGuiMain/ImGuiMain.h"
 #include "../ImGuiWindow/ImGuiDebug/ImGuiDebug.h"
 #include "../ImGuiWindow/ImGuiMetrics/ImGuiMetrics.h"
+#include "../ImGuiWindow/ImGuiGameOfLife/ImGuiGameOfLife.h"
 
 using std::unique_ptr, std::make_unique;
 
 const unique_ptr<ImGuiWindow> windows[] = {
-	make_unique<ImGuiDebug>(), make_unique<ImGuiMain>(),
-	make_unique<ImGuiLog>(), make_unique<ImGuiMetrics>()
+	make_unique<ImGuiDebug>(), make_unique<ImGuiGameOfLife>(),
+	make_unique<ImGuiMain>(), make_unique<ImGuiLog>(),
+	make_unique<ImGuiMetrics>(),
 };
 
 ImGuiHandler::ImGuiHandler(GLFWwindow* glfwWindow)

@@ -5,6 +5,7 @@ namespace Settings
 	inline class Simulation* Sim = nullptr;
 	inline bool ThreadSleep = true;
 	inline float TargetFps = 100;
+	inline bool EdgeLoop = false;
 
 	inline class Interface* Gui = nullptr;
 	inline bool FullscreenEnabled = false;

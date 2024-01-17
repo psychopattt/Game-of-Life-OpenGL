@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.h" />
     <ClInclude Include="Libraries\include\glad\gl.h" />
     <ClInclude Include="Source\Interface\Viewport\Viewport.h" />
     <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.cpp" />
     <ClCompile Include="Libraries\include\glad\gl.c" />
     <ClCompile Include="Source\Interface\Viewport\Viewport.cpp" />
     <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />

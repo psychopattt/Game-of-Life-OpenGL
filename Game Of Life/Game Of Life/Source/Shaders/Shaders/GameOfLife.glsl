@@ -4,6 +4,7 @@ layout(local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
 
 uniform int width;
 uniform int height;
+uniform bool edgeLoop;
 
 layout(std430) restrict readonly buffer inputBuffer
 {
@@ -15,6 +16,28 @@ layout(std430) restrict writeonly buffer outputBuffer
 	uint Outputs[];
 };
 
+int GetNeighborId(int neighborX, int neighborY)
+{
+	if (edgeLoop)
+	{
+		if (neighborX < 0)
+			neighborX = width - 1;
+		else if (neighborX >= width)
+			neighborX = 0;
+
+		if (neighborY < 0)
+			neighborY = height - 1;
+		else if (neighborY >= height)
+			neighborY = 0;
+	}
+	else if (neighborX < 0 || neighborX >= width || neighborY < 0 || neighborY >= height)
+	{
+		return -1;
+	}
+
+	return neighborY * width + neighborX;
+}
+
 unsigned int GetNeighborCount(ivec2 pos, uint id)
 {
 	uint neighborCount = 0;
@@ -23,15 +46,9 @@ unsigned int GetNeighborCount(ivec2 pos, uint id)
 	{
 		for (int x = -1; x < 2; x++)
 		{
-			int neighborX = pos.x + x;
-			int neighborY = pos.y + y;
+			int neighborId = GetNeighborId(pos.x + x, pos.y + y);
 
-			if (neighborX < 0 || neighborX >= width || neighborY < 0 || neighborY >= height)
-				continue;
-
-			uint neighborId = neighborY * width + neighborX;
-
-			if (neighborId == id)
+			if (neighborId == id || neighborId == -1)
 				continue;
 
 			neighborCount += Inputs[neighborId];

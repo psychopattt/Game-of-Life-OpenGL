@@ -14,6 +14,7 @@ class GameOfLife : public Simulation
 		GameOfLife(int width, int height, unsigned int seed = 0);
 		void Initialize();
 		void Initialize(int width, int height, unsigned int seed = 0);
+		void ApplySettings();
 		void Restart();
 		void Execute();
 		void Draw();

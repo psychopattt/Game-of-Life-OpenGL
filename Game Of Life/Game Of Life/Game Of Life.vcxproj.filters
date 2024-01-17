@@ -139,6 +139,12 @@
     <ClInclude Include="Libraries\include\glad\gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Interface\Viewport\Viewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
@@ -244,6 +250,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\include\glad\gl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface\Viewport\Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
