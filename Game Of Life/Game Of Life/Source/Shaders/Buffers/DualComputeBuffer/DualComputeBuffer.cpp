@@ -11,22 +11,27 @@ DualComputeBuffer::DualComputeBuffer(const void* data, size_t sizeBytes)
 	buffer2 = std::make_unique<ComputeBuffer>(data, sizeBytes);
 }
 
-unsigned int DualComputeBuffer::GetId(int bufferIndex)
+ComputeBuffer* DualComputeBuffer::GetBuffer(int bufferIndex)
 {
 	if (!swapped)
 	{
 		if (bufferIndex == 0)
-			return buffer1->GetId();
+			return buffer1.get();
 		else
-			return buffer2->GetId();
+			return buffer2.get();
 	}
 	else
 	{
 		if (bufferIndex == 0)
-			return buffer2->GetId();
+			return buffer2.get();
 		else
-			return buffer1->GetId();
+			return buffer1.get();
 	}
+}
+
+unsigned int DualComputeBuffer::GetId(int bufferIndex)
+{
+	return GetBuffer(bufferIndex)->GetId();
 }
 
 void DualComputeBuffer::Swap()
