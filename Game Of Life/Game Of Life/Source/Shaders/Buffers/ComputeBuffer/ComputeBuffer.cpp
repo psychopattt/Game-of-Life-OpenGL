@@ -23,9 +23,22 @@ unsigned int ComputeBuffer::GetId() const
 	return id;
 }
 
-ComputeBuffer::~ComputeBuffer()
+void* ComputeBuffer::Map(int accessType) const
 {
-	glDeleteBuffers(1, &id);
+	return glMapNamedBuffer(id, accessType);
+}
+
+bool ComputeBuffer::Unmap() const
+{
+	bool result = glUnmapNamedBuffer(id);
+
+	if (!result)
+	{
+		Settings::Log << "Buffer Error - Unmap returned false\n" <<
+			"Id: " << id << ", data might be corrupted\n\n";
+	}
+
+	return result;
 }
 
 void ComputeBuffer::LogGenerationFailure(size_t sizeBytes) const
@@ -40,4 +53,9 @@ void ComputeBuffer::LogGenerationFailure(size_t sizeBytes) const
 			id << ", size: " << sizeBytes << " bytes (~" << sizeGb <<
 			"GB), error code: " << errorCode << "\n\n";
 	}
+}
+
+ComputeBuffer::~ComputeBuffer()
+{
+	glDeleteBuffers(1, &id);
 }

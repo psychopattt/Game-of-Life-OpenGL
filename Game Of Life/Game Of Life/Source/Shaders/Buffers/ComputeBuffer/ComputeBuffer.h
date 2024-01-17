@@ -6,6 +6,8 @@ class ComputeBuffer
 		ComputeBuffer(size_t sizeBytes);
 		ComputeBuffer(const void* data, size_t sizeBytes);
 		unsigned int GetId() const;
+		void* Map(int accessType) const;
+		bool Unmap() const;
 		~ComputeBuffer();
 
 	private:
