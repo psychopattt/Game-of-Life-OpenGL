@@ -25,12 +25,16 @@ unsigned int ComputeBuffer::GetId() const
 
 void* ComputeBuffer::Map(int accessType) const
 {
-	return glMapNamedBuffer(id, accessType);
+	void* data = glMapNamedBuffer(id, accessType);
+	LogMapFailure();
+	return data;
 }
 
 void* ComputeBuffer::Map(int accessType, size_t offset, size_t length) const
 {
-	return glMapNamedBufferRange(id, offset, length, accessType);
+	void* data = glMapNamedBufferRange(id, offset, length, accessType);
+	LogMapFailure();
+	return data;
 }
 
 bool ComputeBuffer::Unmap() const
@@ -39,8 +43,8 @@ bool ComputeBuffer::Unmap() const
 
 	if (!result)
 	{
-		Settings::Log << "Buffer Error - Unmap returned false\n" <<
-			"Id: " << id << ", data might be corrupted\n\n";
+		Settings::Log << "Buffer Error - Failed to unmap buffer\n" <<
+			"Id: " << id << ", buffer data might be corrupted\n\n";
 	}
 
 	return result;
@@ -48,15 +52,22 @@ bool ComputeBuffer::Unmap() const
 
 void ComputeBuffer::LogGenerationFailure(size_t sizeBytes) const
 {
-	int errorCode = glGetError();
-
-	if (errorCode != GL_NO_ERROR)
+	if (int errorCode = glGetError())
 	{
 		size_t sizeGb = sizeBytes / 1000000000;
 
 		Settings::Log << "Buffer Error - Failed to generate buffer\nId: " <<
 			id << ", size: " << sizeBytes << " bytes (~" << sizeGb <<
 			"GB), error code: " << errorCode << "\n\n";
+	}
+}
+
+void ComputeBuffer::LogMapFailure() const
+{
+	if (int errorCode = glGetError())
+	{
+		Settings::Log << "Buffer Error - Failed to map buffer\n" <<
+			"Id: " << id << ", error code: " << errorCode << "\n\n";
 	}
 }
 

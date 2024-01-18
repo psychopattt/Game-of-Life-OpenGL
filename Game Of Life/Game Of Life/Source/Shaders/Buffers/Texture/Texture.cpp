@@ -47,9 +47,7 @@ void Texture::Activate() const
 void Texture::LogGenerationFailure(int width, int height, int format,
 	int wrapX, int wrapY, int filtering) const
 {
-	int errorCode = glGetError();
-
-	if (errorCode != GL_NO_ERROR)
+	if (int errorCode = glGetError())
 	{
 		Settings::Log << "Texture Error - Failed to generate texture\nId: " <<
 			id << ", size: [" << width << ", " << height << "], format: " <<

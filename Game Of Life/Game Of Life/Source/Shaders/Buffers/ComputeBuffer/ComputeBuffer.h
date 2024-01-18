@@ -15,4 +15,5 @@ class ComputeBuffer
 		unsigned int id;
 
 		void LogGenerationFailure(size_t sizeBytes) const;
+		void LogMapFailure() const;
 };
