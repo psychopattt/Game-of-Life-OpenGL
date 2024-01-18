@@ -38,8 +38,9 @@ void GameOfLifeEditMode::EditPixels(bool pixelState)
 		GameOfLife* gameOfLife = reinterpret_cast<GameOfLife*>(Settings::Sim);
 		ComputeBuffer* buffer = gameOfLife->GetBuffer(1);
 
+		const int accessType = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
 		unsigned int* data = reinterpret_cast<unsigned int*>(
-			buffer->Map(GL_MAP_WRITE_BIT, pixelId * sizeof(int), sizeof(int))
+			buffer->Map(accessType, pixelId * sizeof(int), sizeof(int))
 		);
 		
 		if (data)
