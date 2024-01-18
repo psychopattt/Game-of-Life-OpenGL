@@ -10,9 +10,6 @@
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
-using Settings::Gui;
-using namespace TransformSettings;
-
 void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	int key, int scanCode, int action, int mods)
 {
@@ -20,7 +17,10 @@ void KeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	ApplyFullscreen(key, action);
 
 	if (!ImGui::GetIO().WantCaptureKeyboard)
+	{
+		ApplyEditMode(key, action);
 		ApplyFrameStep(key, action);
+	}
 }
 
 void KeyboardHandler::ApplyRestart(int key, int action)
@@ -34,14 +34,20 @@ void KeyboardHandler::ApplyFullscreen(int key, int action)
 	if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
 	{
 		Settings::FullscreenEnabled = !Settings::FullscreenEnabled;
-		Gui->ApplyFullscreenState();
+		Settings::Gui->ApplyFullscreenState();
 	}
+}
+
+void KeyboardHandler::ApplyEditMode(int key, int action)
+{
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+		Settings::EditMode = !Settings::EditMode;
 }
 
 void KeyboardHandler::ApplyFrameStep(int key, int action)
 {
 	if (key == GLFW_KEY_F && action != GLFW_RELEASE)
-		Gui->StepFrame();
+		Settings::Gui->StepFrame();
 }
 
 void KeyboardHandler::Update(double deltaTime)
@@ -54,6 +60,8 @@ void KeyboardHandler::Update(double deltaTime)
 
 void KeyboardHandler::ApplySpeedMultiplier()
 {
+	using namespace TransformSettings;
+
 	bool slowModifierHeld = GetKey(GLFW_KEY_LEFT_ALT) ||
 		GetKey(GLFW_KEY_RIGHT_ALT);
 	bool fastModifierHeld = GetKey(GLFW_KEY_LEFT_SHIFT) ||
@@ -67,6 +75,8 @@ void KeyboardHandler::ApplySpeedMultiplier()
 
 void KeyboardHandler::ApplyPan(double deltaTime)
 {
+	using namespace TransformSettings;
+
 	long long panSpeed = llround(PanMultiplier * SpeedMultiplier * deltaTime);
 
 	if (GetKey(GLFW_KEY_W) || GetKey(GLFW_KEY_UP))

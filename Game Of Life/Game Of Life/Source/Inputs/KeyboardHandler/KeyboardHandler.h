@@ -10,6 +10,7 @@ class KeyboardHandler
 	private:
 		void ApplyRestart(int key, int action);
 		void ApplyFullscreen(int key, int action);
+		void ApplyEditMode(int key, int action);
 		void ApplyFrameStep(int key, int action);
 		void ApplySpeedMultiplier();
 		void ApplyPan(double deltaTime);
