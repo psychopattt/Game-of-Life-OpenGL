@@ -56,6 +56,9 @@ void MouseHandler::ApplyDragStatus()
 
 void MouseHandler::ApplyMousePan()
 {
+	if (Settings::EditMode)
+		return;
+
 	if (DraggingLeftClick && !MousePanEnabled)
 		Gui->GetMousePosition(MousePanStartX, MousePanStartY);
 

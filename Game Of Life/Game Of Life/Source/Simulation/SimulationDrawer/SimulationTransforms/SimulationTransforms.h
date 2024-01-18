@@ -22,20 +22,14 @@ class SimulationTransforms
 			double aspectRatioMultiplier);
 
 		bool ApplyZoomPan();
-		long long ComputeZoomPanAxis(double screenCoord, double screenSize,
-			double viewportSize, double viewportScale, double worldSizeDiff);
 
 		bool ApplyMousePan();
-		long long ComputeMousePanAxis(double& lastScreenCoord, double currentScreenCoord,
-			double screenSize, double viewportSize, double viewportScale, double worldSize);
+		long long ComputeMousePanAxis(double& lastScreenCoord,
+			double currentScreenCoord, double screenSize, double viewportSize,
+			double viewportScale, double worldSize);
 
 		bool ApplyZoom();
 
 		bool ApplyPan();
 		double ComputePanAxis(long long& pan);
-
-		double ScaleZoom(double zoom);
-		double GetMaxPanAtZoom(double zoom);
-		double GetVisibleWorldSize(double worldSize,
-			double screenSize, double viewportSize);
 };

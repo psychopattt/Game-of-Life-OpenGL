@@ -15,6 +15,8 @@ void ImGuiGameOfLife::Render()
 		{
 			if (Checkbox("Edge Loop", &Settings::EdgeLoop))
 				reinterpret_cast<GameOfLife*>(Settings::Sim)->ApplySettings();
+
+			Checkbox("Edit Mode", &Settings::EditMode);
 		}
 	}
 

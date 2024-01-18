@@ -91,6 +91,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Simulation\SimulationMath\SimulationMath.h" />
+    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.h" />
     <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.h" />
     <ClInclude Include="Libraries\include\glad\gl.h" />
     <ClInclude Include="Source\Interface\Viewport\Viewport.h" />
@@ -135,6 +137,8 @@
     <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Simulation\SimulationMath\SimulationMath.cpp" />
+    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.cpp" />
     <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.cpp" />
     <ClCompile Include="Libraries\include\glad\gl.c" />
     <ClCompile Include="Source\Interface\Viewport\Viewport.cpp" />

@@ -6,6 +6,7 @@ namespace Settings
 	inline bool ThreadSleep = true;
 	inline float TargetFps = 100;
 	inline bool EdgeLoop = false;
+	inline bool EditMode = false;
 
 	inline class Interface* Gui = nullptr;
 	inline bool FullscreenEnabled = false;

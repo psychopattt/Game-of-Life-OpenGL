@@ -2,6 +2,7 @@
 
 #include "Shaders/Buffers/DualComputeBuffer/DualComputeBuffer.h"
 #include "Simulation/SimulationDrawer/SimulationDrawer.h"
+#include "GameOfLifeEditMode/GameOfLifeEditMode.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
 #include "Settings/Settings.h"
 
@@ -19,6 +20,7 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 {
 	Simulation::Initialize(width, height, seed);
 
+	editMode = make_unique<GameOfLifeEditMode>();
 	simDrawer = make_unique<SimulationDrawer>(width, height);
 	dualBuffer = make_unique<DualComputeBuffer>(
 		sizeof(unsigned int) * width * height
@@ -57,7 +59,13 @@ void GameOfLife::Execute()
 
 void GameOfLife::Draw()
 {
+	editMode->Update();
 	simDrawer->Draw(dualBuffer->GetId(1));
+}
+
+ComputeBuffer* GameOfLife::GetBuffer(int bufferIndex)
+{
+	return dualBuffer->GetBuffer(bufferIndex);
 }
 
 GameOfLife::~GameOfLife() { }

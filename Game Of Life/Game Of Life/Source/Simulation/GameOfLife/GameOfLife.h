@@ -18,9 +18,11 @@ class GameOfLife : public Simulation
 		void Restart();
 		void Execute();
 		void Draw();
+		class ComputeBuffer* GetBuffer(int bufferIndex);
 		~GameOfLife();
 
 	private:
+		unique_ptr<class GameOfLifeEditMode> editMode;
 		unique_ptr<class SimulationDrawer> simDrawer;
 		unique_ptr<class DualComputeBuffer> dualBuffer;
 		unique_ptr<ComputeShader> gameInitShader;
