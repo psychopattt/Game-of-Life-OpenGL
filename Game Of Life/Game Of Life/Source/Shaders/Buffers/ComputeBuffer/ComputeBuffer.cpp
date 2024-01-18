@@ -28,6 +28,11 @@ void* ComputeBuffer::Map(int accessType) const
 	return glMapNamedBuffer(id, accessType);
 }
 
+void* ComputeBuffer::Map(int accessType, size_t offset, size_t length) const
+{
+	return glMapNamedBufferRange(id, offset, length, accessType);
+}
+
 bool ComputeBuffer::Unmap() const
 {
 	bool result = glUnmapNamedBuffer(id);
