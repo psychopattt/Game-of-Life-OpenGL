@@ -62,10 +62,8 @@ int GameOfLifeEditMode::ComputeMousePixelIndex()
 	int pixelX = SimulationMath::ConvertWorldCoordToPixelCoord(worldX, simWidth);
 	int pixelY = SimulationMath::ConvertWorldCoordToPixelCoord(worldY, simHeight);
 
-	int pixelId = pixelY * simWidth + pixelX;
-
-	if (pixelId < 0 || pixelId >= simWidth * simHeight)
+	if (pixelX < 0 || pixelX >= simWidth || pixelY < 0 || pixelY >= simHeight)
 		return -1;
 
-	return pixelId;
+	return pixelY * simWidth + pixelX;
 }
