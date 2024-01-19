@@ -1,6 +1,6 @@
 #version 460 core
 
-layout(local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
+layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 
 uniform int width;
 uniform int height;
@@ -61,11 +61,19 @@ unsigned int GetNeighborCount(ivec2 pos, uint id)
 	return neighborCount;
 }
 
+bool ComputeCellState(ivec2 cellPos, uint cellId)
+{
+	uint neighborCount = GetNeighborCount(cellPos, cellId);
+	return (bool(Inputs[cellId]) && neighborCount == 2) || neighborCount == 3;
+}
+
 void main()
 {
 	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
-	uint id = pos.y * width + pos.x;
 
-	uint neighborCount = GetNeighborCount(pos, id);
-	Outputs[id] = uint((bool(Inputs[id]) && neighborCount == 2) || neighborCount == 3);
+	if (pos.x >= width || pos.y >= height)
+		return;
+	
+	uint id = pos.y * width + pos.x;
+	Outputs[id] = uint(ComputeCellState(pos, id));
 }

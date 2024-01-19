@@ -27,6 +27,7 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 	);
 
 	gameInitShader = make_unique<ComputeShader>("GameOfLifeInit", width, height);
+	gameInitShader->SetInt("height", height);
 	gameInitShader->SetInt("width", width);
 	gameInitShader->SetInt("seed", seed);
 

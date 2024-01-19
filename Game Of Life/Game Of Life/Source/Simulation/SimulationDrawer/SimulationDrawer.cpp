@@ -20,6 +20,7 @@ SimulationDrawer::SimulationDrawer(int width, int height)
 
 	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
 	bufferConverter->SetTextureBinding("dataTexture", texture->GetId());
+	bufferConverter->SetInt("height", height);
 	bufferConverter->SetInt("width", width);
 
 	simTransforms = make_unique<SimulationTransforms>(

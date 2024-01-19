@@ -29,7 +29,11 @@ void ComputeShader::ComputeGroupCounts(unsigned int globalWidth,
 	unsigned int globalSize[] = { globalWidth, globalHeight, globalDepth };
 
 	for (char i = 0; i < std::size(groupCounts); i++)
-		groupCounts[i] = globalSize[i] / localSize[i];
+	{
+		groupCounts[i] = static_cast<unsigned int>(
+			ceil(static_cast<double>(globalSize[i]) / localSize[i])
+		);
+	}
 }
 
 void ComputeShader::Execute() const
