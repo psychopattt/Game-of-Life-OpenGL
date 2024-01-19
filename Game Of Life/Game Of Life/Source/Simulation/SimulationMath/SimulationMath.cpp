@@ -4,6 +4,7 @@
 
 #include "Interface/Viewport/Viewport.h"
 #include "Settings/TransformSettings.h"
+#include "Simulation/Simulation.h"
 #include "Interface/Interface.h"
 #include "Settings/Settings.h"
 
@@ -39,6 +40,17 @@ namespace SimulationMath
 		double pixelCoord = worldCoord / worldToPixelRatio - 0.5;
 
 		return lround(pixelCoord);
+	}
+
+	int ConvertPixelCoordsToPixelId(int pixelX, int pixelY)
+	{
+		int simWidth = Settings::Sim->GetWidth();
+		int simHeight = Settings::Sim->GetHeight();
+
+		if (pixelX < 0 || pixelX >= simWidth || pixelY < 0 || pixelY >= simHeight)
+			return -1;
+
+		return pixelY * simWidth + pixelX;
 	}
 
 	void ComputeScreenCenterWorldCoords(double& screenCenterWorldX, double& screenCenterWorldY)
@@ -98,5 +110,14 @@ namespace SimulationMath
 			mouseY, interfaceHeight, viewportHeight,
 			TransformSettings::ViewportScaleY, worldSize
 		);
+	}
+
+	void ComputeMousePixelCoords(int& pixelX, int& pixelY)
+	{
+		double worldX, worldY;
+		ComputeMouseWorldCoords(worldX, worldY);
+
+		pixelX = ConvertWorldCoordToPixelCoord(worldX, Settings::Sim->GetWidth());
+		pixelY = ConvertWorldCoordToPixelCoord(worldY, Settings::Sim->GetHeight());
 	}
 }

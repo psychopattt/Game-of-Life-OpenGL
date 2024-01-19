@@ -1,5 +1,7 @@
 #include "GameOfLifeEditMode.h"
 
+#include <cmath>
+
 #include "glad/gl.h"
 
 #include "../GameOfLife.h"
@@ -8,62 +10,101 @@
 #include "Settings/TransformSettings.h"
 #include "Settings/Settings.h"
 
+GameOfLifeEditMode::GameOfLifeEditMode()
+{
+	gameOfLife = reinterpret_cast<GameOfLife*>(Settings::Sim);
+}
+
 void GameOfLifeEditMode::Update()
 {
 	if (Settings::EditMode)
 	{
-		DrawPixels();
-		ErasePixels();
-	}
-}
-
-void GameOfLifeEditMode::DrawPixels()
-{
-	if (TransformSettings::DraggingLeftClick && !TransformSettings::DraggingRightClick)
-		EditPixels(true);
-}
-
-void GameOfLifeEditMode::ErasePixels()
-{
-	if (TransformSettings::DraggingRightClick && !TransformSettings::DraggingLeftClick)
-		EditPixels(false);
-}
-
-void GameOfLifeEditMode::EditPixels(bool pixelState)
-{
-	int pixelId = ComputeMousePixelIndex();
-
-	if (pixelId != -1)
-	{
-		GameOfLife* gameOfLife = reinterpret_cast<GameOfLife*>(Settings::Sim);
-		ComputeBuffer* buffer = gameOfLife->GetBuffer(1);
-
-		const int accessType = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
-		unsigned int* data = reinterpret_cast<unsigned int*>(
-			buffer->Map(accessType, pixelId * sizeof(int), sizeof(int))
-		);
-		
-		if (data)
+		if (!DrawPixels() && !ErasePixels())
 		{
-			data[0] = static_cast<unsigned int>(pixelState);
-			buffer->Unmap();
+			lastPixelX = -1;
+			lastPixelY = -1;
 		}
 	}
 }
 
-int GameOfLifeEditMode::ComputeMousePixelIndex()
+bool GameOfLifeEditMode::DrawPixels()
 {
-	double worldX, worldY;
-	SimulationMath::ComputeMouseWorldCoords(worldX, worldY);
+	if (TransformSettings::DraggingLeftClick && !TransformSettings::DraggingRightClick)
+	{
+		ModifyMousePathPixels(true);
+		return true;
+	}
 
-	int simWidth = Settings::Sim->GetWidth();
-	int simHeight = Settings::Sim->GetHeight();
+	return false;
+}
 
-	int pixelX = SimulationMath::ConvertWorldCoordToPixelCoord(worldX, simWidth);
-	int pixelY = SimulationMath::ConvertWorldCoordToPixelCoord(worldY, simHeight);
+bool GameOfLifeEditMode::ErasePixels()
+{
+	if (TransformSettings::DraggingRightClick && !TransformSettings::DraggingLeftClick)
+	{
+		ModifyMousePathPixels(false);
+		return true;
+	}
 
-	if (pixelX < 0 || pixelX >= simWidth || pixelY < 0 || pixelY >= simHeight)
-		return -1;
+	return false;
+}
 
-	return pixelY * simWidth + pixelX;
+void GameOfLifeEditMode::ModifyMousePathPixels(bool pixelState)
+{
+	int currentPixelX, currentPixelY;
+	SimulationMath::ComputeMousePixelCoords(currentPixelX, currentPixelY);
+
+	// Modifying a single pixel
+	if ((currentPixelX == lastPixelX && currentPixelY == lastPixelY) ||
+		lastPixelX == -1 || lastPixelY == -1)
+	{
+		lastPixelX = currentPixelX;
+		lastPixelY = currentPixelY;
+		SetPixel(currentPixelX, currentPixelY, pixelState);
+		return;
+	}
+
+	// Modifying multiple pixels; Interpolate between pixel positions
+	int pixelOffsetX = abs(currentPixelX - lastPixelX);
+	int pixelOffsetY = abs(currentPixelY - lastPixelY);
+	int largestPixelOffset = pixelOffsetX > pixelOffsetY ? pixelOffsetX : pixelOffsetY;
+
+	for (int currentOffset = 1; currentOffset <= largestPixelOffset; currentOffset++)
+	{
+		double interpolation = static_cast<double>(currentOffset) / largestPixelOffset;
+
+		int interpolatedPixelX = lround(std::lerp(
+			lastPixelX, currentPixelX, interpolation
+		));
+
+		int interpolatedPixelY = lround(std::lerp(
+			lastPixelY, currentPixelY, interpolation
+		));
+
+		SetPixel(interpolatedPixelX, interpolatedPixelY, pixelState);
+	}
+	
+	lastPixelX = currentPixelX;
+	lastPixelY = currentPixelY;
+}
+
+void GameOfLifeEditMode::SetPixel(int coordX, int coordY, bool state)
+{
+	int pixelId = SimulationMath::ConvertPixelCoordsToPixelId(coordX, coordY);
+
+	if (pixelId != -1)
+	{
+		ComputeBuffer* buffer = gameOfLife->GetBuffer(1);
+		const int accessType = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
+
+		unsigned int* data = reinterpret_cast<unsigned int*>(
+			buffer->Map(accessType, pixelId * sizeof(int), sizeof(int))
+		);
+
+		if (data)
+		{
+			data[0] = static_cast<unsigned int>(state);
+			buffer->Unmap();
+		}
+	}
 }
