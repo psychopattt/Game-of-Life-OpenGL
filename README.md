@@ -25,7 +25,7 @@
 
 ## How to use
 Windows
-1. Download the [latest release](https://github.com/psychopattt/Game-of-Life-OpenGL/releases/latest)
+1. Download the [latest release](https://github.com/psychopattt/Game-of-Life-OpenGL/releases/latest) (Game-Of-Life.exe)
 2. Run the executable
 
 Linux or MacOS
