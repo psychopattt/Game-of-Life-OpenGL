@@ -89,9 +89,9 @@ void Interface::CreateFpsHandlers()
 		glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate
 	);
 
-	gameFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
+	simFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
 	uiFpsLimiter = make_unique<FpsLimiter>(Settings::TargetFps);
-	gameFpsCounter = make_unique<FpsCounter>(10);
+	simFpsCounter = make_unique<FpsCounter>(10);
 	uiFpsCounter = make_unique<FpsCounter>(2);
 }
 
@@ -107,16 +107,16 @@ UpdateType Interface::Update()
 	if (Settings::ThreadSleep)
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-	if (gameFpsLimiter->Update() || stepFrame)
+	if (simFpsLimiter->Update() || stepFrame)
 	{
 		stepFrame = false;
 		updateType |= SimulationUpdate;
 
-		if (gameFpsCounter->Update())
+		if (simFpsCounter->Update())
 		{
-			metrics[0] = gameFpsCounter->GetFps();
-			metrics[1] = gameFpsCounter->GetFrametime();
-			title->SetSubText("Simulation: " + gameFpsCounter->ToString());
+			metrics[0] = simFpsCounter->GetFps();
+			metrics[1] = simFpsCounter->GetFrametime();
+			title->SetSubText("Simulation: " + simFpsCounter->ToString());
 		}
 	}
 
@@ -181,7 +181,7 @@ void Interface::SetTargetFps(float targetFps) const
 {
 	Settings::TargetFps = targetFps < 0 ? 0 : targetFps;
 	Settings::ThreadSleep = Settings::TargetFps < 100;
-	gameFpsLimiter->SetTargetFps(Settings::TargetFps);
+	simFpsLimiter->SetTargetFps(Settings::TargetFps);
 }
 
 void Interface::StepFrame()

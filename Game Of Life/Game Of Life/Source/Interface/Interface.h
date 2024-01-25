@@ -44,8 +44,8 @@ class Interface
 		unique_ptr<class WindowTitle> title;
 		unique_ptr<FpsLimiter> uiFpsLimiter;
 		unique_ptr<FpsCounter> uiFpsCounter;
-		unique_ptr<FpsLimiter> gameFpsLimiter;
-		unique_ptr<FpsCounter> gameFpsCounter;
+		unique_ptr<FpsLimiter> simFpsLimiter;
+		unique_ptr<FpsCounter> simFpsCounter;
 		unique_ptr<class ImGuiHandler> imGuiHandler;
 		unique_ptr<class InputHandler> inputHandler;
 
