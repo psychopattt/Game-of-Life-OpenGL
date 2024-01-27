@@ -1,24 +1,22 @@
-#include "Simulation/GameOfLife/GameOfLife.h"
-#include "Interface/Interface.h"
-#include "Settings/UpdateType.h"
+#include "Simulation/GameOfLife.h"
+#include "Inputs/GolKeyboardHandler/GolKeyboardHandler.h"
+#include "Inputs/GolMouseHandler/GolMouseHandler.h"
+#include "Menu/GolMenu.h"
+#include "OCSFW.h"
 
 int main()
 {
-	GameOfLife sim(640, 360);
-	Interface gui(1280, 720, "Game Of Life");
+	GameOfLife simulation = GameOfLife(640, 360);
+	GolMouseHandler mouseHandler = GolMouseHandler();
+	GolKeyboardHandler keyboardHandler = GolKeyboardHandler();
 
-	sim.Initialize();
+	GolMenu gameOfLifeMenu = GolMenu();
+	ImGuiWindow* menus[] = { &gameOfLifeMenu };
 
-	while (!gui.ShouldExit())
-	{
-		UpdateType updateType = gui.Update();
-
-		if (updateType & SimulationUpdate)
-			sim.Execute();
-
-		if (updateType & DisplayUpdate)
-			sim.Draw();
-	}
+	OCSFW(
+		&simulation, "Game Of Life", &mouseHandler,
+		&keyboardHandler, menus, std::size(menus)
+	);
 
 	return EXIT_SUCCESS;
 }

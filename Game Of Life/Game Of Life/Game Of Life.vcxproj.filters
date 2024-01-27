@@ -19,281 +19,306 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Libraries\include\GLFW\glfw3.h">
+    <ClInclude Include="Source\Settings\GameOfLifeSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\GLFW\glfw3native.h">
+    <ClInclude Include="Source\Simulation\GameOfLife.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\KHR\khrplatform.h">
+    <ClInclude Include="Source\Menu\GolMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.h">
+    <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\ComputeShader\ComputeShader.h">
+    <ClInclude Include="OCSFW\Libraries\include\glad\gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\FpsCounter\FpsCounter.h">
+    <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\FpsLimiter\FpsLimiter.h">
+    <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3native.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\Shader\Shader.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\Buffers\Texture\Texture.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\ShaderProvider\ShaderProvider.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\Interface.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationDrawer.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imgui.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imgui_internal.h">
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imconfig.h">
+    <ClInclude Include="OCSFW\Libraries\include\KHR\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_glfw.h">
+    <ClInclude Include="OCSFW\Source\Inputs\KeyboardHandler\KeyboardHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_opengl3.h">
+    <ClInclude Include="OCSFW\Source\Inputs\MouseHandler\MouseHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="OCSFW\Source\Inputs\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imstb_rectpack.h">
+    <ClInclude Include="OCSFW\Source\Interface\FpsCounter\FpsCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imstb_textedit.h">
+    <ClInclude Include="OCSFW\Source\Interface\FpsLimiter\FpsLimiter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\imgui\imstb_truetype.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiWindow.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Settings\UpdateType.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Settings\Settings.h">
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h">
+    <ClInclude Include="OCSFW\Source\Interface\Viewport\Viewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h">
+    <ClInclude Include="OCSFW\Source\Interface\WindowTitle\WindowTitle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Settings\LogString\LogString.h">
+    <ClInclude Include="OCSFW\Source\Interface\Interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h">
+    <ClInclude Include="OCSFW\Source\Settings\LogString\LogString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\InputHandler.h">
+    <ClInclude Include="OCSFW\Source\Settings\TransformSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\KeyboardHandler\KeyboardHandler.h">
+    <ClInclude Include="OCSFW\Source\Settings\UpdateType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h">
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Settings\TransformSettings.h">
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h">
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\Texture\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h">
+    <ClInclude Include="OCSFW\Source\Shaders\ComputeShader\ComputeShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\Simulation.h">
+    <ClInclude Include="OCSFW\Source\Shaders\Shader\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\include\glad\gl.h">
+    <ClInclude Include="OCSFW\Source\Shaders\ShaderProvider\ShaderProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\Viewport\Viewport.h">
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.h">
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.h">
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationMath\SimulationMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Simulation\SimulationMath\SimulationMath.h">
+    <ClInclude Include="OCSFW\Source\Simulation\Simulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OCSFW\Source\OCSFW.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Inputs\GolMouseHandler\GolMouseHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OCSFW\Source\Settings\MainSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OCSFW\Source\Settings\InputHandlers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OCSFW\Source\Settings\ImGuiMenus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shaders\ComputeShader\ComputeShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\FpsCounter\FpsCounter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\FpsLimiter\FpsLimiter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shaders\Shader\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shaders\Buffers\Texture\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shaders\ShaderProvider\ShaderProvider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\Interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationDrawer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\WindowTitle\WindowTitle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_impl_glfw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries\include\imgui\imgui_impl_opengl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shaders\ShaderProvider\PackedShaders.cpp">
+    <ClCompile Include="Source\Simulation\GameOfLife.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp">
+    <ClCompile Include="Source\Menu\GolMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp">
+    <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Settings\LogString\LogString.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\glad\gl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputs\InputHandler.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputs\KeyboardHandler\KeyboardHandler.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\InterfaceCallbacks.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp">
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Simulation\Simulation.cpp">
+    <ClCompile Include="OCSFW\Source\Inputs\KeyboardHandler\KeyboardHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Libraries\include\glad\gl.c">
+    <ClCompile Include="OCSFW\Source\Inputs\MouseHandler\MouseHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\Viewport\Viewport.cpp">
+    <ClCompile Include="OCSFW\Source\Inputs\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.cpp">
+    <ClCompile Include="OCSFW\Source\Interface\FpsCounter\FpsCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.cpp">
+    <ClCompile Include="OCSFW\Source\Interface\FpsLimiter\FpsLimiter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Simulation\SimulationMath\SimulationMath.cpp">
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\Viewport\Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\WindowTitle\WindowTitle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\Interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Interface\InterfaceCallbacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Settings\LogString\LogString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\Texture\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\ComputeShader\ComputeShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\Shader\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Shaders\ShaderProvider\ShaderProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationMath\SimulationMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\Simulation\Simulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OCSFW\Source\OCSFW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inputs\GolMouseHandler\GolMouseHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Shaders\PackedShaders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="Libraries\lib\glfw3.lib">
+    <Library Include="OCSFW\Libraries\lib\glfw3.lib">
       <Filter>Libraries</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Shaders\Shaders\BufferConverter.glsl">
+    <None Include="Source\Shaders\BufferConverter.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Source\Shaders\Shaders\FragmentDefault.glsl">
+    <None Include="Source\Shaders\GameOfLife.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Source\Shaders\Shaders\GameOfLife.glsl">
+    <None Include="Source\Shaders\GameOfLifeInit.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Source\Shaders\Shaders\GameOfLifeInit.glsl">
+    <None Include="OCSFW\Source\Shaders\DefaultShaders\FragmentDefault.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Source\Shaders\Shaders\VertexDefault.glsl">
+    <None Include="OCSFW\Source\Shaders\DefaultShaders\VertexDefault.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Libraries\lib\glfw3.pdb">
-      <Filter>Libraries</Filter>
-    </None>
+    <None Include="OCSFW\Libraries\lib\glfw3.pdb" />
   </ItemGroup>
 </Project>

@@ -44,14 +44,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Source;$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Source;$(ProjectDir)OCSFW\Source;$(ProjectDir)OCSFW\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)OCSFW\Libraries\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Builds\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Builds\Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)Source;$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Source;$(ProjectDir)OCSFW\Source;$(ProjectDir)OCSFW\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)OCSFW\Libraries\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\Builds\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Builds\Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -64,7 +64,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -76,7 +76,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -91,102 +91,111 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Simulation\SimulationMath\SimulationMath.h" />
-    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.h" />
-    <ClInclude Include="Libraries\include\glad\gl.h" />
-    <ClInclude Include="Source\Interface\Viewport\Viewport.h" />
-    <ClInclude Include="Source\Simulation\GameOfLife\GameOfLife.h" />
-    <ClInclude Include="Source\Simulation\Simulation.h" />
-    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
-    <ClInclude Include="Source\Inputs\MouseHandler\MouseHandler.h" />
-    <ClInclude Include="Source\Inputs\KeyboardHandler\KeyboardHandler.h" />
-    <ClInclude Include="Source\Inputs\InputHandler.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h" />
-    <ClInclude Include="Source\Settings\LogString\LogString.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiWindow\ImGuiWindow.h" />
-    <ClInclude Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.h" />
-    <ClInclude Include="Libraries\include\imgui\imconfig.h" />
-    <ClInclude Include="Libraries\include\imgui\imgui.h" />
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="Libraries\include\imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Libraries\include\imgui\imgui_internal.h" />
-    <ClInclude Include="Libraries\include\imgui\imstb_rectpack.h" />
-    <ClInclude Include="Libraries\include\imgui\imstb_textedit.h" />
-    <ClInclude Include="Libraries\include\imgui\imstb_truetype.h" />
-    <ClInclude Include="Source\Settings\Settings.h" />
-    <ClInclude Include="Source\Settings\UpdateType.h" />
-    <ClInclude Include="Source\Simulation\SimulationDrawer\SimulationDrawer.h" />
-    <ClInclude Include="Source\Settings\TransformSettings.h" />
-    <ClInclude Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h" />
-    <ClInclude Include="Source\Interface\Interface.h" />
-    <ClInclude Include="Libraries\include\GLFW\glfw3.h" />
-    <ClInclude Include="Libraries\include\GLFW\glfw3native.h" />
-    <ClInclude Include="Libraries\include\KHR\khrplatform.h" />
-    <ClInclude Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.h" />
-    <ClInclude Include="Source\Shaders\ComputeShader\ComputeShader.h" />
-    <ClInclude Include="Source\Interface\FpsCounter\FpsCounter.h" />
-    <ClInclude Include="Source\Interface\FpsLimiter\FpsLimiter.h" />
-    <ClInclude Include="Source\Shaders\Shader\Shader.h" />
-    <ClInclude Include="Source\Shaders\Buffers\Texture\Texture.h" />
-    <ClInclude Include="Source\Shaders\ShaderProvider\ShaderProvider.h" />
-    <ClInclude Include="Source\Interface\WindowTitle\WindowTitle.h" />
+    <ClInclude Include="OCSFW\Source\Settings\InputHandlers.h" />
+    <ClInclude Include="OCSFW\Source\Settings\ImGuiMenus.h" />
+    <ClInclude Include="OCSFW\Source\Settings\MainSettings.h" />
+    <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h" />
+    <ClInclude Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.h" />
+    <ClInclude Include="Source\Menu\GolMenu.h" />
+    <ClInclude Include="Source\Simulation\GameOfLife.h" />
+    <ClInclude Include="Source\Inputs\GolMouseHandler\GolMouseHandler.h" />
+    <ClInclude Include="Source\Settings\GameOfLifeSettings.h" />
+    <ClInclude Include="OCSFW\Libraries\include\glad\gl.h" />
+    <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3.h" />
+    <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3native.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imconfig.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imgui_internal.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_textedit.h" />
+    <ClInclude Include="OCSFW\Libraries\include\imgui\imstb_truetype.h" />
+    <ClInclude Include="OCSFW\Libraries\include\KHR\khrplatform.h" />
+    <ClInclude Include="OCSFW\Source\Inputs\InputHandler.h" />
+    <ClInclude Include="OCSFW\Source\Inputs\KeyboardHandler\KeyboardHandler.h" />
+    <ClInclude Include="OCSFW\Source\Inputs\MouseHandler\MouseHandler.h" />
+    <ClInclude Include="OCSFW\Source\Interface\FpsCounter\FpsCounter.h" />
+    <ClInclude Include="OCSFW\Source\Interface\FpsLimiter\FpsLimiter.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.h" />
+    <ClInclude Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiWindow.h" />
+    <ClInclude Include="OCSFW\Source\Interface\Interface.h" />
+    <ClInclude Include="OCSFW\Source\Interface\Viewport\Viewport.h" />
+    <ClInclude Include="OCSFW\Source\Interface\WindowTitle\WindowTitle.h" />
+    <ClInclude Include="OCSFW\Source\Settings\LogString\LogString.h" />
+    <ClInclude Include="OCSFW\Source\Settings\TransformSettings.h" />
+    <ClInclude Include="OCSFW\Source\Settings\UpdateType.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\Buffers\Texture\Texture.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\ComputeShader\ComputeShader.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\ShaderProvider\ShaderProvider.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\Shader\Shader.h" />
+    <ClInclude Include="OCSFW\Source\Simulation\Simulation.h" />
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationDrawer.h" />
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.h" />
+    <ClInclude Include="OCSFW\Source\Simulation\SimulationMath\SimulationMath.h" />
+    <ClInclude Include="OCSFW\Source\OCSFW.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Simulation\SimulationMath\SimulationMath.cpp" />
-    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLifeEditMode\GameOfLifeEditMode.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiGameOfLife\ImGuiGameOfLife.cpp" />
-    <ClCompile Include="Libraries\include\glad\gl.c" />
-    <ClCompile Include="Source\Interface\Viewport\Viewport.cpp" />
-    <ClCompile Include="Source\Simulation\GameOfLife\GameOfLife.cpp" />
-    <ClCompile Include="Source\Simulation\Simulation.cpp" />
-    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
-    <ClCompile Include="Source\Inputs\MouseHandler\MouseHandler.cpp" />
-    <ClCompile Include="Source\Inputs\KeyboardHandler\KeyboardHandler.cpp" />
-    <ClCompile Include="Source\Inputs\InputHandler.cpp" />
-    <ClCompile Include="Source\Interface\InterfaceCallbacks.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp" />
-    <ClCompile Include="Source\Settings\LogString\LogString.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_demo.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_draw.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_tables.cpp" />
-    <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp" />
+    <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp" />
+    <ClCompile Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.cpp" />
+    <ClCompile Include="Source\Menu\GolMenu.cpp" />
+    <ClCompile Include="Source\Simulation\GameOfLife.cpp" />
+    <ClCompile Include="Source\Inputs\GolMouseHandler\GolMouseHandler.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Simulation\SimulationDrawer\SimulationDrawer.cpp" />
-    <ClCompile Include="Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp" />
-    <ClCompile Include="Source\Interface\Interface.cpp" />
-    <ClCompile Include="Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp" />
-    <ClCompile Include="Source\Shaders\ComputeShader\ComputeShader.cpp" />
-    <ClCompile Include="Source\Interface\FpsCounter\FpsCounter.cpp" />
-    <ClCompile Include="Source\Interface\FpsLimiter\FpsLimiter.cpp" />
-    <ClCompile Include="Source\Shaders\ShaderProvider\PackedShaders.cpp" />
-    <ClCompile Include="Source\Shaders\Shader\Shader.cpp" />
-    <ClCompile Include="Source\Shaders\Buffers\Texture\Texture.cpp" />
-    <ClCompile Include="Source\Shaders\ShaderProvider\ShaderProvider.cpp" />
-    <ClCompile Include="Source\Interface\WindowTitle\WindowTitle.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\glad\gl.c" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="OCSFW\Libraries\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="OCSFW\Source\Inputs\InputHandler.cpp" />
+    <ClCompile Include="OCSFW\Source\Inputs\KeyboardHandler\KeyboardHandler.cpp" />
+    <ClCompile Include="OCSFW\Source\Inputs\MouseHandler\MouseHandler.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\FpsCounter\FpsCounter.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\FpsLimiter\FpsLimiter.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMetrics\ImGuiMetrics.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\Interface.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\InterfaceCallbacks.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\Viewport\Viewport.cpp" />
+    <ClCompile Include="OCSFW\Source\Interface\WindowTitle\WindowTitle.cpp" />
+    <ClCompile Include="OCSFW\Source\Settings\LogString\LogString.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\ComputeBuffer\ComputeBuffer.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\DualComputeBuffer\DualComputeBuffer.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\Buffers\Texture\Texture.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\ComputeShader\ComputeShader.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\ShaderProvider\ShaderProvider.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\Shader\Shader.cpp" />
+    <ClCompile Include="OCSFW\Source\Simulation\Simulation.cpp" />
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationDrawer.cpp" />
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationDrawer\SimulationTransforms\SimulationTransforms.cpp" />
+    <ClCompile Include="OCSFW\Source\Simulation\SimulationMath\SimulationMath.cpp" />
+    <ClCompile Include="OCSFW\Source\OCSFW.cpp" />
+    <ClCompile Include="Source\Shaders\PackedShaders.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="Libraries\lib\glfw3.lib" />
+    <Library Include="OCSFW\Libraries\lib\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Libraries\lib\glfw3.pdb" />
-    <None Include="Source\Shaders\Shaders\BufferConverter.glsl" />
-    <None Include="Source\Shaders\Shaders\FragmentDefault.glsl" />
-    <None Include="Source\Shaders\Shaders\GameOfLife.glsl" />
-    <None Include="Source\Shaders\Shaders\GameOfLifeInit.glsl" />
-    <None Include="Source\Shaders\Shaders\VertexDefault.glsl" />
+    <None Include="OCSFW\Libraries\lib\glfw3.pdb" />
+    <None Include="Source\Shaders\BufferConverter.glsl" />
+    <None Include="Source\Shaders\GameOfLife.glsl" />
+    <None Include="Source\Shaders\GameOfLifeInit.glsl" />
+    <None Include="OCSFW\Source\Shaders\DefaultShaders\FragmentDefault.glsl" />
+    <None Include="OCSFW\Source\Shaders\DefaultShaders\VertexDefault.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
