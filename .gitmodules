@@ -1,0 +1,3 @@
+[submodule "Game Of Life/Game Of Life/OCSFW"]
+	path = Game Of Life/Game Of Life/OCSFW
+	url = https://github.com/psychopattt/OCSFW
