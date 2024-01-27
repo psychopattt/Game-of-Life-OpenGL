@@ -1,5 +1,5 @@
 # Game of Life
-[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented with GLFW, OpenGL and Dear ImGui
+[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented with [OCSFW](https://github.com/psychopattt/OCSFW) (GLFW, OpenGL and Dear ImGui)
 
 ## Features
 - Simulation
@@ -32,8 +32,8 @@ Linux or MacOS
 1. Download the project files
 3. Replace the included Windows GLFW binaries
    1. Get the [GLFW binaries](https://www.glfw.org/download.html) for your OS
-   2. Replace the files in "Libraries/include/GLFW"
-   3. Replace the files in "Libraries/lib"
+   2. Replace the files in "OCSFW/Libraries/include/GLFW"
+   3. Replace the files in "OCSFW/Libraries/lib"
 4. Compile and run the project
 
 ## Credits
