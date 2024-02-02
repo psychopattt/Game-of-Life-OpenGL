@@ -7,6 +7,7 @@
   - Edit mode (E)
     - Draw cells (left click)
     - Erase cells (right click)
+  - Change rules
   - Control target FPS
   - Step to next frame (F)
   - Toggle edge loop
