@@ -1,7 +1,8 @@
 #include "Simulation/GameOfLife.h"
 #include "Inputs/GolKeyboardHandler/GolKeyboardHandler.h"
 #include "Inputs/GolMouseHandler/GolMouseHandler.h"
-#include "Menu/GolMenu.h"
+#include "Menu/GolRulesMenu/GolRulesMenu.h"
+#include "Menu/GolMenu/GolMenu.h"
 #include "OCSFW.h"
 
 int main()
@@ -11,7 +12,8 @@ int main()
 	GolKeyboardHandler keyboardHandler = GolKeyboardHandler();
 
 	GolMenu gameOfLifeMenu = GolMenu();
-	ImGuiWindow* menus[] = { &gameOfLifeMenu };
+	GolRulesMenu gameOfLifeRulesMenu = GolRulesMenu();
+	ImGuiWindow* menus[] = { &gameOfLifeMenu, &gameOfLifeRulesMenu };
 
 	OCSFW(
 		&simulation, "Game Of Life", &mouseHandler,

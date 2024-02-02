@@ -94,9 +94,10 @@
     <ClInclude Include="OCSFW\Source\Settings\InputHandlers.h" />
     <ClInclude Include="OCSFW\Source\Settings\ImGuiMenus.h" />
     <ClInclude Include="OCSFW\Source\Settings\MainSettings.h" />
+    <ClInclude Include="Source\Menu\GolRulesMenu\GolRulesMenu.h" />
     <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h" />
     <ClInclude Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.h" />
-    <ClInclude Include="Source\Menu\GolMenu.h" />
+    <ClInclude Include="Source\Menu\GolMenu\GolMenu.h" />
     <ClInclude Include="Source\Simulation\GameOfLife.h" />
     <ClInclude Include="Source\Inputs\GolMouseHandler\GolMouseHandler.h" />
     <ClInclude Include="Source\Settings\GameOfLifeSettings.h" />
@@ -143,9 +144,10 @@
     <ClInclude Include="OCSFW\Source\OCSFW.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Menu\GolRulesMenu\GolRulesMenu.cpp" />
     <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp" />
     <ClCompile Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.cpp" />
-    <ClCompile Include="Source\Menu\GolMenu.cpp" />
+    <ClCompile Include="Source\Menu\GolMenu\GolMenu.cpp" />
     <ClCompile Include="Source\Simulation\GameOfLife.cpp" />
     <ClCompile Include="Source\Inputs\GolMouseHandler\GolMouseHandler.cpp" />
     <ClCompile Include="Source\main.cpp" />

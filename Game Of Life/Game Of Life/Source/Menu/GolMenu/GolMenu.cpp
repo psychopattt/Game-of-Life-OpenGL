@@ -18,6 +18,7 @@ void GolMenu::Render()
 				reinterpret_cast<GameOfLife*>(MainSettings::Sim)->ApplySettings();
 
 			Checkbox("Edit Mode", &GameOfLifeSettings::EditMode);
+			Checkbox("Show Rules", &GameOfLifeSettings::ShowRulesWindow);
 		}
 	}
 

@@ -5,5 +5,5 @@
 class GolMenu : public ImGuiWindow
 {
 	public:
-		void Render();
+		void Render() override;
 };

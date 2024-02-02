@@ -25,7 +25,7 @@
     <ClInclude Include="Source\Simulation\GameOfLife.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Menu\GolMenu.h">
+    <ClInclude Include="Source\Menu\GolMenu\GolMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h">
@@ -169,6 +169,9 @@
     <ClInclude Include="OCSFW\Source\Settings\ImGuiMenus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Menu\GolRulesMenu\GolRulesMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -177,7 +180,7 @@
     <ClCompile Include="Source\Simulation\GameOfLife.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Menu\GolMenu.cpp">
+    <ClCompile Include="Source\Menu\GolMenu\GolMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp">
@@ -295,6 +298,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shaders\PackedShaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Menu\GolRulesMenu\GolRulesMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
