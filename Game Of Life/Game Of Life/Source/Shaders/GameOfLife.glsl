@@ -5,6 +5,8 @@ layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 uniform int width;
 uniform int height;
 uniform bool edgeLoop;
+uniform int birthRules;
+uniform int survivalRules;
 
 layout(std430) restrict readonly buffer inputBuffer
 {
@@ -52,9 +54,6 @@ unsigned int GetNeighborCount(ivec2 pos, uint id)
 				continue;
 
 			neighborCount += Inputs[neighborId];
-
-			if (neighborCount > 3)
-				return neighborCount;
 		}
 	}
 
@@ -64,7 +63,9 @@ unsigned int GetNeighborCount(ivec2 pos, uint id)
 bool ComputeCellState(ivec2 cellPos, uint cellId)
 {
 	uint neighborCount = GetNeighborCount(cellPos, cellId);
-	return (bool(Inputs[cellId]) && neighborCount == 2) || neighborCount == 3;
+	int rules = bool(Inputs[cellId]) ? survivalRules : birthRules;
+
+	return bool((1 << neighborCount) & rules);
 }
 
 void main()
@@ -73,7 +74,7 @@ void main()
 
 	if (pos.x >= width || pos.y >= height)
 		return;
-	
+
 	uint id = pos.y * width + pos.x;
 	Outputs[id] = uint(ComputeCellState(pos, id));
 }

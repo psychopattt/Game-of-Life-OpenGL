@@ -59,6 +59,8 @@ void GameOfLife::InitializeDrawing()
 void GameOfLife::ApplySettings()
 {
 	gameShader->SetBool("edgeLoop", GameOfLifeSettings::EdgeLoop);
+	gameShader->SetInt("birthRules", GameOfLifeSettings::BirthRules);
+	gameShader->SetInt("survivalRules", GameOfLifeSettings::SurvivalRules);
 }
 
 void GameOfLife::Restart()
