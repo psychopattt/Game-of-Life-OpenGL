@@ -40,7 +40,7 @@ int GetNeighborId(int neighborX, int neighborY)
 	return neighborY * width + neighborX;
 }
 
-unsigned int GetNeighborCount(ivec2 pos, uint id)
+uint GetNeighborCount(ivec2 pos, uint id)
 {
 	uint neighborCount = 0;
 
