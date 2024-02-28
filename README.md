@@ -2,24 +2,12 @@
 [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented with [OCSFW](https://github.com/psychopattt/OCSFW) (GLFW, OpenGL and Dear ImGui)
 
 ## Features
-- Simulation
-  - Resize
-  - Edit mode (E)
-    - Draw cells (left click)
-    - Erase cells (right click)
-  - Change rules
-  - Control target FPS
-  - Step to next frame (F)
-  - Toggle edge loop
-  - Restart (F5)
-- Interface
-  - Pan and zoom
-    - Zoom with mouse wheel
-    - Pan with WASD, arrows or mouse drag
-  - Show metrics window
-    - Simulation FPS and frametimes
-    - Interface FPS and frametimes
-  - Toggle fullscreen (F11)
+- Edit mode (E)
+  - Draw cells (left click)
+  - Erase cells (right click)
+- Change rules
+- Toggle edge loop
+- All features of [OCSFW](https://github.com/psychopattt/OCSFW?tab=readme-ov-file#features)
 
 ## Requirements
 - An OpenGL 4.6 capable GPU
@@ -38,7 +26,4 @@ Linux or MacOS
 4. Compile and run the project
 
 ## Credits
-- [GLFW](https://www.glfw.org)
-- [GLAD](https://github.com/Dav1dde/glad)
-- [Dear ImGui](https://github.com/ocornut/imgui)
-- [Proggy Fonts](https://github.com/bluescan/proggyfonts)
+- [OCSFW](https://github.com/psychopattt/OCSFW?tab=readme-ov-file#credits)
