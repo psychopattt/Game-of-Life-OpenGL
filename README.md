@@ -1,6 +1,6 @@
 # Game of Life
 [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) implemented with [OCSFW](https://github.com/psychopattt/OCSFW) (GLFW, OpenGL and Dear ImGui)<br>
-Demo available [here](https://youtu.be/w7SxaPt6FGQ)
+Demo video available [here](https://youtu.be/w7SxaPt6FGQ)
 
 ## Features
 - Edit mode (E)
