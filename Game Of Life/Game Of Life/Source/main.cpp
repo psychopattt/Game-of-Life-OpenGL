@@ -15,10 +15,12 @@ int main()
 	GolRulesMenu gameOfLifeRulesMenu = GolRulesMenu();
 	ImGuiWindow* menus[] = { &gameOfLifeMenu, &gameOfLifeRulesMenu };
 
-	OCSFW(
-		&simulation, "Game Of Life", &mouseHandler,
-		&keyboardHandler, menus, std::size(menus)
-	);
+	OCSFW(&simulation)
+		.WithTitle("Game Of Life")
+		.WithMouseHandler(&mouseHandler)
+		.WithKeyboardHandler(&keyboardHandler)
+		.WithMenus(menus, std::size(menus))
+		.Run();
 
 	return EXIT_SUCCESS;
 }
