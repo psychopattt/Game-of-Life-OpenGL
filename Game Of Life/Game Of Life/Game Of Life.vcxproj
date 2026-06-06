@@ -94,6 +94,8 @@
     <ClInclude Include="OCSFW\Source\Settings\InputHandlers.h" />
     <ClInclude Include="OCSFW\Source\Settings\ImGuiMenus.h" />
     <ClInclude Include="OCSFW\Source\Settings\MainSettings.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\ShaderMerger\ShaderMerger.h" />
+    <ClInclude Include="OCSFW\Source\Shaders\ShaderMinifier\ShaderMinifier.h" />
     <ClInclude Include="Source\Menu\GolRulesMenu\GolRulesMenu.h" />
     <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h" />
     <ClInclude Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.h" />
@@ -144,6 +146,8 @@
     <ClInclude Include="OCSFW\Source\OCSFW.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OCSFW\Source\Shaders\ShaderMerger\ShaderMerger.cpp" />
+    <ClCompile Include="OCSFW\Source\Shaders\ShaderMinifier\ShaderMinifier.cpp" />
     <ClCompile Include="Source\Menu\GolRulesMenu\GolRulesMenu.cpp" />
     <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp" />
     <ClCompile Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.cpp" />
@@ -165,7 +169,6 @@
     <ClCompile Include="OCSFW\Source\Interface\FpsCounter\FpsCounter.cpp" />
     <ClCompile Include="OCSFW\Source\Interface\FpsLimiter\FpsLimiter.cpp" />
     <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ImGuiHandler.cpp" />
-    <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiHandler\ProggyRegular.cpp" />
     <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiDebug\ImGuiDebug.cpp" />
     <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiLog\ImGuiLog.cpp" />
     <ClCompile Include="OCSFW\Source\Interface\ImGui\ImGuiWindow\ImGuiMain\ImGuiMain.cpp" />

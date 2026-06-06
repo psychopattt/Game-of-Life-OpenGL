@@ -36,13 +36,13 @@ void GameOfLife::InitializeGameOfLife()
 	);
 
 	gameInitShader = make_unique<ComputeShader>("GameOfLifeInit", width, height);
-	gameInitShader->SetInt("height", height);
-	gameInitShader->SetInt("width", width);
-	gameInitShader->SetInt("seed", seed);
+	gameInitShader->SetUniform("height", height);
+	gameInitShader->SetUniform("width", width);
+	gameInitShader->SetUniform("seed", seed);
 
 	gameShader = make_unique<ComputeShader>("GameOfLife", width, height);
-	gameShader->SetInt("height", height);
-	gameShader->SetInt("width", width);
+	gameShader->SetUniform("height", height);
+	gameShader->SetUniform("width", width);
 }
 
 void GameOfLife::InitializeDrawing()
@@ -52,15 +52,15 @@ void GameOfLife::InitializeDrawing()
 
 	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
 	bufferConverter->SetTextureBinding("dataTexture", texture->GetId());
-	bufferConverter->SetInt("height", height);
-	bufferConverter->SetInt("width", width);
+	bufferConverter->SetUniform("height", height);
+	bufferConverter->SetUniform("width", width);
 }
 
 void GameOfLife::ApplySettings()
 {
-	gameShader->SetBool("edgeLoop", GameOfLifeSettings::EdgeLoop);
-	gameShader->SetInt("birthRules", GameOfLifeSettings::BirthRules);
-	gameShader->SetInt("survivalRules", GameOfLifeSettings::SurvivalRules);
+	gameShader->SetUniform("edgeLoop", GameOfLifeSettings::EdgeLoop);
+	gameShader->SetUniform("birthRules", GameOfLifeSettings::BirthRules);
+	gameShader->SetUniform("survivalRules", GameOfLifeSettings::SurvivalRules);
 }
 
 void GameOfLife::Restart()
