@@ -18,11 +18,12 @@ void GolRulesMenu::Render()
 		return;
 
 	PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	SetNextWindowSize(ImVec2(215, -1), ImGuiCond_FirstUseEver);
+	SetNextWindowPos(ImVec2(270, 10), ImGuiCond_FirstUseEver);
+	SetNextWindowSize(ImVec2(180, -1), ImGuiCond_FirstUseEver);
 
-	if (Begin("Game Of Life Rules"))
+	if (Begin("Rules", &GameOfLifeSettings::ShowRulesWindow))
 	{
-		if (BeginTable("Rules", 2, tableFlags))
+		if (BeginTable("##tableRules", 2, tableFlags))
 		{
 			TableSetupColumn("Born");
 			TableSetupColumn("Survive");
@@ -50,11 +51,10 @@ void GolRulesMenu::RenderRuleSelectable(short& rules)
 {
 	int row = TableGetRowIndex() - 1;
 	int column = TableGetColumnIndex();
+	short modifiedRule = 1 << row;
 
 	char label[5];
 	snprintf(label, std::size(label), "%d##%d", row, column);
-
-	short modifiedRule = 1 << row;
 
 	if (Selectable(label, static_cast<bool>(modifiedRule & rules)))
 	{

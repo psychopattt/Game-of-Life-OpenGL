@@ -10,6 +10,5 @@ class GolRulesMenu : public ImGuiWindow
 
 	private:
 		const int tableFlags;
-
 		void RenderRuleSelectable(short& rules);
 };
