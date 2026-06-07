@@ -6,10 +6,7 @@
 void GolMouseHandler::ApplyMousePan()
 {
 	if (GolSettings::EditMode)
-	{
 		TransformSettings::MousePanEnabled = false;
-		return;
-	}
-
-	MouseHandler::ApplyMousePan();
+	else
+		MouseHandler::ApplyMousePan();
 }

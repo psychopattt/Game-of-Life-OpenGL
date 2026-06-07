@@ -12,7 +12,7 @@ void GolMenu::Render()
 {
 	if (Begin("Settings"))
 	{
-		if (CollapsingHeader("Game Of Life"))
+		if (CollapsingHeader("Game of Life"))
 		{
 			if (Checkbox("Edge Loop", &GolSettings::EdgeLoop))
 				reinterpret_cast<GameOfLife*>(MainSettings::Sim)->ApplySettings();

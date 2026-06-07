@@ -11,12 +11,12 @@ int main()
 	GolMouseHandler mouseHandler = GolMouseHandler();
 	GolKeyboardHandler keyboardHandler = GolKeyboardHandler();
 
-	GolMenu gameOfLifeMenu = GolMenu();
-	GolRulesMenu gameOfLifeRulesMenu = GolRulesMenu();
-	ImGuiWindow* menus[] = { &gameOfLifeMenu, &gameOfLifeRulesMenu };
+	GolMenu mainMenu = GolMenu();
+	GolRulesMenu rulesMenu = GolRulesMenu();
+	ImGuiWindow* menus[] = { &mainMenu, &rulesMenu };
 
 	OCSFW(&simulation)
-		.WithTitle("Game Of Life")
+		.WithTitle("Game of Life")
 		.WithMouseHandler(&mouseHandler)
 		.WithKeyboardHandler(&keyboardHandler)
 		.WithMenus(menus, std::size(menus))

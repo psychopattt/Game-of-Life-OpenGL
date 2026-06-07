@@ -6,8 +6,6 @@
 
 using std::unique_ptr;
 
-class ComputeShader;
-
 class GameOfLife : public Simulation
 {
 	public:
@@ -26,10 +24,10 @@ class GameOfLife : public Simulation
 	private:
 		unique_ptr<class GolEditMode> editMode;
 		unique_ptr<class DualComputeBuffer> dualBuffer;
-		unique_ptr<ComputeShader> gameInitShader;
-		unique_ptr<ComputeShader> gameShader;
+		unique_ptr<class ComputeShader> gameInitShader;
+		unique_ptr<class ComputeShader> gameShader;
 
 		unique_ptr<class Texture> texture;
-		unique_ptr<ComputeShader> bufferConverter;
+		unique_ptr<class ComputeShader> bufferConverter;
 		unique_ptr<class SimulationDrawer> simDrawer;
 };
