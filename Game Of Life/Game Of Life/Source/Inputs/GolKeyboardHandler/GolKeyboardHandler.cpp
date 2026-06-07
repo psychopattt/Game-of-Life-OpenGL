@@ -3,7 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "imgui/imgui.h"
 
-#include "Settings/GameOfLifeSettings.h"
+#include "Settings/GolSettings.h"
 
 void GolKeyboardHandler::HandleKeyboard(GLFWwindow* window,
 	int key, int scanCode, int action, int mods)
@@ -17,5 +17,5 @@ void GolKeyboardHandler::HandleKeyboard(GLFWwindow* window,
 void GolKeyboardHandler::ApplyEditMode(int key, int action)
 {
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
-		GameOfLifeSettings::EditMode = !GameOfLifeSettings::EditMode;
+		GolSettings::EditMode = !GolSettings::EditMode;
 }

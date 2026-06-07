@@ -3,8 +3,8 @@
 #include "imgui/imgui.h"
 
 #include "Simulation/GameOfLife.h"
-#include "Settings/GameOfLifeSettings.h"
 #include "Settings/MainSettings.h"
+#include "Settings/GolSettings.h"
 
 using namespace ImGui;
 
@@ -14,14 +14,14 @@ GolRulesMenu::GolRulesMenu() : tableFlags(ImGuiTableFlags_RowBg |
 
 void GolRulesMenu::Render()
 {
-	if (!GameOfLifeSettings::ShowRulesWindow)
+	if (!GolSettings::ShowRules)
 		return;
 
 	PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	SetNextWindowPos(ImVec2(270, 10), ImGuiCond_FirstUseEver);
 	SetNextWindowSize(ImVec2(180, -1), ImGuiCond_FirstUseEver);
 
-	if (Begin("Rules", &GameOfLifeSettings::ShowRulesWindow))
+	if (Begin("Rules", &GolSettings::ShowRules))
 	{
 		if (BeginTable("##tableRules", 2, tableFlags))
 		{
@@ -34,9 +34,9 @@ void GolRulesMenu::Render()
 			{
 				TableNextRow();
 				TableNextColumn();
-				RenderRuleSelectable(GameOfLifeSettings::BirthRules);
+				RenderRuleSelectable(GolSettings::BirthRules);
 				TableNextColumn();
-				RenderRuleSelectable(GameOfLifeSettings::SurvivalRules);
+				RenderRuleSelectable(GolSettings::SurvivalRules);
 			}
 
 			EndTable();

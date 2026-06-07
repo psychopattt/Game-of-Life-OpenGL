@@ -3,8 +3,8 @@
 #include "imgui/imgui.h"
 
 #include "Simulation/GameOfLife.h"
-#include "Settings/GameOfLifeSettings.h"
 #include "Settings/MainSettings.h"
+#include "Settings/GolSettings.h"
 
 using namespace ImGui;
 
@@ -14,14 +14,14 @@ void GolMenu::Render()
 	{
 		if (CollapsingHeader("Game Of Life"))
 		{
-			if (Checkbox("Edge Loop", &GameOfLifeSettings::EdgeLoop))
+			if (Checkbox("Edge Loop", &GolSettings::EdgeLoop))
 				reinterpret_cast<GameOfLife*>(MainSettings::Sim)->ApplySettings();
 
-			Checkbox("Edit Mode", &GameOfLifeSettings::EditMode);
+			Checkbox("Edit Mode", &GolSettings::EditMode);
 			SameLine();
 			TextDisabled("[E]");
 
-			Checkbox("Show Rules", &GameOfLifeSettings::ShowRulesWindow);
+			Checkbox("Show Rules", &GolSettings::ShowRules);
 		}
 	}
 

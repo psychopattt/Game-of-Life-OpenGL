@@ -7,9 +7,9 @@
 #include "../GameOfLife.h"
 #include "Shaders/Buffers/ComputeBuffer/ComputeBuffer.h"
 #include "Simulation/SimulationMath/SimulationMath.h"
-#include "Settings/GameOfLifeSettings.h"
 #include "Settings/TransformSettings.h"
 #include "Settings/MainSettings.h"
+#include "Settings/GolSettings.h"
 
 GolEditMode::GolEditMode()
 {
@@ -18,7 +18,7 @@ GolEditMode::GolEditMode()
 
 void GolEditMode::Update()
 {
-	if (GameOfLifeSettings::EditMode)
+	if (GolSettings::EditMode)
 	{
 		if (!DrawPixels() && !ErasePixels())
 		{

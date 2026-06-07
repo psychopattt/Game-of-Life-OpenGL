@@ -105,7 +105,7 @@
     <ClInclude Include="Source\Menu\GolMenu\GolMenu.h" />
     <ClInclude Include="Source\Simulation\GameOfLife.h" />
     <ClInclude Include="Source\Inputs\GolMouseHandler\GolMouseHandler.h" />
-    <ClInclude Include="Source\Settings\GameOfLifeSettings.h" />
+    <ClInclude Include="Source\Settings\GolSettings.h" />
     <ClInclude Include="OCSFW\Libraries\include\glad\gl.h" />
     <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3.h" />
     <ClInclude Include="OCSFW\Libraries\include\GLFW\glfw3native.h" />

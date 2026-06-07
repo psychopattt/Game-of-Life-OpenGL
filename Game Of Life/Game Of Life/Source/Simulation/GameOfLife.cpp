@@ -6,8 +6,8 @@
 #include "Shaders/Buffers/DualComputeBuffer/DualComputeBuffer.h"
 #include "Simulation/SimulationDrawer/SimulationDrawer.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
-#include "Settings/GameOfLifeSettings.h"
 #include "GolEditMode/GolEditMode.h"
+#include "Settings/GolSettings.h"
 
 using std::make_unique;
 
@@ -58,9 +58,9 @@ void GameOfLife::InitializeDrawing()
 
 void GameOfLife::ApplySettings()
 {
-	gameShader->SetUniform("edgeLoop", GameOfLifeSettings::EdgeLoop);
-	gameShader->SetUniform("birthRules", GameOfLifeSettings::BirthRules);
-	gameShader->SetUniform("survivalRules", GameOfLifeSettings::SurvivalRules);
+	gameShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
+	gameShader->SetUniform("birthRules", GolSettings::BirthRules);
+	gameShader->SetUniform("survivalRules", GolSettings::SurvivalRules);
 }
 
 void GameOfLife::Restart()
