@@ -100,7 +100,6 @@
     <ClInclude Include="OCSFW\Source\Shaders\ShaderMerger\ShaderMerger.h" />
     <ClInclude Include="OCSFW\Source\Shaders\ShaderMinifier\ShaderMinifier.h" />
     <ClInclude Include="Source\Menu\GolRulesMenu\GolRulesMenu.h" />
-    <ClInclude Include="Source\Simulation\GolEditMode\GolEditMode.h" />
     <ClInclude Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.h" />
     <ClInclude Include="Source\Menu\GolMenu\GolMenu.h" />
     <ClInclude Include="Source\Simulation\GameOfLife.h" />
@@ -152,7 +151,6 @@
     <ClCompile Include="OCSFW\Source\Shaders\ShaderMerger\ShaderMerger.cpp" />
     <ClCompile Include="OCSFW\Source\Shaders\ShaderMinifier\ShaderMinifier.cpp" />
     <ClCompile Include="Source\Menu\GolRulesMenu\GolRulesMenu.cpp" />
-    <ClCompile Include="Source\Simulation\GolEditMode\GolEditMode.cpp" />
     <ClCompile Include="Source\Inputs\GolKeyboardHandler\GolKeyboardHandler.cpp" />
     <ClCompile Include="Source\Menu\GolMenu\GolMenu.cpp" />
     <ClCompile Include="Source\Simulation\GameOfLife.cpp" />

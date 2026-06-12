@@ -16,14 +16,11 @@ class GameOfLife : public Simulation
 		void ApplySettings();
 		void Execute() override;
 		void Draw() override;
-		class ComputeBuffer* GetBuffer(int bufferIndex);
 		~GameOfLife();
 
 	private:
 		void InitializeTexture();
 		void InitializeShaders();
-
-		unique_ptr<class GolEditMode> editMode;
 
 		unique_ptr<class Texture> texture;
 		unique_ptr<class SimulationDrawer> simDrawer;
@@ -32,4 +29,5 @@ class GameOfLife : public Simulation
 		unique_ptr<class ComputeShader> initShader;
 		unique_ptr<class ComputeShader> updateShader;
 		unique_ptr<class ComputeShader> colorShader;
+		unique_ptr<class ComputeShader> drawShader;
 };

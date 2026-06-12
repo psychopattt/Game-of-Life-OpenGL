@@ -6,7 +6,6 @@
 #include "Shaders/Buffers/DualComputeBuffer/DualComputeBuffer.h"
 #include "Simulation/SimulationDrawer/SimulationDrawer.h"
 #include "Shaders/ComputeShader/ComputeShader.h"
-#include "GolEditMode/GolEditMode.h"
 #include "Settings/GolSettings.h"
 
 using std::make_unique;
@@ -23,7 +22,6 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 {
 	Simulation::Initialize(width, height, seed);
 
-	editMode = make_unique<GolEditMode>();
 	simDrawer = make_unique<SimulationDrawer>();
 	cellsBuffer = make_unique<DualComputeBuffer>(
 		sizeof(unsigned int) * width * height
@@ -57,6 +55,9 @@ void GameOfLife::InitializeShaders()
 	colorShader->SetTextureBinding("texture", texture->GetId());
 	colorShader->SetUniform("height", height);
 	colorShader->SetUniform("width", width);
+
+	drawShader = make_unique<ComputeShader>("Draw", width, height);
+	drawShader->SetUniform("size", width, height);
 }
 
 void GameOfLife::Restart()
@@ -83,15 +84,19 @@ void GameOfLife::Execute()
 
 void GameOfLife::Draw()
 {
-	editMode->Update();
+	if (GolSettings::Editing)
+	{
+		drawShader->SetBufferBinding("cellsBuffer", cellsBuffer->GetId(1));
+		drawShader->SetUniform("lastPosition", GolSettings::LastPositionX, GolSettings::LastPositionY);
+		drawShader->SetUniform("currentPosition", GolSettings::CurrentPositionX, GolSettings::CurrentPositionY);
+		drawShader->SetUniform("drawing", GolSettings::Drawing);
+		drawShader->Execute();
+	}
+
 	colorShader->SetBufferBinding("cellsBuffer", cellsBuffer->GetId(1));
 	colorShader->Execute();
-	simDrawer->Draw(texture.get());
-}
 
-ComputeBuffer* GameOfLife::GetBuffer(int bufferIndex)
-{
-	return cellsBuffer->GetBuffer(bufferIndex);
+	simDrawer->Draw(texture.get());
 }
 
 GameOfLife::~GameOfLife() { }
