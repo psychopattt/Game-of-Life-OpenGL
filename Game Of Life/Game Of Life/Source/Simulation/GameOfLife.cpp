@@ -23,72 +23,67 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 {
 	Simulation::Initialize(width, height, seed);
 
-	InitializeGameOfLife();
-	InitializeDrawing();
-	Restart();
-}
-
-void GameOfLife::InitializeGameOfLife()
-{
+	texture = make_unique<Texture>(width, height, GL_RGBA8);
 	editMode = make_unique<GolEditMode>();
-	dualBuffer = make_unique<DualComputeBuffer>(
+	simDrawer = make_unique<SimulationDrawer>();
+	cellsBuffer = make_unique<DualComputeBuffer>(
 		sizeof(unsigned int) * width * height
 	);
 
-	gameInitShader = make_unique<ComputeShader>("GameOfLifeInit", width, height);
-	gameInitShader->SetUniform("height", height);
-	gameInitShader->SetUniform("width", width);
-	gameInitShader->SetUniform("seed", seed);
-
-	gameShader = make_unique<ComputeShader>("GameOfLife", width, height);
-	gameShader->SetUniform("height", height);
-	gameShader->SetUniform("width", width);
+	InitializeShaders();
+	Restart();
 }
 
-void GameOfLife::InitializeDrawing()
+void GameOfLife::InitializeShaders()
 {
-	simDrawer = make_unique<SimulationDrawer>();
-	texture = make_unique<Texture>(width, height, GL_RGBA8);
+	initShader = make_unique<ComputeShader>("Initialize", width, height);
+	initShader->SetUniform("height", height);
+	initShader->SetUniform("width", width);
+	initShader->SetUniform("seed", seed);
 
-	bufferConverter = make_unique<ComputeShader>("BufferConverter", width, height);
-	bufferConverter->SetTextureBinding("dataTexture", texture->GetId());
-	bufferConverter->SetUniform("height", height);
-	bufferConverter->SetUniform("width", width);
-}
+	updateShader = make_unique<ComputeShader>("Update", width, height);
+	updateShader->SetUniform("height", height);
+	updateShader->SetUniform("width", width);
 
-void GameOfLife::ApplySettings()
-{
-	gameShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
-	gameShader->SetUniform("birthRules", GolSettings::BirthRules);
-	gameShader->SetUniform("survivalRules", GolSettings::SurvivalRules);
+	colorShader = make_unique<ComputeShader>("Color", width, height);
+	colorShader->SetTextureBinding("texture", texture->GetId());
+	colorShader->SetUniform("height", height);
+	colorShader->SetUniform("width", width);
 }
 
 void GameOfLife::Restart()
 {
 	ApplySettings();
-	gameInitShader->SetBufferBinding("dataBuffer", dualBuffer->GetId(1));
-	gameInitShader->Execute();
+	initShader->SetBufferBinding("cellsBuffer", cellsBuffer->GetId(1));
+	initShader->Execute();
+}
+
+void GameOfLife::ApplySettings()
+{
+	updateShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
+	updateShader->SetUniform("birthRules", GolSettings::BirthRules);
+	updateShader->SetUniform("survivalRules", GolSettings::SurvivalRules);
 }
 
 void GameOfLife::Execute()
 {
-	dualBuffer->Swap();
-	gameShader->SetBufferBinding("inputBuffer", dualBuffer->GetId(0));
-	gameShader->SetBufferBinding("outputBuffer", dualBuffer->GetId(1));
-	gameShader->Execute();
+	cellsBuffer->Swap();
+	updateShader->SetBufferBinding("inputBuffer", cellsBuffer->GetId(0));
+	updateShader->SetBufferBinding("outputBuffer", cellsBuffer->GetId(1));
+	updateShader->Execute();
 }
 
 void GameOfLife::Draw()
 {
 	editMode->Update();
-	bufferConverter->SetBufferBinding("dataBuffer", dualBuffer->GetId(1));
-	bufferConverter->Execute();
+	colorShader->SetBufferBinding("cellsBuffer", cellsBuffer->GetId(1));
+	colorShader->Execute();
 	simDrawer->Draw(texture.get());
 }
 
 ComputeBuffer* GameOfLife::GetBuffer(int bufferIndex)
 {
-	return dualBuffer->GetBuffer(bufferIndex);
+	return cellsBuffer->GetBuffer(bufferIndex);
 }
 
 GameOfLife::~GameOfLife() { }

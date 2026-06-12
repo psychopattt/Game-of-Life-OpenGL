@@ -6,9 +6,8 @@ uniform int width;
 uniform int height;
 uniform uint seed;
 
-layout(std430) restrict writeonly buffer dataBuffer
-{
-	uint Data[];
+layout(std430) restrict writeonly buffer cellsBuffer {
+	uint Cells[];
 };
 
 uint Random(uint state)
@@ -31,5 +30,5 @@ void main()
 		return;
 
 	uint id = pos.y * width + pos.x;
-	Data[id] = Random(id) % 2;
+	Cells[id] = Random(id) % 2;
 }

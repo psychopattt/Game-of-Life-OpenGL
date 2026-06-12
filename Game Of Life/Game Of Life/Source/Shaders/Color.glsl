@@ -4,11 +4,10 @@ layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 
 uniform int width;
 uniform int height;
-restrict writeonly uniform image2D dataTexture;
 
-layout(std430) restrict readonly buffer dataBuffer
-{
-	uint Data[];
+restrict writeonly uniform image2D texture;
+layout(std430) restrict readonly buffer cellsBuffer {
+	uint Cells[];
 };
 
 void main()
@@ -19,7 +18,6 @@ void main()
 		return;
 
 	uint id = pos.y * width + pos.x;
-
-	float color = float(Data[id]) / 2;
-	imageStore(dataTexture, pos, vec4(color, color, color, 1.0));
+	float color = float(Cells[id]) * 0.5;
+	imageStore(texture, pos, vec4(color, color, color, 1.0));
 }

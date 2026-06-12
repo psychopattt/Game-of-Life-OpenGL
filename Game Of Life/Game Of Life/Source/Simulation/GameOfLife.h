@@ -12,22 +12,23 @@ class GameOfLife : public Simulation
 		GameOfLife(int width, int height, unsigned int seed = 0);
 		void Initialize() override;
 		void Initialize(int width, int height, unsigned int seed = 0) override;
-		void InitializeGameOfLife();
-		void InitializeDrawing();
-		void ApplySettings();
 		void Restart() override;
+		void ApplySettings();
 		void Execute() override;
 		void Draw() override;
 		class ComputeBuffer* GetBuffer(int bufferIndex);
 		~GameOfLife();
 
 	private:
+		void InitializeShaders();
+
 		unique_ptr<class GolEditMode> editMode;
-		unique_ptr<class DualComputeBuffer> dualBuffer;
-		unique_ptr<class ComputeShader> gameInitShader;
-		unique_ptr<class ComputeShader> gameShader;
 
 		unique_ptr<class Texture> texture;
-		unique_ptr<class ComputeShader> bufferConverter;
 		unique_ptr<class SimulationDrawer> simDrawer;
+		unique_ptr<class DualComputeBuffer> cellsBuffer;
+
+		unique_ptr<class ComputeShader> initShader;
+		unique_ptr<class ComputeShader> updateShader;
+		unique_ptr<class ComputeShader> colorShader;
 };

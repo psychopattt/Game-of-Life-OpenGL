@@ -199,9 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="OCSFW\Libraries\lib\glfw3.pdb" />
-    <None Include="Source\Shaders\BufferConverter.glsl" />
-    <None Include="Source\Shaders\GameOfLife.glsl" />
-    <None Include="Source\Shaders\GameOfLifeInit.glsl" />
     <None Include="OCSFW\Source\Shaders\DefaultShaders\FragmentDefault.glsl" />
     <None Include="OCSFW\Source\Shaders\DefaultShaders\VertexDefault.glsl" />
   </ItemGroup>

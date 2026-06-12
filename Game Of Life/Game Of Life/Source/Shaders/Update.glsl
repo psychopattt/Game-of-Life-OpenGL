@@ -8,13 +8,11 @@ uniform bool edgeLoop;
 uniform int birthRules;
 uniform int survivalRules;
 
-layout(std430) restrict readonly buffer inputBuffer
-{
+layout(std430) restrict readonly buffer inputBuffer {
 	uint Inputs[];
 };
 
-layout(std430) restrict writeonly buffer outputBuffer
-{
+layout(std430) restrict writeonly buffer outputBuffer {
 	uint Outputs[];
 };
 
@@ -50,10 +48,8 @@ uint GetNeighborCount(ivec2 pos, uint id)
 		{
 			int neighborId = GetNeighborId(pos.x + x, pos.y + y);
 
-			if (neighborId == id || neighborId == -1)
-				continue;
-
-			neighborCount += Inputs[neighborId];
+			if (neighborId != -1 && neighborId != id)
+				neighborCount += Inputs[neighborId];
 		}
 	}
 
