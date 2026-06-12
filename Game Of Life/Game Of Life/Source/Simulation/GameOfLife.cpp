@@ -23,15 +23,23 @@ void GameOfLife::Initialize(int width, int height, unsigned int seed)
 {
 	Simulation::Initialize(width, height, seed);
 
-	texture = make_unique<Texture>(width, height, GL_RGBA8);
 	editMode = make_unique<GolEditMode>();
 	simDrawer = make_unique<SimulationDrawer>();
 	cellsBuffer = make_unique<DualComputeBuffer>(
 		sizeof(unsigned int) * width * height
 	);
 
+	InitializeTexture();
 	InitializeShaders();
 	Restart();
+}
+
+void GameOfLife::InitializeTexture()
+{
+	texture = make_unique<Texture>(width, height, GL_R8);
+
+	int swizzle[] = { GL_RED, GL_RED, GL_RED, GL_ONE };
+	glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzle);
 }
 
 void GameOfLife::InitializeShaders()

@@ -20,6 +20,7 @@ class GameOfLife : public Simulation
 		~GameOfLife();
 
 	private:
+		void InitializeTexture();
 		void InitializeShaders();
 
 		unique_ptr<class GolEditMode> editMode;
