@@ -11,12 +11,12 @@ layout(std430) restrict readonly buffer cellsBuffer {
 
 void main()
 {
-	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
+	ivec2 position = ivec2(gl_GlobalInvocationID.xy);
 
-	if (pos.x >= size.x || pos.y >= size.y)
+	if (position.x >= size.x || position.y >= size.y)
 		return;
 
-	uint id = pos.y * size.x + pos.x;
+	uint id = position.y * size.x + position.x;
 	float color = float(Cells[id]) * 0.5;
-	imageStore(texture, pos, vec4(color, color, color, 1.0));
+	imageStore(texture, position, vec4(color, color, color, 1.0));
 }

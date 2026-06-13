@@ -23,11 +23,11 @@ uint Random(uint state)
 
 void main()
 {
-	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
+	ivec2 position = ivec2(gl_GlobalInvocationID.xy);
 
-	if (pos.x >= size.x || pos.y >= size.y)
+	if (position.x >= size.x || position.y >= size.y)
 		return;
 
-	uint id = pos.y * size.x + pos.x;
+	uint id = position.y * size.x + position.x;
 	Cells[id] = Random(id) % 2;
 }

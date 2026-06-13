@@ -37,7 +37,7 @@ int GetNeighborId(int neighborX, int neighborY)
 	return neighborY * size.x + neighborX;
 }
 
-uint GetNeighborCount(ivec2 pos, uint id)
+uint GetNeighborCount(ivec2 position, uint id)
 {
 	uint neighborCount = 0;
 
@@ -45,7 +45,7 @@ uint GetNeighborCount(ivec2 pos, uint id)
 	{
 		for (int x = -1; x < 2; x++)
 		{
-			int neighborId = GetNeighborId(pos.x + x, pos.y + y);
+			int neighborId = GetNeighborId(position.x + x, position.y + y);
 
 			if (neighborId != -1 && neighborId != id)
 				neighborCount += Inputs[neighborId];
@@ -55,21 +55,21 @@ uint GetNeighborCount(ivec2 pos, uint id)
 	return neighborCount;
 }
 
-bool ComputeCellState(ivec2 cellPos, uint cellId)
+bool ComputeCellState(ivec2 position, uint id)
 {
-	uint neighborCount = GetNeighborCount(cellPos, cellId);
-	int rules = bool(Inputs[cellId]) ? survivalRules : birthRules;
+	uint neighborCount = GetNeighborCount(position, id);
+	int rules = bool(Inputs[id]) ? survivalRules : birthRules;
 
 	return bool((1 << neighborCount) & rules);
 }
 
 void main()
 {
-	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
+	ivec2 position = ivec2(gl_GlobalInvocationID.xy);
 
-	if (pos.x >= size.x || pos.y >= size.y)
+	if (position.x >= size.x || position.y >= size.y)
 		return;
 
-	uint id = pos.y * size.x + pos.x;
-	Outputs[id] = uint(ComputeCellState(pos, id));
+	uint id = position.y * size.x + position.x;
+	Outputs[id] = uint(ComputeCellState(position, id));
 }
