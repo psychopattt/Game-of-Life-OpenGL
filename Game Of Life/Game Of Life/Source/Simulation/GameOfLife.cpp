@@ -43,18 +43,15 @@ void GameOfLife::InitializeTexture()
 void GameOfLife::InitializeShaders()
 {
 	initShader = make_unique<ComputeShader>("Initialize", width, height);
-	initShader->SetUniform("height", height);
-	initShader->SetUniform("width", width);
+	initShader->SetUniform("size", width, height);
 	initShader->SetUniform("seed", seed);
 
 	updateShader = make_unique<ComputeShader>("Update", width, height);
-	updateShader->SetUniform("height", height);
-	updateShader->SetUniform("width", width);
+	updateShader->SetUniform("size", width, height);
 
 	colorShader = make_unique<ComputeShader>("Color", width, height);
 	colorShader->SetTextureBinding("texture", texture->GetId());
-	colorShader->SetUniform("height", height);
-	colorShader->SetUniform("width", width);
+	colorShader->SetUniform("size", width, height);
 
 	drawShader = make_unique<ComputeShader>("Draw", width, height);
 	drawShader->SetUniform("size", width, height);

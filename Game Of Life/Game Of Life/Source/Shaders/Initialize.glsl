@@ -2,8 +2,7 @@
 
 layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 
-uniform int width;
-uniform int height;
+uniform ivec2 size;
 uniform uint seed;
 
 layout(std430) restrict writeonly buffer cellsBuffer {
@@ -26,9 +25,9 @@ void main()
 {
 	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
 
-	if (pos.x >= width || pos.y >= height)
+	if (pos.x >= size.x || pos.y >= size.y)
 		return;
 
-	uint id = pos.y * width + pos.x;
+	uint id = pos.y * size.x + pos.x;
 	Cells[id] = Random(id) % 2;
 }

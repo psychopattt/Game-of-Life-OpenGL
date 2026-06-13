@@ -2,8 +2,7 @@
 
 layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 
-uniform int width;
-uniform int height;
+uniform ivec2 size;
 uniform bool edgeLoop;
 uniform int birthRules;
 uniform int survivalRules;
@@ -21,21 +20,21 @@ int GetNeighborId(int neighborX, int neighborY)
 	if (edgeLoop)
 	{
 		if (neighborX < 0)
-			neighborX = width - 1;
-		else if (neighborX >= width)
+			neighborX = size.x - 1;
+		else if (neighborX >= size.x)
 			neighborX = 0;
 
 		if (neighborY < 0)
-			neighborY = height - 1;
-		else if (neighborY >= height)
+			neighborY = size.y - 1;
+		else if (neighborY >= size.y)
 			neighborY = 0;
 	}
-	else if (neighborX < 0 || neighborX >= width || neighborY < 0 || neighborY >= height)
+	else if (neighborX < 0 || neighborX >= size.x || neighborY < 0 || neighborY >= size.y)
 	{
 		return -1;
 	}
 
-	return neighborY * width + neighborX;
+	return neighborY * size.x + neighborX;
 }
 
 uint GetNeighborCount(ivec2 pos, uint id)
@@ -68,9 +67,9 @@ void main()
 {
 	ivec2 pos = ivec2(gl_GlobalInvocationID.xy);
 
-	if (pos.x >= width || pos.y >= height)
+	if (pos.x >= size.x || pos.y >= size.y)
 		return;
 
-	uint id = pos.y * width + pos.x;
+	uint id = pos.y * size.x + pos.x;
 	Outputs[id] = uint(ComputeCellState(pos, id));
 }
