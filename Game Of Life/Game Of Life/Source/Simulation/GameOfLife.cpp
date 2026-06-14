@@ -69,6 +69,7 @@ void GameOfLife::ApplySettings()
 	updateShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
 	updateShader->SetUniform("birthRules", GolSettings::BirthRules);
 	updateShader->SetUniform("survivalRules", GolSettings::SurvivalRules);
+	texture->SetWrap(GolSettings::EdgeLoop ? GL_REPEAT : GL_CLAMP_TO_BORDER);
 }
 
 void GameOfLife::Execute()
