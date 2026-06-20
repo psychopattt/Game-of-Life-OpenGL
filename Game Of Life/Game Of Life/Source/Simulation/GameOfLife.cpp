@@ -66,6 +66,7 @@ void GameOfLife::Restart()
 
 void GameOfLife::ApplySettings()
 {
+	drawShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
 	updateShader->SetUniform("edgeLoop", GolSettings::EdgeLoop);
 	updateShader->SetUniform("birthRules", GolSettings::BirthRules);
 	updateShader->SetUniform("survivalRules", GolSettings::SurvivalRules);
